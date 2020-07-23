@@ -4,5 +4,5 @@ class MessageChat{
   final User user;
   final String text;
   
-  MessageChat({this.user, this.text})
+  MessageChat({this.user, this.text});
 }
