@@ -22,7 +22,7 @@ class HomeBloc extends Disposable {
     if (homeEvent is LoadTalks) {
       loadAllTalks();
     } else if (homeEvent is GoToRoute) {
-      navigator.navigateTo(homeEvent.route);
+      navigator.navigateTo<void>(homeEvent.route);
     }
   }
 
