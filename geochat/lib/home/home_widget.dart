@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:geochat/local_message/talk/talk_dto.dart';
+import 'package:flutter_simple_dependency_injection/injector.dart';
+import 'package:geochat/home/home_bloc.dart';
+import 'package:geochat/home/home_event.dart';
+import 'package:geochat/home/home_talk_list_widget.dart';
+import 'package:fancy_stream/fancy_stream.dart';
 
 class HomeWidget extends StatefulWidget {
   @override
@@ -7,13 +11,19 @@ class HomeWidget extends StatefulWidget {
 }
 
 class _HomeWidgetState extends State<HomeWidget> {
-  //TODO, fazer vir via arquitetura.
-  List<Talk> talks = [
-    Talk(title: 'Primeira talk'),
-    Talk(title: 'Segunda talk'),
-    Talk(title: 'Terceira talk'),
-    Talk(title: 'Quarta talk'),
-  ];
+  HomeBloc homeBloc;
+
+  @override
+  void initState() {
+    homeBloc = Injector.getInjector().get<HomeBloc>();
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    homeBloc?.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -22,51 +32,52 @@ class _HomeWidgetState extends State<HomeWidget> {
       buildHeader(),
 
       //conteudo
-      SingleChildScrollView(
+      Expanded(
+          child: SingleChildScrollView(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.start,
-          children: <Widget>[buildTalks(), buildFeed()],
+          children: <Widget>[
+            HomeTalkListWidget(
+              homeBloc: homeBloc,
+              context: context,
+            ),
+            buildFeed()
+          ],
         ),
-      ),
+      )),
 
       buildFooter()
     ]));
   }
 
   Widget buildFeed() {
-    return Container();
-  }
-
-  Widget buildTalks() {
     return Container(
-        padding: const EdgeInsets.only(left: 10.0),
-        height: MediaQuery.of(context).size.height * 0.30,
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: <Widget>[
-            Text("Talks", style: Theme.of(context).textTheme.display1,),
-            Expanded(
-                child: ListView(
-              scrollDirection: Axis.horizontal,
-              children: talks.map(_buildTalkItem).toList(),
-            ))
-          ],
-        ));
-  }
-
-  Widget _buildTalkItem(Talk talk) {
-    return Container(
-        margin: const EdgeInsets.all(16),
-        width: MediaQuery.of(context).size.height * 0.30,
-        decoration: BoxDecoration(
-            color: Colors.black12,
-            borderRadius: const BorderRadius.all(Radius.circular(16.0))),
-        padding: const EdgeInsets.all(16),
-        child: Text(
-          talk.title,
-          style:  Theme.of(context).textTheme.subhead,
-        ));
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: <Widget>[
+          FlatButton(
+            child: const Text("Adicionar Talk"),
+            onPressed: () {
+              homeBloc.dispatchOn<HomeEvent>(GoToRoute("/addTalk"));
+            },
+          ),
+          FlatButton(
+            child: const Text("Adicionar Chat"),
+            onPressed: () {
+              homeBloc.dispatchOn<HomeEvent>(GoToRoute("/addChat"));
+            },
+          ),
+          FlatButton(
+            child: const Text("Adicionar Item"),
+            onPressed: () {
+              homeBloc.dispatchOn<HomeEvent>(GoToRoute("/addItem"));
+            },
+          ),
+        ],
+      ),
+    );
   }
 
   //Footer

@@ -1,17 +1,21 @@
 import 'package:geochat/local_message/local/local_dto.dart';
-import 'package:geochat/map/point_dto.dart';
 
-abstract class HomeEvent{
-}
+abstract class HomeEvent {}
 
-class AddLocal extends HomeEvent{
+class AddLocal extends HomeEvent {
   final TypeLocal type;
 
   AddLocal(this.type);
 }
 
-class LoadByPosition{
-  final Point point;
+class LoadTalks implements HomeEvent {
+  LoadTalks();
+}
 
-  LoadByPosition(this.point);
+class LoadTimeLine {}
+
+class GoToRoute extends HomeEvent {
+  final String route;
+
+  GoToRoute(this.route);
 }
