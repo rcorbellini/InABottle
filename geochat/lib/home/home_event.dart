@@ -12,6 +12,10 @@ class LoadTalks implements HomeEvent {
   LoadTalks();
 }
 
+class LoadFeed implements HomeEvent {
+  LoadFeed();
+}
+
 class LoadTimeLine {}
 
 class GoToRoute extends HomeEvent {

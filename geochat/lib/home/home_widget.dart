@@ -52,6 +52,10 @@ class _HomeWidgetState extends State<HomeWidget> {
   }
 
   Widget buildFeed() {
+    return Container();
+  }
+
+  Widget buildFooter() {
     return Container(
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.center,
@@ -78,12 +82,6 @@ class _HomeWidgetState extends State<HomeWidget> {
         ],
       ),
     );
-  }
-
-  //Footer
-  //TODO fazer
-  Widget buildFooter() {
-    return Container();
   }
 
   //Footer

@@ -1,10 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:geochat/_shared/injection/injector.dart';
+import 'package:geochat/_shared/route/navigator_di.dart';
 import 'package:geochat/home/home_di.dart';
 import 'package:geochat/home/home_widget.dart';
+import 'package:geochat/_shared/route/navigator.dart' as interface_navigator;
+import 'package:geochat/local_message/chat/chat_di.dart';
+import 'package:geochat/local_message/message/message_di.dart';
+import 'package:geochat/local_message/talk/talk_di.dart';
 
 void main() {
-  HomeDi().initialise(Injector());
+  Injector().initialiseAll([
+    ChatDI(),
+    NavigatorDI(),
+    TalkDi(),
+    MessageDi(),
+    HomeDi(),
+  ]);
   return runApp(MyApp());
 }
 
@@ -12,8 +23,11 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
+    final navigator = Injector().get<interface_navigator.Navigator>();
     return MaterialApp(
       title: 'Flutter Demo',
+      navigatorKey: navigator.navigatorKey,
+      onGenerateRoute: navigator.buildRouteFactory(),
       theme: ThemeData(
         // This is the theme of your application.
         //
@@ -29,4 +43,4 @@ class MyApp extends StatelessWidget {
       home: HomeWidget(),
     );
   }
-}  
+}

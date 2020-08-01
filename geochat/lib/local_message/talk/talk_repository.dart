@@ -1,8 +1,7 @@
+import 'package:geochat/_shared/archtecture/base_repository.dart';
 import 'package:geochat/local_message/talk/talk_dto.dart';
 
-abstract class TalkRepository {
-  Future<List<Talk>> loadAll();
-}
+abstract class TalkRepository extends BaseRepository<Talk, String> {}
 
 class TalkDataRepository implements TalkRepository {
   @override
@@ -14,5 +13,29 @@ class TalkDataRepository implements TalkRepository {
       Talk(title: "teste3"),
       Talk(title: "teste4")
     ];
+  }
+
+  @override
+  Future delete() {
+    // TODO: implement delete
+    return null;
+  }
+
+  @override
+  Future<Talk> loadByKey(String key) {
+    // TODO: implement loadByKey
+    return null;
+  }
+
+  @override
+  Future save() {
+    // TODO: implement save
+    return null;
+  }
+
+  @override
+  Future saveAll() {
+    // TODO: implement saveAll
+    return null;
   }
 }
