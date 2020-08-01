@@ -1,3 +1,4 @@
+import 'package:geochat/_shared/injection/injector_module.dart';
 import 'package:geochat/_shared/injection/simple_injector.dart';
 
 abstract class Injector {
@@ -14,6 +15,12 @@ abstract class Injector {
 
   void register<S, T extends S>(InjectorFactory<S> _factory,
       {bool isSingleton = false, String key});
+}
+
+extension Initilizer on Injector {
+  void initialiseAll(Iterable<InjectorModule> modules) {
+    modules.forEach((m) => m.initialise(this));
+  }
 }
 
 typedef T InjectorFactory<T>(Injector injector);
