@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_simple_dependency_injection/injector.dart';
+import 'package:geochat/_shared/injection/injector.dart';
 import 'package:geochat/home/home_di.dart';
 import 'package:geochat/home/home_widget.dart';
 
 void main() {
-  HomeDi().initialise(Injector.getInjector());
+  HomeDi().initialise(Injector());
   return runApp(MyApp());
-} 
+}
 
 class MyApp extends StatelessWidget {
   // This widget is the root of your application.

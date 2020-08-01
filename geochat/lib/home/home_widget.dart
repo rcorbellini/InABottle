@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_simple_dependency_injection/injector.dart';
+import 'package:geochat/_shared/injection/injector.dart';
 import 'package:geochat/home/home_bloc.dart';
 import 'package:geochat/home/home_event.dart';
 import 'package:geochat/home/home_talk_list_widget.dart';
@@ -15,7 +15,7 @@ class _HomeWidgetState extends State<HomeWidget> {
 
   @override
   void initState() {
-    homeBloc = Injector.getInjector().get<HomeBloc>();
+    homeBloc = Injector().get<HomeBloc>();
     super.initState();
   }
 
