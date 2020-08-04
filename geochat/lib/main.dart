@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:geochat/_shared/injection/injector.dart';
 import 'package:geochat/_shared/route/navigator_di.dart';
 import 'package:geochat/home/home_di.dart';
-import 'package:geochat/home/home_widget.dart';
+import 'package:geochat/home/widgets/home_widget.dart';
 import 'package:geochat/_shared/route/navigator.dart' as interface_navigator;
 import 'package:geochat/local_message/chat/chat_di.dart';
 import 'package:geochat/local_message/message/message_di.dart';

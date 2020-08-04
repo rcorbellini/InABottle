@@ -2,8 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:geochat/_shared/injection/injector.dart';
 import 'package:geochat/home/home_bloc.dart';
 import 'package:geochat/home/home_event.dart';
-import 'package:geochat/home/home_talk_list_widget.dart';
+import 'package:geochat/home/home_feed.dart';
+import 'package:geochat/home/widgets/home_feed_list_widget.dart';
+import 'package:geochat/home/widgets/home_talk_list_widget.dart';
 import 'package:fancy_stream/fancy_stream.dart';
+import 'package:geochat/local_message/message/direct_message_dto.dart';
 
 class HomeWidget extends StatefulWidget {
   @override
@@ -28,34 +31,51 @@ class _HomeWidgetState extends State<HomeWidget> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        body: Column(children: <Widget>[
-      buildHeader(),
-
-      //conteudo
-      Expanded(
-          child: SingleChildScrollView(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.start,
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: <Widget>[
-            HomeTalkListWidget(
-              homeBloc: homeBloc,
-              context: context,
-            ),
-            buildFeed()
-          ],
-        ),
-      )),
-
-      buildFooter()
-    ]));
+        body: Column(
+            children: [_buildHeader(), _buildContent(), _buildFooter()]));
   }
 
-  Widget buildFeed() {
-    return Container();
+  //Footer
+  //TODO fazer
+  Widget _buildHeader() {
+    return Container(
+      height: 58,
+      color: Colors.grey,
+    );
   }
 
-  Widget buildFooter() {
+  Widget _buildContent() {
+    return Expanded(
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        mainAxisSize: MainAxisSize.max,
+        children: <Widget>[
+          HomeTalkListWidget(
+            homeBloc: homeBloc,
+            context: context,
+          ),
+          Expanded(
+              child: Stack(
+                  alignment: AlignmentDirectional.bottomCenter,
+                  children: [
+                HomeFeedList(
+                  homeBloc: homeBloc,
+                  context: context,
+                ),
+                RaisedButton(
+                  child: const Text("Mapa"),
+                  onPressed: () {
+                    homeBloc.dispatchOn<HomeEvent>(GoToRoute("/map"));
+                  },
+                ),
+              ]))
+        ],
+      ),
+    );
+  }
+
+  Widget _buildFooter() {
     return Container(
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.center,
@@ -82,11 +102,5 @@ class _HomeWidgetState extends State<HomeWidget> {
         ],
       ),
     );
-  }
-
-  //Footer
-  //TODO fazer
-  Widget buildHeader() {
-    return Container();
   }
 }

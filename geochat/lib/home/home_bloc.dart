@@ -32,7 +32,7 @@ class HomeBloc extends Disposable {
   void _handleEvents(HomeEvent homeEvent) {
     if (homeEvent is LoadTalks) {
       loadAllTalks();
-    } else if (homeEvent is LoadTalks) {
+    } else if (homeEvent is LoadFeed) {
       loadAllFeed();
     } else if (homeEvent is GoToRoute) {
       navigator.navigateTo<void>(homeEvent.route);
@@ -44,7 +44,6 @@ class HomeBloc extends Disposable {
   }
 
   Future<void> loadAllFeed() async {
-    //Todo
-    dispatchOn<List<HomeFeed>>([]);
+    dispatchOn<List<HomeFeed>>(await messageRepository.loadAll());
   }
 }

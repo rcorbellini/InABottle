@@ -1,6 +1,6 @@
 import 'package:geochat/_shared/route/sailor_navigator.dart';
 import 'package:geochat/home/home_bloc.dart';
-import 'package:geochat/home/home_widget.dart';
+import 'package:geochat/home/widgets/home_widget.dart';
 import 'package:sailor/sailor.dart';
 
 class SailorRoutes {

@@ -25,12 +25,12 @@ class HomeTalkListWidget extends StatelessWidget {
             Expanded(
                 child: StreamBuilder<List<Talk>>(
                     stream: homeBloc.streamOf<List<Talk>>(),
-                    builder: _builListTalks))
+                    builder: _builTalksList))
           ],
         ));
   }
 
-  Widget _builListTalks(
+  Widget _builTalksList(
       BuildContext context, AsyncSnapshot<List<Talk>> snapshot) {
     if (snapshot.hasData) {
       final talks = snapshot.data;
