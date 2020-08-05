@@ -2,11 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:geochat/_shared/injection/injector.dart';
 import 'package:geochat/home/home_bloc.dart';
 import 'package:geochat/home/home_event.dart';
-import 'package:geochat/home/home_feed.dart';
 import 'package:geochat/home/widgets/home_feed_list_widget.dart';
 import 'package:geochat/home/widgets/home_talk_list_widget.dart';
 import 'package:fancy_stream/fancy_stream.dart';
-import 'package:geochat/local_message/message/direct_message_dto.dart';
 
 class HomeWidget extends StatefulWidget {
   @override
