@@ -1,11 +1,11 @@
-abstract class BaseRepository<E, K>{
+abstract class BaseStorage<E, K> {
   Future<List<E>> loadAll();
-  
+
   Future<E> loadByKey(K key);
 
   Future save();
 
   Future saveAll();
 
-  Future delete(K key);
+  Future deleteByKey(K key);
 }

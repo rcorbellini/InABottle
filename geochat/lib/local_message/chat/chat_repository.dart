@@ -5,7 +5,7 @@ abstract class ChatRepository
 
 class ChatDataRepository extends ChatRepository {
   @override
-  Future delete() {
+  Future delete(String key) {
     // TODO: implement delete
     return null;
   }

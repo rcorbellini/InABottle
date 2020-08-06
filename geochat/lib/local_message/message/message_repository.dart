@@ -8,11 +8,7 @@ abstract class MessageRepository
     implements BaseRepository<DirectMessage, String> {}
 
 class MessageDataRepository extends MessageRepository {
-  @override
-  Future delete() {
-    // TODO: implement delete
-    return null;
-  }
+
 
   @override
   Future<List<DirectMessage>> loadAll() async {
@@ -84,6 +80,12 @@ class MessageDataRepository extends MessageRepository {
   @override
   Future saveAll() {
     // TODO: implement saveAll
+    return null;
+  }
+
+  @override
+  Future delete(String key) {
+    // TODO: implement delete
     return null;
   }
 }
