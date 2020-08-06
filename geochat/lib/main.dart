@@ -7,25 +7,38 @@ import 'package:geochat/_shared/route/navigator.dart' as interface_navigator;
 import 'package:geochat/local_message/chat/chat_di.dart';
 import 'package:geochat/local_message/message/message_di.dart';
 import 'package:geochat/local_message/talk/talk_di.dart';
+import 'package:geochat/session/session_bloc.dart';
+import 'package:geochat/session/session_di.dart';
+import 'package:geochat/session/session_event.dart';
+import 'package:fancy_stream/fancy_stream.dart';
+import 'package:geochat/user/user_di.dart';
+import 'package:geochat/user/widget/login_widget.dart';
 
 void main() {
   Injector().initialiseAll([
+    SessionDi(),
     ChatDI(),
     NavigatorDI(),
     TalkDi(),
+    UserDi(),
     MessageDi(),
     HomeDi(),
   ]);
-  return runApp(MyApp());
+  return runApp(MyApp(
+    sessionBloc: Injector().get(),
+  ));
 }
 
 class MyApp extends StatelessWidget {
+  final SessionBloc sessionBloc;
+
+  const MyApp({Key key, this.sessionBloc}) : super(key: key);
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     final navigator = Injector().get<interface_navigator.Navigator>();
     return MaterialApp(
-      title: 'Flutter Demo',
+      title: 'In a Bottle',
       navigatorKey: navigator.navigatorKey,
       onGenerateRoute: navigator.buildRouteFactory(),
       theme: ThemeData(
@@ -40,7 +53,20 @@ class MyApp extends StatelessWidget {
         // is not restarted.
         primarySwatch: Colors.blue,
       ),
-      home: HomeWidget(),
+      home: StreamBuilder<SessionEvent>(
+          stream: sessionBloc.streamOf<SessionEvent>(),
+          builder: (context, snapshot) {
+            if (!snapshot.hasData) {
+              return Container();
+            }
+
+            final event = snapshot.data;
+            if (event is LoggedIn) {
+              return HomeWidget();
+            }
+
+            return LoginWigdet();
+          }),
     );
   }
 }
