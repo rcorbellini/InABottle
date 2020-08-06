@@ -1,7 +1,7 @@
-import 'package:geochat/_shared/injection/injector.dart';
-import 'package:geochat/_shared/injection/injector_module.dart';
-import 'package:geochat/session/session_bloc.dart';
-import 'package:geochat/session/session_repository.dart';
+import 'package:in_a_bottle/_shared/injection/injector.dart';
+import 'package:in_a_bottle/_shared/injection/injector_module.dart';
+import 'package:in_a_bottle/session/session_bloc.dart';
+import 'package:in_a_bottle/session/session_repository.dart';
 
 class SessionDi extends InjectorModule {
   @override

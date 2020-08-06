@@ -1,6 +1,6 @@
 import 'dart:convert';
 
-import 'package:geochat/_shared/datastorage/key_value_storage.dart';
+import 'package:in_a_bottle/_shared/datastorage/key_value_storage.dart';
 
 import 'package:shared_preferences/shared_preferences.dart';
 

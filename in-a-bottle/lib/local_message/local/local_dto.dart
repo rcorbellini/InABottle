@@ -1,4 +1,4 @@
-import 'package:geochat/map/point_dto.dart';
+import 'package:in_a_bottle/map/point_dto.dart';
 
 class Local {
   final Point point;

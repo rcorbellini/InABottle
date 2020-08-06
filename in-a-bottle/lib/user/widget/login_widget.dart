@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:geochat/_shared/injection/injector.dart';
+import 'package:in_a_bottle/_shared/injection/injector.dart';
 
 import 'package:fancy_stream/fancy_stream.dart';
 
-import 'package:geochat/user/login_bloc.dart';
-import 'package:geochat/user/login_event.dart';
-import 'package:geochat/user/user_dto.dart';
+import 'package:in_a_bottle/user/login_bloc.dart';
+import 'package:in_a_bottle/user/login_event.dart';
+import 'package:in_a_bottle/user/user_dto.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
 GoogleSignIn _googleSignIn = GoogleSignIn(

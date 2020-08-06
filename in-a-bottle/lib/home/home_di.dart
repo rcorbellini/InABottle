@@ -1,6 +1,6 @@
-import 'package:geochat/_shared/injection/injector.dart';
-import 'package:geochat/_shared/injection/injector_module.dart';
-import 'package:geochat/home/home_bloc.dart';
+import 'package:in_a_bottle/_shared/injection/injector.dart';
+import 'package:in_a_bottle/_shared/injection/injector_module.dart';
+import 'package:in_a_bottle/home/home_bloc.dart';
 
 class HomeDi implements InjectorModule {
   @override

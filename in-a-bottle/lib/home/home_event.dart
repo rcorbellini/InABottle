@@ -1,4 +1,4 @@
-import 'package:geochat/local_message/local/local_dto.dart';
+import 'package:in_a_bottle/local_message/local/local_dto.dart';
 
 abstract class HomeEvent {}
 

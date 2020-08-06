@@ -1,5 +1,5 @@
-import 'package:geochat/_shared/injection/injector_module.dart';
-import 'package:geochat/_shared/injection/simple_injector.dart';
+import 'package:in_a_bottle/_shared/injection/injector_module.dart';
+import 'package:in_a_bottle/_shared/injection/simple_injector.dart';
 
 abstract class Injector {
   factory Injector() {

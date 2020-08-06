@@ -1,6 +1,6 @@
-import 'package:geochat/home/home_feed.dart';
-import 'package:geochat/local_message/local/local_dto.dart';
-import 'package:geochat/user/user_dto.dart';
+import 'package:in_a_bottle/home/home_feed.dart';
+import 'package:in_a_bottle/local_message/local/local_dto.dart';
+import 'package:in_a_bottle/user/user_dto.dart';
 
 class DirectMessage implements HomeFeed{
   final String text;

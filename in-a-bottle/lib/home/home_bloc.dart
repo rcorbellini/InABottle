@@ -1,13 +1,13 @@
 import 'dart:async';
 
 import 'package:fancy_stream/fancy_stream.dart';
-import 'package:geochat/_shared/route/navigator.dart';
-import 'package:geochat/home/home_feed.dart';
-import 'package:geochat/home/home_event.dart';
-import 'package:geochat/local_message/chat/chat_repository.dart';
-import 'package:geochat/local_message/message/message_repository.dart';
-import 'package:geochat/local_message/talk/talk_dto.dart';
-import 'package:geochat/local_message/talk/talk_repository.dart';
+import 'package:in_a_bottle/_shared/route/navigator.dart';
+import 'package:in_a_bottle/home/home_feed.dart';
+import 'package:in_a_bottle/home/home_event.dart';
+import 'package:in_a_bottle/local_message/chat/chat_repository.dart';
+import 'package:in_a_bottle/local_message/message/message_repository.dart';
+import 'package:in_a_bottle/local_message/talk/talk_dto.dart';
+import 'package:in_a_bottle/local_message/talk/talk_repository.dart';
 import 'package:meta/meta.dart';
 
 class HomeBloc extends Disposable {

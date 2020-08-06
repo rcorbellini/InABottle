@@ -1,8 +1,8 @@
-import 'package:geochat/_shared/archtecture/base_repository.dart';
-import 'package:geochat/local_message/local/local_dto.dart';
-import 'package:geochat/local_message/message/direct_message_dto.dart';
-import 'package:geochat/map/point_dto.dart';
-import 'package:geochat/user/user_dto.dart';
+import 'package:in_a_bottle/_shared/archtecture/base_repository.dart';
+import 'package:in_a_bottle/local_message/local/local_dto.dart';
+import 'package:in_a_bottle/local_message/message/direct_message_dto.dart';
+import 'package:in_a_bottle/map/point_dto.dart';
+import 'package:in_a_bottle/user/user_dto.dart';
 
 abstract class MessageRepository
     implements BaseRepository<DirectMessage, String> {}

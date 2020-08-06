@@ -1,5 +1,5 @@
-import 'package:geochat/_shared/archtecture/base_repository.dart';
-import 'package:geochat/session/session_dto.dart';
+import 'package:in_a_bottle/_shared/archtecture/base_repository.dart';
+import 'package:in_a_bottle/session/session_dto.dart';
 
 class SessionRepository extends BaseRepository<Session, String>{
   @override

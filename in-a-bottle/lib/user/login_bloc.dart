@@ -1,7 +1,7 @@
-import 'package:geochat/_shared/archtecture/base_bloc.dart';
-import 'package:geochat/session/session_bloc.dart';
-import 'package:geochat/session/session_event.dart';
-import 'package:geochat/user/login_event.dart';
+import 'package:in_a_bottle/_shared/archtecture/base_bloc.dart';
+import 'package:in_a_bottle/session/session_bloc.dart';
+import 'package:in_a_bottle/session/session_event.dart';
+import 'package:in_a_bottle/user/login_event.dart';
 import 'package:meta/meta.dart';
 import 'package:fancy_stream/fancy_stream.dart';
 

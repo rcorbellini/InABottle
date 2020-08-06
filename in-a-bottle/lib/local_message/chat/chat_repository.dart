@@ -1,4 +1,4 @@
-import 'package:geochat/_shared/archtecture/base_repository.dart';
+import 'package:in_a_bottle/_shared/archtecture/base_repository.dart';
 
 abstract class ChatRepository
     implements BaseRepository<ChatRepository, String> {}

@@ -1,6 +1,6 @@
-import 'package:geochat/_shared/injection/injector.dart';
-import 'package:geochat/_shared/injection/injector_module.dart';
-import 'package:geochat/user/login_bloc.dart';
+import 'package:in_a_bottle/_shared/injection/injector.dart';
+import 'package:in_a_bottle/_shared/injection/injector_module.dart';
+import 'package:in_a_bottle/user/login_bloc.dart';
 
 class UserDi extends InjectorModule {
   @override

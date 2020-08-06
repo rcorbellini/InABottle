@@ -1,4 +1,4 @@
-import 'package:geochat/user/user_dto.dart';
+import 'package:in_a_bottle/user/user_dto.dart';
 
 class MessageChat{
   final User user;

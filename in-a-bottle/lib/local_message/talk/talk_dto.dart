@@ -1,5 +1,5 @@
-import 'package:geochat/local_message/talk/message_talk_dto.dart';
-import 'package:geochat/local_message/talk/talk_category_dto.dart';
+import 'package:in_a_bottle/local_message/talk/message_talk_dto.dart';
+import 'package:in_a_bottle/local_message/talk/talk_category_dto.dart';
 
 class Talk {
   final String title;

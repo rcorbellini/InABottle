@@ -1,4 +1,4 @@
-import 'package:geochat/_shared/injection/injector.dart' as injector_interface;
+import 'package:in_a_bottle/_shared/injection/injector.dart' as injector_interface;
 import 'package:flutter_simple_dependency_injection/injector.dart';
 
 class SimpleInjector implements injector_interface.Injector {

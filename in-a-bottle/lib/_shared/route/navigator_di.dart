@@ -1,7 +1,7 @@
-import 'package:geochat/_shared/injection/injector.dart';
-import 'package:geochat/_shared/injection/injector_module.dart';
-import 'package:geochat/_shared/route/navigator.dart';
-import 'package:geochat/_shared/route/sailor_navigator.dart';
+import 'package:in_a_bottle/_shared/injection/injector.dart';
+import 'package:in_a_bottle/_shared/injection/injector_module.dart';
+import 'package:in_a_bottle/_shared/route/navigator.dart';
+import 'package:in_a_bottle/_shared/route/sailor_navigator.dart';
 
 class NavigatorDI implements InjectorModule {
   @override

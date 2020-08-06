@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:geochat/home/home_bloc.dart';
-import 'package:geochat/home/home_feed.dart';
-import 'package:geochat/local_message/message/direct_message_dto.dart';
-import 'package:geochat/local_message/talk/talk_dto.dart';
+import 'package:in_a_bottle/home/home_bloc.dart';
+import 'package:in_a_bottle/home/home_feed.dart';
+import 'package:in_a_bottle/local_message/message/direct_message_dto.dart';
+import 'package:in_a_bottle/local_message/talk/talk_dto.dart';
 import 'package:fancy_stream/fancy_stream.dart';
 import 'package:meta/meta.dart';
 

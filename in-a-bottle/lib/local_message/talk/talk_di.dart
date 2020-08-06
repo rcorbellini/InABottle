@@ -1,6 +1,6 @@
-import 'package:geochat/_shared/injection/injector.dart';
-import 'package:geochat/_shared/injection/injector_module.dart';
-import 'package:geochat/local_message/talk/talk_repository.dart';
+import 'package:in_a_bottle/_shared/injection/injector.dart';
+import 'package:in_a_bottle/_shared/injection/injector_module.dart';
+import 'package:in_a_bottle/local_message/talk/talk_repository.dart';
 
 class TalkDi extends InjectorModule {
   @override

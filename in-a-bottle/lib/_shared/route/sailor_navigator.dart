@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:geochat/_shared/route/navigator.dart' as interface_navigator;
+import 'package:in_a_bottle/_shared/route/navigator.dart' as interface_navigator;
 import 'package:sailor/sailor.dart';
 
 final Sailor sailor = Sailor();
