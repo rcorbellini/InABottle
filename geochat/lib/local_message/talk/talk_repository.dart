@@ -16,7 +16,7 @@ class TalkDataRepository implements TalkRepository {
   }
 
   @override
-  Future delete() {
+  Future delete(String key) {
     // TODO: implement delete
     return null;
   }

@@ -2,11 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:geochat/_shared/injection/injector.dart';
 import 'package:geochat/home/home_bloc.dart';
 import 'package:geochat/home/home_event.dart';
-import 'package:geochat/home/home_feed.dart';
 import 'package:geochat/home/widgets/home_feed_list_widget.dart';
 import 'package:geochat/home/widgets/home_talk_list_widget.dart';
 import 'package:fancy_stream/fancy_stream.dart';
-import 'package:geochat/local_message/message/direct_message_dto.dart';
 
 class HomeWidget extends StatefulWidget {
   @override
@@ -14,17 +12,17 @@ class HomeWidget extends StatefulWidget {
 }
 
 class _HomeWidgetState extends State<HomeWidget> {
-  HomeBloc homeBloc;
+  HomeBloc _homeBloc;
 
   @override
   void initState() {
-    homeBloc = Injector().get<HomeBloc>();
+    _homeBloc = Injector().get<HomeBloc>();
     super.initState();
   }
 
   @override
   void dispose() {
-    homeBloc?.dispose();
+    _homeBloc?.dispose();
     super.dispose();
   }
 
@@ -52,7 +50,7 @@ class _HomeWidgetState extends State<HomeWidget> {
         mainAxisSize: MainAxisSize.max,
         children: <Widget>[
           HomeTalkListWidget(
-            homeBloc: homeBloc,
+            homeBloc: _homeBloc,
             context: context,
           ),
           Expanded(
@@ -60,13 +58,13 @@ class _HomeWidgetState extends State<HomeWidget> {
                   alignment: AlignmentDirectional.bottomCenter,
                   children: [
                 HomeFeedList(
-                  homeBloc: homeBloc,
+                  homeBloc: _homeBloc,
                   context: context,
                 ),
                 RaisedButton(
                   child: const Text("Mapa"),
                   onPressed: () {
-                    homeBloc.dispatchOn<HomeEvent>(GoToRoute("/map"));
+                    _homeBloc.dispatchOn<HomeEvent>(GoToRoute("/map"));
                   },
                 ),
               ]))
@@ -84,19 +82,19 @@ class _HomeWidgetState extends State<HomeWidget> {
           FlatButton(
             child: const Text("Adicionar Talk"),
             onPressed: () {
-              homeBloc.dispatchOn<HomeEvent>(GoToRoute("/addTalk"));
+              _homeBloc.dispatchOn<HomeEvent>(GoToRoute("/addTalk"));
             },
           ),
           FlatButton(
             child: const Text("Adicionar Chat"),
             onPressed: () {
-              homeBloc.dispatchOn<HomeEvent>(GoToRoute("/addChat"));
+              _homeBloc.dispatchOn<HomeEvent>(GoToRoute("/addChat"));
             },
           ),
           FlatButton(
             child: const Text("Adicionar Item"),
             onPressed: () {
-              homeBloc.dispatchOn<HomeEvent>(GoToRoute("/addItem"));
+              _homeBloc.dispatchOn<HomeEvent>(GoToRoute("/addItem"));
             },
           ),
         ],

@@ -24,6 +24,9 @@ dependencies:
   rxdart: ^0.24.1
   fancy_stream: ^1.1.1
   sailor: ^0.7.1
+  shared_preferences: '>=0.5.8 <2.0.0'
+  #IOS*
+  google_sign_in: ^4.5.1
 
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.

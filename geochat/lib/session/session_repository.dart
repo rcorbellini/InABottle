@@ -1,9 +1,7 @@
 import 'package:geochat/_shared/archtecture/base_repository.dart';
+import 'package:geochat/session/session_dto.dart';
 
-abstract class ChatRepository
-    implements BaseRepository<ChatRepository, String> {}
-
-class ChatDataRepository extends ChatRepository {
+class SessionRepository extends BaseRepository<Session, String>{
   @override
   Future delete(String key) {
     // TODO: implement delete
@@ -11,13 +9,13 @@ class ChatDataRepository extends ChatRepository {
   }
 
   @override
-  Future<List<ChatRepository>> loadAll() {
+  Future<List<Session>> loadAll() {
     // TODO: implement loadAll
     return null;
   }
 
   @override
-  Future<ChatRepository> loadByKey(String key) {
+  Future<Session> loadByKey(String key) {
     // TODO: implement loadByKey
     return null;
   }
@@ -33,4 +31,5 @@ class ChatDataRepository extends ChatRepository {
     // TODO: implement saveAll
     return null;
   }
+  
 }
