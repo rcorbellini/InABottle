@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "1011585668218",
+    "firebase_url": "https://inabottle-926f9.firebaseio.com",
+    "project_id": "inabottle-926f9",
+    "storage_bucket": "inabottle-926f9.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1011585668218:android:dd6d30a7952d01a21bd7c3",
+        "android_client_info": {
+          "package_name": "br.com.inabottle"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1011585668218-9l3a195t9fhmtgaur7hpsdl45711hc6o.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBZa5YiJc6GFIrQTFJv_hYjprDnhKur12E"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1011585668218-9l3a195t9fhmtgaur7hpsdl45711hc6o.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
