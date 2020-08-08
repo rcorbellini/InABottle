@@ -6,7 +6,6 @@ import 'package:fancy_stream/fancy_stream.dart';
 import 'package:in_a_bottle/user/login_bloc.dart';
 import 'package:in_a_bottle/user/login_event.dart';
 import 'package:in_a_bottle/user/user_dto.dart';
-import 'package:google_sign_in/google_sign_in.dart';
 import 'package:in_a_bottle/user/widget/button_google_auth_widget.dart';
 
 class LoginWigdet extends StatefulWidget {
