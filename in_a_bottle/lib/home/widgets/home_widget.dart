@@ -44,10 +44,10 @@ class _HomeWidgetState extends State<HomeWidget> {
         stream: _homeBloc.streamOf(),
         builder: (context, snapshot){
           if(!snapshot.hasData){
-            return Text("--");
-          }
+            return Text("--1212");
+          } 
 
-          return Text(snapshot.data.user.name);
+          return Text(snapshot.data.user.photoUrl );
         },
       ),
     );

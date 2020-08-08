@@ -6,17 +6,7 @@ import 'package:fancy_stream/fancy_stream.dart';
 import 'package:in_a_bottle/user/login_bloc.dart';
 import 'package:in_a_bottle/user/login_event.dart';
 import 'package:in_a_bottle/user/user_dto.dart';
-<<<<<<< HEAD
-import 'package:google_sign_in/google_sign_in.dart';
-
-GoogleSignIn _googleSignIn = GoogleSignIn(
-  scopes: [
-    'email','https://www.googleapis.com/auth/contacts.readonly',    
-  ],
-);
-=======
 import 'package:in_a_bottle/user/widget/button_google_auth_widget.dart';
->>>>>>> b9552fbb329bd85d752dc694b37dd7a593173061
 
 class LoginWigdet extends StatefulWidget {
   @override

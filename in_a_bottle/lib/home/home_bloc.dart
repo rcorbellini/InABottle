@@ -8,7 +8,6 @@ import 'package:in_a_bottle/local_message/chat/chat_repository.dart';
 import 'package:in_a_bottle/local_message/message/message_repository.dart';
 import 'package:in_a_bottle/local_message/talk/talk_dto.dart';
 import 'package:in_a_bottle/local_message/talk/talk_repository.dart';
-import 'package:in_a_bottle/session/session_dto.dart';
 import 'package:in_a_bottle/session/session_repository.dart';
 import 'package:meta/meta.dart';
 

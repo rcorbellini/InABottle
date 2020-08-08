@@ -15,13 +15,40 @@ class MessageDataRepository extends MessageRepository {
           local: Local(
             point: Point(latitude: 10, longitude: 10),
           ),
-          text: "blabla",
-          title: "Title Ba",
-          owner: User(name: "Tester")),
+          text: "De buenas?",
+          title: "Hmmm No Title",
+          owner: User(
+              name: "Rafael Corbellini",
+              photoUrl:
+                  "https://lh3.googleusercontent.com/a-/AOh14GjoxZnVNWM7gOM9SE1Ru8ItjltX7iw5QT2809l8sn0=s96-c")),
       DirectMessage(
           local: Local(
             point: Point(latitude: 10, longitude: 10),
           ),
+          owner: User(
+              name: "Rc",
+              photoUrl:
+                  "https://lh3.googleusercontent.com/a-/AOh14GjoxZnVNWM7gOM9SE1Ru8ItjltX7iw5QT2809l8sn0=s96-c"),
+          text: "blabla",
+          title: "Title Ba"),
+      DirectMessage(
+          local: Local(
+            point: Point(latitude: 10, longitude: 10),
+          ),
+          owner: User(
+              name: "Rc",
+              photoUrl:
+                  "https://lh3.googleusercontent.com/a-/AOh14GjoxZnVNWM7gOM9SE1Ru8ItjltX7iw5QT2809l8sn0=s96-c"),
+          text: "blabla",
+          title: "Title Ba"),
+      DirectMessage(
+          local: Local(
+            point: Point(latitude: 10, longitude: 10),
+          ),
+          owner: User(
+              name: "Rc",
+              photoUrl:
+                  "https://lh3.googleusercontent.com/a-/AOh14GjoxZnVNWM7gOM9SE1Ru8ItjltX7iw5QT2809l8sn0=s96-c"),
           text: "blabla",
           title: "Title Ba"),
       DirectMessage(
@@ -34,30 +61,30 @@ class MessageDataRepository extends MessageRepository {
           local: Local(
             point: Point(latitude: 10, longitude: 10),
           ),
+          owner: User(
+              name: "Rc",
+              photoUrl:
+                  "https://lh3.googleusercontent.com/a-/AOh14GjoxZnVNWM7gOM9SE1Ru8ItjltX7iw5QT2809l8sn0=s96-c"),
           text: "blabla",
           title: "Title Ba"),
       DirectMessage(
           local: Local(
             point: Point(latitude: 10, longitude: 10),
           ),
+          owner: User(
+              name: "Rc",
+              photoUrl:
+                  "https://lh3.googleusercontent.com/a-/AOh14GjoxZnVNWM7gOM9SE1Ru8ItjltX7iw5QT2809l8sn0=s96-c"),
           text: "blabla",
           title: "Title Ba"),
       DirectMessage(
           local: Local(
             point: Point(latitude: 10, longitude: 10),
           ),
-          text: "blabla",
-          title: "Title Ba"),
-      DirectMessage(
-          local: Local(
-            point: Point(latitude: 10, longitude: 10),
-          ),
-          text: "blabla",
-          title: "Title Ba"),
-      DirectMessage(
-          local: Local(
-            point: Point(latitude: 10, longitude: 10),
-          ),
+          owner: User(
+              name: "Rc",
+              photoUrl:
+                  "https://lh3.googleusercontent.com/a-/AOh14GjoxZnVNWM7gOM9SE1Ru8ItjltX7iw5QT2809l8sn0=s96-c"),
           text: "blabla",
           title: "Title Ba"),
     ];
