@@ -8,6 +8,8 @@ import 'package:in_a_bottle/local_message/chat/chat_repository.dart';
 import 'package:in_a_bottle/local_message/message/message_repository.dart';
 import 'package:in_a_bottle/local_message/talk/talk_dto.dart';
 import 'package:in_a_bottle/local_message/talk/talk_repository.dart';
+import 'package:in_a_bottle/session/session_dto.dart';
+import 'package:in_a_bottle/session/session_repository.dart';
 import 'package:meta/meta.dart';
 
 class HomeBloc extends Disposable {
@@ -16,6 +18,7 @@ class HomeBloc extends Disposable {
   final TalkRepository talkRepository;
   final ChatRepository chatRepository;
   final MessageRepository messageRepository;
+  final SessionRepository sessionRepository;
   final Navigator navigator;
 
   HomeBloc({
@@ -23,10 +26,13 @@ class HomeBloc extends Disposable {
     @required this.navigator,
     @required this.chatRepository,
     @required this.messageRepository,
+    @required this.sessionRepository,
   }) {
     listenOn<HomeEvent>(_handleEvents);
     dispatchOn<HomeEvent>(LoadTalks());
     dispatchOn<HomeEvent>(LoadFeed());
+    
+    sessionRepository.load().then(dispatchOn);
   }
 
   void _handleEvents(HomeEvent homeEvent) {

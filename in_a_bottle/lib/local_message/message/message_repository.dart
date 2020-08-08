@@ -8,8 +8,6 @@ abstract class MessageRepository
     implements BaseRepository<DirectMessage, String> {}
 
 class MessageDataRepository extends MessageRepository {
-
-
   @override
   Future<List<DirectMessage>> loadAll() async {
     return [
@@ -72,20 +70,20 @@ class MessageDataRepository extends MessageRepository {
   }
 
   @override
-  Future save() {
+  Future delete(String key) {
+    // TODO: implement delete
+    return null;
+  }
+
+  @override
+  Future save(DirectMessage entity) {
     // TODO: implement save
     return null;
   }
 
   @override
-  Future saveAll() {
+  Future saveAll(Iterable<DirectMessage> entities) {
     // TODO: implement saveAll
-    return null;
-  }
-
-  @override
-  Future delete(String key) {
-    // TODO: implement delete
     return null;
   }
 }

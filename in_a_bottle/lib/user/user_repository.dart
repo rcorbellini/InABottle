@@ -19,12 +19,14 @@ class UserRepository extends BaseRepository<User, String> {
   }
 
   @override
-  Future save() {
+  Future save(User entity) {
+    // TODO: implement save
     return null;
   }
 
   @override
-  Future saveAll() {
+  Future saveAll(Iterable<User> entities) {
+    // TODO: implement saveAll
     return null;
   }
 }

@@ -7,7 +7,9 @@ class SessionDi extends InjectorModule {
   @override
   void initialise(Injector injector) {
     //TODO o que deve ser single é o datastore, mas a camada ainda não existe.
-    injector.register((i) => SessionRepository(), isSingleton: true);
+    injector.register<SessionRepository, SessionDataRepository>(
+        (i) => SessionDataRepository(),
+        isSingleton: true);
     injector.register((i) => SessionBloc(sessionRepository: i.get()),
         isSingleton: true);
   }

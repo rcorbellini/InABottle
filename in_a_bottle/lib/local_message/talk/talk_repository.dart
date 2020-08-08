@@ -28,13 +28,13 @@ class TalkDataRepository implements TalkRepository {
   }
 
   @override
-  Future save() {
+  Future save(Talk entity) {
     // TODO: implement save
     return null;
   }
 
   @override
-  Future saveAll() {
+  Future saveAll(Iterable<Talk> entities) {
     // TODO: implement saveAll
     return null;
   }
