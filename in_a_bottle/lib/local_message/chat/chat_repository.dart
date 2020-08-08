@@ -23,13 +23,13 @@ class ChatDataRepository extends ChatRepository {
   }
 
   @override
-  Future save() {
+  Future save(ChatRepository entity) {
     // TODO: implement save
     return null;
   }
 
   @override
-  Future saveAll() {
+  Future saveAll(Iterable<ChatRepository> entities) {
     // TODO: implement saveAll
     return null;
   }
