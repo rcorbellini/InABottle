@@ -5,6 +5,7 @@ import 'package:in_a_bottle/home/home_event.dart';
 import 'package:in_a_bottle/home/widgets/home_feed_list_widget.dart';
 import 'package:in_a_bottle/home/widgets/home_talk_list_widget.dart';
 import 'package:fancy_stream/fancy_stream.dart';
+import 'package:in_a_bottle/session/session_dto.dart';
 
 class HomeWidget extends StatefulWidget {
   @override
@@ -39,6 +40,16 @@ class _HomeWidgetState extends State<HomeWidget> {
     return Container(
       height: 58,
       color: Colors.grey,
+      child: StreamBuilder<Session>(
+        stream: _homeBloc.streamOf(),
+        builder: (context, snapshot){
+          if(!snapshot.hasData){
+            return Text("--");
+          }
+
+          return Text(snapshot.data.user.name);
+        },
+      ),
     );
   }
 

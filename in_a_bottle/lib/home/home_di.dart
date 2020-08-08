@@ -9,6 +9,7 @@ class HomeDi implements InjectorModule {
         talkRepository: i.get(),
         chatRepository: i.get(),
         messageRepository: i.get(),
+        sessionRepository: i.get(),
         navigator: i.get()));
   }
 }

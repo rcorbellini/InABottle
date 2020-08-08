@@ -3,9 +3,9 @@ abstract class BaseRepository<E, K>{
   
   Future<E> loadByKey(K key);
 
-  Future save();
+  Future save(E entity);
 
-  Future saveAll();
+  Future saveAll(Iterable<E> entities);
 
   Future delete(K key);
 }

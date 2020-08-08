@@ -1,35 +1,49 @@
 import 'package:in_a_bottle/_shared/archtecture/base_repository.dart';
 import 'package:in_a_bottle/session/session_dto.dart';
+abstract class SessionRepository {
+  Future clean();
 
-class SessionRepository extends BaseRepository<Session, String>{
+  Future save(Session session);
+
+  Future<Session> load();
+}
+
+class SessionDataRepository extends BaseRepository<Session, String>
+    implements SessionRepository {
+  //todo mover pro datastore
+  Session session;
   @override
-  Future delete(String key) {
-    // TODO: implement delete
-    return null;
+  Future<Session> load() async {
+    return session;
   }
 
   @override
   Future<List<Session>> loadAll() {
-    // TODO: implement loadAll
-    return null;
+    throw UnimplementedError("Not implemented");
   }
 
   @override
   Future<Session> loadByKey(String key) {
-    // TODO: implement loadByKey
-    return null;
+    throw UnimplementedError("Not implemented");
   }
 
   @override
-  Future save() {
-    // TODO: implement save
-    return null;
+  Future save(Session entity) {
+    session = entity;
   }
 
   @override
-  Future saveAll() {
-    // TODO: implement saveAll
-    return null;
+  Future saveAll(Iterable<Session> entities) {
+    throw UnimplementedError("Not implemented");
   }
-  
+
+  @override
+  Future clean() {
+    session = null;
+  }
+
+  @override
+  Future delete(String key) {
+    throw UnimplementedError("Not implemented");
+  }
 }

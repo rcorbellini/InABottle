@@ -7,12 +7,7 @@ import 'package:in_a_bottle/user/login_bloc.dart';
 import 'package:in_a_bottle/user/login_event.dart';
 import 'package:in_a_bottle/user/user_dto.dart';
 import 'package:google_sign_in/google_sign_in.dart';
-
-GoogleSignIn _googleSignIn = GoogleSignIn(
-  scopes: [
-    'email','https://www.googleapis.com/auth/contacts.readonly',    
-  ],
-);
+import 'package:in_a_bottle/user/widget/button_google_auth_widget.dart';
 
 class LoginWigdet extends StatefulWidget {
   @override
@@ -37,16 +32,12 @@ class _LoginWigdetState extends State<LoginWigdet> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      child: FlatButton(
-          onPressed: () async {
-            try {
-              //final teste = await _googleSignIn.signIn();
-              _loginBloc.dispatchOn<LoginEvent>(Logging(User(name: "teste")));
-            } on Error catch (error) {
-              print(error);
-            }
-          },
-          child: const Text("Logar")),
-    );
+        child: ButtonGoogleAuthWidget(
+      userResponse: dispatchLogin,
+    ));
+  }
+
+  void dispatchLogin(User user) {
+    _loginBloc.dispatchOn<LoginEvent>(Logging(user));
   }
 }
