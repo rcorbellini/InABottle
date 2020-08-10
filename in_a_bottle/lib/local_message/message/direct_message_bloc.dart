@@ -32,3 +32,10 @@ class DirectMessageBloc extends BaseBloc<DirectMessageEvent> {
     messageDataRepository.save(DirectMessage.fromMap(map));
   }
 }
+
+enum KeysForm {
+  text,
+  title,
+  user,
+  local,
+}

@@ -30,10 +30,8 @@ class _DirectMessageWidgetState extends State<DirectMessageWidget> {
         body: Container(
       child: SingleChildScrollView(
           child: Column(children: [
-
-
-        ReactiveTextController(
-            streamKey: Form.title,
+        ReactiveTextBuilder(
+            keyForm: KeysForm.title,
             bloc: _bloc,
             builder: (controller, error, onChanged) {
               return TextField(
@@ -44,10 +42,8 @@ class _DirectMessageWidgetState extends State<DirectMessageWidget> {
                   onChanged: onChanged,
                   controller: controller);
             }),
-
-
-        ReactiveTextController(
-            streamKey: Form.title.asString,
+        ReactiveTextBuilder(
+            keyForm: KeysForm.title,
             bloc: _bloc,
             builder: (controller, error, onChanged) {
               return TextField(
@@ -58,9 +54,6 @@ class _DirectMessageWidgetState extends State<DirectMessageWidget> {
                   onChanged: onChanged,
                   controller: controller);
             }),
-
-
- 
         FlatButton(
             onPressed: () =>
                 _bloc.dispatchOn<DirectMessageEvent>(DirectMessageSave()),
@@ -68,15 +61,4 @@ class _DirectMessageWidgetState extends State<DirectMessageWidget> {
       ])),
     ));
   }
-}
-
-enum Form  extends  Anye{
-  text,
-  title,
-  user,
-  local,
-}
-
-enum Anye{
-a
 }
