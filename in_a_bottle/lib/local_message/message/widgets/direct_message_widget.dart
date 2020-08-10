@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:in_a_bottle/_shared/injection/injector.dart';
-import 'package:in_a_bottle/_shared/widgets/reactive_snapshot.dart';
+import 'package:in_a_bottle/_shared/widgets/reactive_text_builder.dart';
 import 'package:in_a_bottle/local_message/message/direct_message_bloc.dart';
 import 'package:fancy_stream/fancy_stream.dart';
 import 'package:in_a_bottle/local_message/message/direct_message_event.dart';
@@ -43,12 +43,12 @@ class _DirectMessageWidgetState extends State<DirectMessageWidget> {
                   controller: controller);
             }),
         ReactiveTextBuilder(
-            keyForm: KeysForm.title,
+            keyForm: KeysForm.text,
             bloc: _bloc,
             builder: (controller, error, onChanged) {
               return TextField(
                   decoration: InputDecoration(
-                    hintText: 'Titulo',
+                    hintText: 'Mensagem',
                     errorText: error,
                   ),
                   onChanged: onChanged,
@@ -57,7 +57,7 @@ class _DirectMessageWidgetState extends State<DirectMessageWidget> {
         FlatButton(
             onPressed: () =>
                 _bloc.dispatchOn<DirectMessageEvent>(DirectMessageSave()),
-            child: null)
+            child: const Text("Salvar"))
       ])),
     ));
   }

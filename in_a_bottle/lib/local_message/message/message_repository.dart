@@ -8,9 +8,7 @@ abstract class MessageRepository
     implements BaseRepository<DirectMessage, String> {}
 
 class MessageDataRepository extends MessageRepository {
-  @override
-  Future<List<DirectMessage>> loadAll() async {
-    return [
+  static final memory = <DirectMessage>[
       DirectMessage(
           local: Local(
             point: Point(latitude: 10, longitude: 10),
@@ -88,6 +86,9 @@ class MessageDataRepository extends MessageRepository {
           text: "blabla",
           title: "Title Ba"),
     ];
+  @override
+  Future<List<DirectMessage>> loadAll() async {
+    return memory;
   }
 
   @override
@@ -103,9 +104,8 @@ class MessageDataRepository extends MessageRepository {
   }
 
   @override
-  Future save(DirectMessage entity) {
-    // TODO: implement save
-    return null;
+  Future save(DirectMessage entity) async {
+     memory.add(entity);
   }
 
   @override
