@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:in_a_bottle/_shared/route/navigator.dart' as interface_navigator;
+import 'package:in_a_bottle/_shared/route/sailor_routes.dart';
 import 'package:sailor/sailor.dart';
 
 final Sailor sailor = Sailor();
@@ -19,5 +20,8 @@ class SailorNavigator extends interface_navigator.Navigator {
   GlobalKey<NavigatorState> get navigatorKey => sailor.navigatorKey;
 
   @override
-  RouteFactory buildRouteFactory() => sailor.generator();
+  RouteFactory buildRouteFactory() {
+    SailorRoutes.createRoutes();
+    return sailor.generator();
+  }
 }
