@@ -54,6 +54,52 @@ class _DirectMessageWidgetState extends State<DirectMessageWidget> {
                   onChanged: onChanged,
                   controller: controller);
             }),
+        StreamBuilder<bool>(
+          stream: _bloc.streamOf(key: KeysForm.private),
+          builder: (date, snapshot) {
+            final _switcherState = snapshot.data ?? false;
+            return Switch(
+                value: _switcherState,
+                onChanged: (b) => _bloc.dispatchOn(b, key: KeysForm.private));
+          },
+        ),
+        StreamBuilder<bool>(
+            stream: _bloc.streamOf(key: KeysForm.private),
+            builder: (date, snapshot) {
+              final _switcherState = snapshot.data ?? false;
+              if (!_switcherState) {
+                return Container();
+              }
+
+              return ReactiveTextBuilder(
+                  keyForm: KeysForm.password,
+                  bloc: _bloc,
+                  builder: (controller, error, onChanged) {
+                    return TextField(
+                        decoration: InputDecoration(
+                          hintText: 'Senha',
+                          errorText: error,
+                        ),
+                        obscureText: true,
+                        onChanged: onChanged,
+                        controller: controller);
+                  });
+            }),
+        StreamBuilder<double>(
+            stream: _bloc.streamOf(key: KeysForm.reach),
+            builder: (date, snapshot) {
+              final value = snapshot?.data ?? 1;
+              final label =
+                  value == 1 ? 'susurro' : value == 2 ? 'padrão' : 'grito';
+              return Slider(
+                value: value,
+                min: 1.0,
+                max: 3.0,
+                label: label,
+                divisions: 2,
+                onChanged: (v) => _bloc.dispatchOn(v, key: KeysForm.reach),
+              );
+            }),
         FlatButton(
             onPressed: () =>
                 _bloc.dispatchOn<DirectMessageEvent>(DirectMessageSave()),

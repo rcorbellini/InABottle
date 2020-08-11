@@ -10,9 +10,5 @@ class DirectMessage implements HomeFeed {
 
   DirectMessage({this.text, this.title, this.owner, this.local});
 
-  DirectMessage.fromMap(Map<String, dynamic> map)
-      : text = map["text"]?.toString(),
-        title = map["title"]?.toString(),
-        owner = null,
-        local = null;
+
 }

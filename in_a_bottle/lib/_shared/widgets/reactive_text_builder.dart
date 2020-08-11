@@ -28,20 +28,20 @@ class _ReactiveTextBuilderState extends State<ReactiveTextBuilder> {
   @override
   Widget build(BuildContext context) {
     return StreamBuilder<String>(
-        stream: widget.bloc.streamOf<String>(key: keyForm),
+        stream: widget.bloc.streamOf<String>(key: widget.keyForm),
         builder: (context, snap) {
           _controller.value = _controller.value.copyWith(text: snap.data);
 
-          return widget.builder(_controller, snap?.error?.toString(),
-              (String text) => widget.bloc.dispatchOn(text, key: keyForm));
+          return widget.builder(
+              _controller,
+              snap?.error?.toString(),
+              (String text) =>
+                  widget.bloc.dispatchOn(text, key: widget.keyForm));
         });
   }
-
-  String get keyForm => enumToString(widget.keyForm);
 }
 
 typedef SnapshotBuilder = Widget Function(
     TextEditingController textEditingController,
     String error,
     Function(String text) onChanged);
-

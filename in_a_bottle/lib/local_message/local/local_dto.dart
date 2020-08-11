@@ -1,4 +1,4 @@
-import 'package:in_a_bottle/location/point_dto.dart';
+import 'package:in_a_bottle/_shared/location/point_dto.dart';
 
 class Local {
   final Point point;
@@ -12,8 +12,9 @@ class Local {
 
 class Reach{
   final String descricao;
+  final double value;
 
-  Reach({this.descricao});
+  Reach({this.descricao, this.value});
 }
 
 
