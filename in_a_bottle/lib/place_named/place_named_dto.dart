@@ -1,4 +1,4 @@
-import 'package:in_a_bottle/map/point_dto.dart';
+import 'package:in_a_bottle/location/point_dto.dart';
 import 'package:in_a_bottle/user/user_dto.dart';
 
 class PlaceNamed{

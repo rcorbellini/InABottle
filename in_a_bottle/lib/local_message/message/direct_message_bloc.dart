@@ -9,25 +9,23 @@ import 'package:in_a_bottle/_shared/utils.dart';
 import 'package:in_a_bottle/local_message/message/direct_message_dto.dart';
 import 'package:in_a_bottle/local_message/message/direct_message_event.dart';
 import 'package:in_a_bottle/local_message/message/message_repository.dart';
+import 'package:in_a_bottle/location/location_repository.dart';
 import 'package:in_a_bottle/session/session_repository.dart';
-import 'package:in_a_bottle/user/user_dto.dart';
 import 'package:meta/meta.dart';
 
 class DirectMessageBloc extends BaseBloc<DirectMessageEvent>
-    with CampoObrigatorioValidator , NameValidator{
+    with CampoObrigatorioValidator, NameValidator {
   static const String route = "/addDirectMessage";
   final MessageRepository messageDataRepository;
   final SessionRepository sessionRepository;
+  final LocationRepository locationRepository;
   final Navigator navigator;
 
   DirectMessageBloc(
       {@required this.messageDataRepository,
       @required this.sessionRepository,
-      @required this.navigator}) {
-    sessionRepository
-        .load()
-        .then((session) => dispatchOn<User>(session.user, key: "user"));
-
+      @required this.navigator,
+      @required this.locationRepository}) {
     addTransformOn(validateObrigatorio, enumToString(KeysForm.text));
     addTransformOn(validateObrigatorio, enumToString(KeysForm.title));
     addTransformOn(validateName, enumToString(KeysForm.title));
@@ -40,9 +38,11 @@ class DirectMessageBloc extends BaseBloc<DirectMessageEvent>
     }
   }
 
-  Future <void> _save() async {
+  Future<void> _save() async {
     final map = valuesToMap();
-    await messageDataRepository.save(DirectMessage.fromMap(map));
+    final dm = DirectMessage.fromMap(map);
+    final owner = (await sessionRepository.load()).user;
+    final position = await locationRepository.loadCurrentPosition();
     navigator.pop();
   }
 }
