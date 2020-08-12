@@ -12,6 +12,7 @@ class MessageDi extends InjectorModule {
     injector.register((i) => DirectMessageBloc(
         navigator: i.get(),
         sessionRepository: i.get(),
+        locationRepository: i.get(),
         messageDataRepository: i.get()));
   }
 }

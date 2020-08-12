@@ -33,15 +33,16 @@ class _ReactiveTextBuilderState extends State<ReactiveTextBuilder> {
           _controller.value = _controller.value.copyWith(text: snap.data);
 
           return widget.builder(
-              _controller,
-              snap?.error?.toString(),
-              (String text) =>
-                  widget.bloc.dispatchOn(text, key: widget.keyForm));
+            _controller,
+            (String text) => widget.bloc.dispatchOn(text, key: widget.keyForm),
+            snap?.error?.toString(),
+          );
         });
   }
 }
 
 typedef SnapshotBuilder = Widget Function(
-    TextEditingController textEditingController,
-    String error,
-    Function(String text) onChanged);
+  TextEditingController textEditingController,
+  Function(String text) onChanged,
+  String error,
+);

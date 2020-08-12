@@ -5,5 +5,5 @@ abstract class BaseBloc<T> extends Disposable {
     listenOn<T>(onEvent);
   }
 
-  void onEvent(T event);
+  Future<void> onEvent(T event);
 }

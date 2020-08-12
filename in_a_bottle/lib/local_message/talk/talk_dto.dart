@@ -3,6 +3,7 @@ import 'package:in_a_bottle/local_message/talk/talk_category_dto.dart';
 
 class Talk {
   final String title;
+  final String descrition;
   final DateTime startDate;
   final DateTime endDate;
   final List<MessageTalk> open;
@@ -13,6 +14,7 @@ class Talk {
 
   Talk(
       {this.title,
+      this.descrition,
       this.startDate,
       this.endDate,
       this.open,

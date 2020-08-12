@@ -3,7 +3,6 @@ import 'package:in_a_bottle/_shared/injection/injector.dart';
 import 'package:in_a_bottle/_shared/widgets/reactive_text_builder.dart';
 import 'package:in_a_bottle/local_message/message/direct_message_bloc.dart';
 import 'package:fancy_stream/fancy_stream.dart';
-import 'package:in_a_bottle/local_message/message/direct_message_event.dart';
 
 class DirectMessageWidget extends StatefulWidget {
   @override
@@ -33,7 +32,7 @@ class _DirectMessageWidgetState extends State<DirectMessageWidget> {
         ReactiveTextBuilder(
             keyForm: KeysForm.title,
             bloc: _bloc,
-            builder: (controller, error, onChanged) {
+            builder: (controller, onChanged, error) {
               return TextField(
                   decoration: InputDecoration(
                     hintText: 'Titulo',
@@ -45,7 +44,7 @@ class _DirectMessageWidgetState extends State<DirectMessageWidget> {
         ReactiveTextBuilder(
             keyForm: KeysForm.text,
             bloc: _bloc,
-            builder: (controller, error, onChanged) {
+            builder: (controller, onChanged, error) {
               return TextField(
                   decoration: InputDecoration(
                     hintText: 'Mensagem',
@@ -74,7 +73,7 @@ class _DirectMessageWidgetState extends State<DirectMessageWidget> {
               return ReactiveTextBuilder(
                   keyForm: KeysForm.password,
                   bloc: _bloc,
-                  builder: (controller, error, onChanged) {
+                  builder: (controller, onChanged, error) {
                     return TextField(
                         decoration: InputDecoration(
                           hintText: 'Senha',
@@ -101,8 +100,7 @@ class _DirectMessageWidgetState extends State<DirectMessageWidget> {
               );
             }),
         FlatButton(
-            onPressed: () =>
-                _bloc.dispatchOn<DirectMessageEvent>(DirectMessageSave()),
+            onPressed: () => _bloc.dispatchOn(KeysForm.actionSave),
             child: const Text("Salvar"))
       ])),
     ));

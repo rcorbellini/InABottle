@@ -14,7 +14,7 @@ class SessionBloc extends BaseBloc<SessionEvent> {
   }
 
   @override
-  void onEvent(SessionEvent event) {
+  Future<void> onEvent(SessionEvent event) async {
     if (event is LoggedIn) {
       _loggedin(event.user);
     } else if (event is LoggedOut) {
@@ -27,6 +27,6 @@ class SessionBloc extends BaseBloc<SessionEvent> {
   }
 
   void _loggedOut() {
-     sessionRepository.clean();
+    sessionRepository.clean();
   }
 }
