@@ -12,7 +12,7 @@ import 'package:in_a_bottle/_shared/location/location_repository.dart';
 import 'package:in_a_bottle/session/session_repository.dart';
 import 'package:meta/meta.dart';
 
-class DirectMessageBloc extends CrudBloc<KeysForm, DirectMessage>
+class DirectMessageBloc extends CrudBloc<DirectMessageForm, DirectMessage>
     with CampoObrigatorioValidator, NameValidator {
   static const String route = "/addDirectMessage";
 
@@ -26,25 +26,26 @@ class DirectMessageBloc extends CrudBloc<KeysForm, DirectMessage>
       @required this.sessionRepository,
       @required this.navigator,
       @required this.locationRepository}) {
-    addTransformOn(validateObrigatorio, key: KeysForm.text);
-    addTransformOn(validateObrigatorio, key: KeysForm.title);
-    addTransformOn(validateName, key: KeysForm.title);
+    addTransformOn(validateObrigatorio, key: DirectMessageForm.textContent);
+    addTransformOn(validateObrigatorio, key: DirectMessageForm.textTitle);
+    addTransformOn(validateName, key: DirectMessageForm.textTitle);
   }
 
   @override
   Future<DirectMessage> buildEntity() async {
-    final map = valuesToMap<KeysForm>();
+    final map = valuesToMap<DirectMessageForm>();
     final session = await sessionRepository.load();
-    final isPrivateDM = map[KeysForm.private] as bool ?? true;
-    final password = isPrivateDM ? map[KeysForm.password]?.toString() : null;
+    final isPrivateDM = map[DirectMessageForm.private] as bool ?? true;
+    final password =
+        isPrivateDM ? map[DirectMessageForm.textPassword]?.toString() : null;
     final currentPosition = await locationRepository.loadCurrentPosition();
 
     return DirectMessage(
-        text: map[KeysForm.text] as String,
-        title: map[KeysForm.title] as String,
+        text: map[DirectMessageForm.textContent] as String,
+        title: map[DirectMessageForm.textTitle] as String,
         owner: session.user,
         local: Local(
-            reach: Reach(value: map[KeysForm.reach] as double),
+            reach: Reach(value: map[DirectMessageForm.reach] as double),
             password: password,
             point: currentPosition));
   }
@@ -56,4 +57,11 @@ class DirectMessageBloc extends CrudBloc<KeysForm, DirectMessage>
   }
 }
 
-enum KeysForm { text, title, password, private, reach, actionSave }
+enum DirectMessageForm {
+  textContent,
+  textTitle,
+  textPassword,
+  private,
+  reach,
+  actionSave
+}

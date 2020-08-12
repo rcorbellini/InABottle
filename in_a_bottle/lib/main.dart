@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:in_a_bottle/_shared/injection/injector.dart';
+import 'package:in_a_bottle/_shared/localization/localization.dart';
 import 'package:in_a_bottle/_shared/route/navigator_di.dart';
 import 'package:in_a_bottle/home/home_di.dart';
 import 'package:in_a_bottle/home/widgets/home_widget.dart';
-import 'package:in_a_bottle/_shared/route/navigator.dart' as interface_navigator;
+import 'package:in_a_bottle/_shared/route/navigator.dart'
+    as interface_navigator;
 import 'package:in_a_bottle/local_message/chat/chat_di.dart';
 import 'package:in_a_bottle/local_message/message/message_di.dart';
 import 'package:in_a_bottle/local_message/talk/talk_di.dart';
@@ -13,6 +15,7 @@ import 'package:in_a_bottle/session/session_event.dart';
 import 'package:fancy_stream/fancy_stream.dart';
 import 'package:in_a_bottle/user/user_di.dart';
 import 'package:in_a_bottle/user/widget/login_widget.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 
 void main() {
   Injector().initialiseAll([
@@ -36,10 +39,19 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
+    final supportedLocale = <Locale>[const Locale('pt', 'BR')];
     final navigator = Injector().get<interface_navigator.Navigator>();
     return MaterialApp(
       title: 'In a Bottle',
       navigatorKey: navigator.navigatorKey,
+      localizationsDelegates: [
+        AppLocalizationsDelegate(supportedLocales: supportedLocale),
+        GlobalMaterialLocalizations.delegate,
+        GlobalWidgetsLocalizations.delegate,
+        GlobalCupertinoLocalizations.delegate,
+      ],
+      supportedLocales: supportedLocale,
+      localeResolutionCallback: localeResolutionCallback,
       onGenerateRoute: navigator.buildRouteFactory(),
       theme: ThemeData(
         // This is the theme of your application.
