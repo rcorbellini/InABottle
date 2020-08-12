@@ -11,7 +11,7 @@ class LoginBloc extends BaseBloc<LoginEvent> {
   LoginBloc({@required this.sessionBloc});
   
   @override
-  void onEvent(LoginEvent event) {
+  Future<void> onEvent(LoginEvent event) async{
     if (event is Logging) {
       sessionBloc.dispatchOn<SessionEvent>(LoggedIn(event.user));
     }

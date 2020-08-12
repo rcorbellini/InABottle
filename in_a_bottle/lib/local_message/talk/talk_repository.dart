@@ -4,15 +4,16 @@ import 'package:in_a_bottle/local_message/talk/talk_dto.dart';
 abstract class TalkRepository extends BaseRepository<Talk, String> {}
 
 class TalkDataRepository implements TalkRepository {
+  static final memory = [
+    Talk(title: "teste"),
+    Talk(title: "teste1"),
+    Talk(title: "teste2"),
+    Talk(title: "teste3"),
+    Talk(title: "teste4")
+  ];
   @override
   Future<List<Talk>> loadAll() async {
-    return [
-      Talk(title: "teste"),
-      Talk(title: "teste1"),
-      Talk(title: "teste2"),
-      Talk(title: "teste3"),
-      Talk(title: "teste4")
-    ];
+    return memory;
   }
 
   @override
@@ -28,9 +29,8 @@ class TalkDataRepository implements TalkRepository {
   }
 
   @override
-  Future save(Talk entity) {
-    // TODO: implement save
-    return null;
+  Future save(Talk entity) async {
+    memory.add(entity);
   }
 
   @override
