@@ -2,10 +2,27 @@ TalkForm:
   Description: "Fale um pouco sobre o que será apresentado nessa talk."
   Title: "Título da sua Talk."
   Duration: "selecione uma data"
-  Save: "salvar"
+  Reach:
+    v1: "Perto"
+    v2: "Padrão"
+    v3: "Distante"
+  Save: "Salvar"
 
 DirectMessageForm:
   Title: "Título da sua Mensagem."
   Content: "Deixe sua Mensagem aqui."
   Password: "Informe a Senha, para ter acesso a essa mensagem."
-  Save: "salvar"
+  Reach:
+    v1: "Perto"
+    v2: "Padrão"
+    v3: "Distante"
+  Save: "Salvar"
+
+ChatForm:
+  Title: "Titulo do Chat."
+  Password: "Informe a Senha, para ter acesso a esse Chat."
+  Reach:
+    v1: "Perto"
+    v2: "Padrão"
+    v3: "Distante"
+  Save: "Salvar"

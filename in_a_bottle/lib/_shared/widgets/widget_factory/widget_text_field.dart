@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:in_a_bottle/_shared/archtecture/base_bloc.dart';
 import 'package:in_a_bottle/_shared/localization/localization.dart';
 import 'package:in_a_bottle/_shared/widgets/reactive_text_builder.dart';
-import 'package:in_a_bottle/widget_utils/widget_component.dart';
-import 'package:in_a_bottle/widget_utils/widget_form_factory.dart';
+import 'package:in_a_bottle/_shared/widgets/widget_factory/widget_component.dart';
+import 'package:in_a_bottle/_shared/widgets/widget_factory/widget_form_factory.dart';
 
 class WidgetTextField<T> extends WidgetComponent<TextFieldParameter> {
   final BaseBloc bloc;

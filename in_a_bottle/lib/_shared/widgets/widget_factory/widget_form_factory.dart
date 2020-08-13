@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:in_a_bottle/_shared/archtecture/base_bloc.dart';
 import 'package:in_a_bottle/_shared/utils.dart';
-import 'package:in_a_bottle/widget_utils/widget_button.dart';
-import 'package:in_a_bottle/widget_utils/widget_date_range.dart';
-import 'package:in_a_bottle/widget_utils/widget_text_field.dart';
+import 'package:in_a_bottle/_shared/widgets/widget_factory/widget_button.dart';
+import 'package:in_a_bottle/_shared/widgets/widget_factory/widget_date_range.dart';
+import 'package:in_a_bottle/_shared/widgets/widget_factory/widget_slider.dart';
+import 'package:in_a_bottle/_shared/widgets/widget_factory/widget_switch.dart';
+import 'package:in_a_bottle/_shared/widgets/widget_factory/widget_text_field.dart';
 
 class WidgetFormFactory<T> {
   final BaseBloc bloc;
@@ -16,9 +18,6 @@ class WidgetFormFactory<T> {
         assert(context != null);
 
   Widget createdByEnum(T enumValue, {Map parameters}) {
-    print(enumToString(enumValue));
-    print(enumValue.toString());
-    print(enumValue.toYamlKey());
     if (!isEnum(enumValue)) {
       throw Exception('Only enums allowed');
     }
@@ -47,17 +46,36 @@ class WidgetFormFactory<T> {
       );
     }
 
-    return const Text("not found");
+    if (stringValue.startsWith(enumToString(EnumPrefix.bool))) {
+      return WidgetSwitch<T>(
+        bloc: bloc,
+        enumValue: enumValue,
+        parameters: parameters as Map<String, dynamic>,
+      );
+    }
+
+    if (stringValue.startsWith(enumToString(EnumPrefix.slider))) {
+      return WidgetSlider<T>(
+        bloc: bloc,
+        enumValue: enumValue,
+        parameters: parameters as Map<SliderParameter, dynamic>,
+      );
+    }
+
+    return const Text("Widget Not found :[");
   }
 }
 
 extension EnumKey on Object {
   String toYamlKey() {
     return toString()
-        .replaceFirst(enumToString(EnumPrefix.text), '')
         .replaceFirst(enumToString(EnumPrefix.action), '')
-        .replaceFirst(enumToString(EnumPrefix.dateRange), '');
+        .replaceFirst(enumToString(EnumPrefix.text), '')
+        .replaceFirst(enumToString(EnumPrefix.dateRange), '')
+        .replaceFirst(enumToString(EnumPrefix.bool), '')
+        .replaceFirst(enumToString(EnumPrefix.slider), '');
   }
 }
 
-enum EnumPrefix { action, text, dateRange }
+
+enum EnumPrefix { action, text, dateRange, bool, slider }

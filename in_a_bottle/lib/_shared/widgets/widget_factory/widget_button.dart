@@ -2,9 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:in_a_bottle/_shared/archtecture/base_bloc.dart';
 import 'package:fancy_stream/fancy_stream.dart';
 import 'package:in_a_bottle/_shared/localization/localization.dart';
-import 'package:in_a_bottle/widget_utils/widget_form_factory.dart';
+import 'package:in_a_bottle/_shared/widgets/widget_factory/widget_component.dart';
+import 'package:in_a_bottle/_shared/widgets/widget_factory/widget_form_factory.dart';
 
-class WidgetButton<T> extends StatelessWidget {
+class WidgetButton<T> extends WidgetComponent<String> {
   final BaseBloc bloc;
   final T enumValue;
   final Map<String, dynamic> parameters;

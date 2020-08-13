@@ -35,7 +35,7 @@ class DirectMessageBloc extends CrudBloc<DirectMessageForm, DirectMessage>
   Future<DirectMessage> buildEntity() async {
     final map = valuesToMap<DirectMessageForm>();
     final session = await sessionRepository.load();
-    final isPrivateDM = map[DirectMessageForm.private] as bool ?? true;
+    final isPrivateDM = map[DirectMessageForm.boolPrivate] as bool ?? true;
     final password =
         isPrivateDM ? map[DirectMessageForm.textPassword]?.toString() : null;
     final currentPosition = await locationRepository.loadCurrentPosition();
@@ -45,7 +45,7 @@ class DirectMessageBloc extends CrudBloc<DirectMessageForm, DirectMessage>
         title: map[DirectMessageForm.textTitle] as String,
         owner: session.user,
         local: Local(
-            reach: Reach(value: map[DirectMessageForm.reach] as double),
+            reach: Reach(value: map[DirectMessageForm.sliderReach] as double),
             password: password,
             point: currentPosition));
   }
@@ -61,7 +61,7 @@ enum DirectMessageForm {
   textContent,
   textTitle,
   textPassword,
-  private,
-  reach,
+  boolPrivate,
+  sliderReach,
   actionSave
 }

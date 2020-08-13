@@ -35,9 +35,7 @@ abstract class CrudBloc<T, E> extends BaseBloc<T> {
     throw UnimplementedError("Not implemented yet");
   }
 
-  Future<E> buildEntity(){
-    throw UnimplementedError("Not implemented yet");
-  }
+  Future<E> buildEntity();
   
 }
 

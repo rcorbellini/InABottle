@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:in_a_bottle/_shared/injection/injector.dart';
 import 'package:in_a_bottle/local_message/talk/talk_bloc.dart';
-import 'package:in_a_bottle/widget_utils/widget_form_factory.dart';
+import 'package:in_a_bottle/_shared/widgets/widget_factory/widget_form_factory.dart';
 
 class TalkWidget extends StatefulWidget {
   @override
