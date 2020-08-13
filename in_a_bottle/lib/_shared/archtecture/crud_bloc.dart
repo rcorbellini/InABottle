@@ -4,39 +4,43 @@ import 'package:flutter/foundation.dart';
 import 'package:in_a_bottle/_shared/archtecture/base_bloc.dart';
 import 'package:in_a_bottle/_shared/utils.dart';
 
-abstract class CrudBloc<T, E> extends BaseBloc<T> {
+abstract class CrudBloc<EVENT, ENTITY> extends BaseBloc<EVENT> {
   @override
   @mustCallSuper
-  Future<void> onEvent(T event) async{
+  Future<void> onEvent(EVENT event) async {
     if (isEnum(event)) {
       final descr = enumToString(event);
       final savedesc = enumToString(KeyActionform.actionSave);
       if (descr == savedesc) {
-        return await save(await buildEntity());
+        final entity = await buildEntity();
+        if (await validate(entity)) {
+          return await save(entity);
+        }
       } else if (descr == enumToString(KeyActionform.actionDelete)) {
         return delete();
       } else if (descr == enumToString(KeyActionform.actionLoadAll)) {
         return loadAll();
-      }
+      }     
     }
-
-    throw UnimplementedError("Only enum KeyActionform actions alowed");
   }
 
-  FutureOr<void> save(E entity){
+  FutureOr<void> save(ENTITY entity) {
     throw UnimplementedError("Not implemented yet");
   }
 
-  FutureOr<void> loadAll(){
+  FutureOr<void> loadAll() {
     throw UnimplementedError("Not implemented yet");
   }
 
-  FutureOr<void> delete(){
+  FutureOr<void> delete() {
     throw UnimplementedError("Not implemented yet");
   }
 
-  Future<E> buildEntity();
-  
+  Future<ENTITY> buildEntity();
+
+  FutureOr<bool> validate(ENTITY entity) {
+    return true;
+  }
 }
 
 enum KeyActionform { actionSave, actionDelete, actionLoadAll }

@@ -8,7 +8,6 @@ class DirectMessage implements HomeFeed {
   final User owner;
   final Local local;
 
-  DirectMessage({this.text, this.title, this.owner, this.local});
-
-
+  DirectMessage(
+      {this.text, this.title, this.owner, this.local, });
 }
