@@ -7,7 +7,8 @@ class Chat implements HomeFeed{
   final Local local;
   final List<User> admin;
   final String title;  
+  final User createdBy;
   final List<MessageChat> messageChat;
 
-  Chat({this.local, this.admin, this.title, this.messageChat});
+  Chat({this.local, this.admin, this.title, this.messageChat, this.createdBy});
 }
