@@ -30,7 +30,6 @@ class SailorRoutes {
         return TalkWidget();
       },
     ));
-
     sailor.addRoute(SailorRoute(
       name: ChatBloc.route,
       builder: (context, args, params) {
