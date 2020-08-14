@@ -1,3 +1,4 @@
+import 'package:in_a_bottle/local_message/local/local_dto.dart';
 import 'package:in_a_bottle/local_message/talk/message_talk_dto.dart';
 import 'package:in_a_bottle/local_message/talk/talk_category_dto.dart';
 
@@ -11,6 +12,7 @@ class Talk {
   final TalkCategory mainCategory;
   final List<TalkCategory> categories;
   final int usersCount;
+  final Local local;
 
   Talk(
       {this.title,
@@ -21,5 +23,6 @@ class Talk {
       this.close,
       this.usersCount,
       this.categories,
-      this.mainCategory});
+      this.mainCategory,
+      this.local});
 }

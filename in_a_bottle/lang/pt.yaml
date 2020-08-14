@@ -1,12 +1,22 @@
 TalkForm:
   Description: "Fale um pouco sobre o que será apresentado nessa talk."
   Title: "Título da sua Talk."
+  Password: "Informe a Senha"
   Duration: "selecione uma data"
   Reach:
     v1: "Perto"
     v2: "Padrão"
     v3: "Distante"
   Save: "Salvar"
+
+TalkError:
+  title: "Atenção"
+  emptyTitle: "O 'Título' não pode ficar em branco."
+  emptyDescription: "A 'Descrição' da talk não pode ficar em branco."
+  emptyPassword: "É preciso definir uma 'Senha'."
+  emptyDateRange: "É preciso definir uma duração para a Talk."
+
+
 
 DirectMessageForm:
   Title: "Título da sua Mensagem."
@@ -18,6 +28,13 @@ DirectMessageForm:
     v3: "Distante"
   Save: "Salvar"
 
+DirectMessageError:
+  title: "Atenção"
+  emptyTitle: "O 'Título' não pode ficar em branco."
+  emptyContent: "A 'Mensagem' não pode ser vazia. "
+  emptyPassword: "É preciso definir uma 'Senha'."
+
+
 ChatForm:
   Title: "Titulo do Chat."
   Password: "Informe a Senha, para ter acesso a esse Chat."
@@ -26,3 +43,10 @@ ChatForm:
     v2: "Padrão"
     v3: "Distante"
   Save: "Salvar"
+ChatError:
+  emptyPassword: "É preciso definir uma 'Senha'."
+  emptyTitle: "O 'Título' não pode ficar em branco."
+
+
+Shared:
+  errorTitle: "Atenção"

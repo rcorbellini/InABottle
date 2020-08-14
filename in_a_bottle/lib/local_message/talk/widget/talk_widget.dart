@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:in_a_bottle/_shared/injection/injector.dart';
+import 'package:in_a_bottle/_shared/widgets/crud_widget.dart';
+import 'package:in_a_bottle/_shared/widgets/widget_factory/widget_text_field.dart';
 import 'package:in_a_bottle/local_message/talk/talk_bloc.dart';
-import 'package:in_a_bottle/_shared/widgets/widget_factory/widget_form_factory.dart';
+import 'package:fancy_stream/fancy_stream.dart';
 
 class TalkWidget extends StatefulWidget {
   @override
@@ -9,31 +10,33 @@ class TalkWidget extends StatefulWidget {
 }
 
 class _TalkWidgetState extends State<TalkWidget> {
-  TalkBloc _bloc;
-  WidgetFormFactory _factory;
-  @override
-  void initState() {
-    _bloc = Injector().get();
-    _factory = WidgetFormFactory<TalkForm>(bloc: _bloc, context: context);
-    super.initState();
-  }
-
-  @override
-  void dispose() {
-    _bloc.dispose();
-    super.dispose();
-  }
-
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-        body: Container(
+    return CrudWidget<TalkForm, TalkError, TalkBloc>(
+      builder: (_bloc, _factory) {
+        return Container(
             child: SingleChildScrollView(
                 child: Column(children: [
-      _factory.createdByEnum(TalkForm.textTitle),
-      _factory.createdByEnum(TalkForm.textDescription),
-      _factory.createdByEnum(TalkForm.dateRangeDuration),
-      _factory.createdByEnum(TalkForm.actionSave),
-    ]))));
+          _factory.build(TalkForm.textTitle),
+          _factory.build(TalkForm.textDescription),
+          _factory.build(TalkForm.dateRangeDuration),
+          _factory.build(TalkForm.boolPrivate),
+          StreamBuilder<bool>(
+              stream: _bloc.streamOf(key: TalkForm.boolPrivate),
+              builder: (date, snapshot) {
+                final _switcherState = snapshot.data ?? false;
+
+                return Visibility(
+                    visible: _switcherState,
+                    child: _factory.build(TalkForm.textPassword,
+                        parameters: <TextFieldParameter, dynamic>{
+                          TextFieldParameter.obscureText: true
+                        }));
+              }),
+          _factory.build(TalkForm.sliderReach),
+          _factory.build(TalkForm.actionSave),
+        ])));
+      },
+    );
   }
 }

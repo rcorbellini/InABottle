@@ -8,14 +8,13 @@ import 'package:in_a_bottle/_shared/widgets/widget_factory/widget_form_factory.d
 class WidgetButton<T> extends WidgetComponent<String> {
   final BaseBloc bloc;
   final T enumValue;
-  final Map<String, dynamic> parameters;
 
   const WidgetButton(
       {@required this.bloc,
       @required this.enumValue,
       Key key,
-      this.parameters = const <String, dynamic>{}})
-      : super(key: key);
+      Map<String, dynamic> parameters})
+      : super(key: key, parameters: parameters);
 
   @override
   Widget build(BuildContext context) {

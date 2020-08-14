@@ -30,7 +30,7 @@ class ChatBloc extends CrudBloc<ChatForm, Chat> {
   Future<Chat> buildEntity() async {
     final map = valuesToMap<ChatForm>();
     final session = await sessionRepository.load();
-    final isPrivateDM = map[ChatForm.boolPrivate] as bool ?? true;
+    final isPrivateDM = map[ChatForm.boolPrivate] as bool ?? false;
     final password =
         isPrivateDM ? map[ChatForm.textPassword]?.toString() : null;
     final currentPosition = await locationRepository.loadCurrentPosition();
@@ -41,6 +41,7 @@ class ChatBloc extends CrudBloc<ChatForm, Chat> {
         local: Local(
             reach: Reach(value: map[ChatForm.sliderReach] as double),
             password: password,
+            isPrivateDM: isPrivateDM,
             point: currentPosition),
         title: map[ChatForm.textTitle] as String);
   }
@@ -50,6 +51,33 @@ class ChatBloc extends CrudBloc<ChatForm, Chat> {
     await chatRepository.save(entity);
     navigator.pop();
   }
+
+  @override
+  Future<bool> validate(Chat entity) async {
+    final errors = <ChatError>[];
+    if ((entity.title?.trim() ?? "").isEmpty) {
+      errors.add(ChatError.emptyTitle);
+    }
+
+    if ((entity.local?.isPrivateDM ?? false) &&
+        (entity.local?.password?.trim() ?? "").isEmpty) {
+      errors.add(ChatError.emptyPassword);
+    }
+
+    dispatchOn<List<ChatError>>(errors);
+    return errors.isEmpty;
+  }
 }
 
-enum ChatForm { textTitle, boolPrivate, textPassword, sliderReach, actionSave }
+enum ChatForm {
+  textTitle,
+  boolPrivate,
+  textPassword,
+  sliderReach,
+  actionSave,
+}
+
+enum ChatError {
+  emptyPassword,
+  emptyTitle,
+}
