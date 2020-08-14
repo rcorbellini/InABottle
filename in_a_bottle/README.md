@@ -1,4 +1,4 @@
-# geochat
+# inABottle
 
 A new Flutter project.
 
