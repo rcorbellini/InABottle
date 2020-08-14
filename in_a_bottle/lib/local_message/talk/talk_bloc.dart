@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:in_a_bottle/_shared/archtecture/crud_bloc.dart';
+import 'package:in_a_bottle/_shared/location/location_repository.dart';
 import 'package:in_a_bottle/_shared/route/navigator.dart' as nav;
+import 'package:in_a_bottle/local_message/local/local_dto.dart';
 import 'package:in_a_bottle/local_message/talk/talk_dto.dart';
 import 'package:in_a_bottle/local_message/talk/talk_repository.dart';
 import 'package:meta/meta.dart';
@@ -8,18 +10,27 @@ import 'package:fancy_stream/fancy_stream.dart';
 
 class TalkBloc extends CrudBloc<TalkForm, Talk> {
   final TalkRepository talkRepository;
+  final LocationRepository locationRepository;
   final nav.Navigator navigator;
 
   static const String route = "/addTalk";
 
-  TalkBloc({@required this.talkRepository, @required this.navigator})
+  TalkBloc(
+      {@required this.talkRepository,
+      @required this.navigator,
+      @required this.locationRepository})
       : assert(talkRepository != null),
-        assert(navigator != null);
+        assert(navigator != null),
+        assert(locationRepository != null);
 
   @override
   Future<Talk> buildEntity() async {
     final map = valuesToMap<TalkForm>();
     final dateRange = map[TalkForm.dateRangeDuration] as DateTimeRange;
+    final isPrivateDM = map[TalkForm.boolPrivate] as bool ?? false;
+    final password =
+        isPrivateDM ? map[TalkForm.textPassword]?.toString() : null;
+    final currentPosition = await locationRepository.loadCurrentPosition();
     final startDate = dateRange?.start;
     final endDate = dateRange?.end;
 
@@ -27,6 +38,11 @@ class TalkBloc extends CrudBloc<TalkForm, Talk> {
         title: map[TalkForm.textDescription] as String,
         descrition: map[TalkForm.textDescription] as String,
         startDate: startDate,
+        local: Local(
+            isPrivateDM: isPrivateDM,
+            reach: Reach(value: map[TalkForm.sliderReach] as double),
+            password: password,
+            point: currentPosition),
         endDate: endDate);
   }
 
@@ -50,7 +66,7 @@ class TalkBloc extends CrudBloc<TalkForm, Talk> {
       errors.add(TalkError.emptyDateRange);
     }
 
-    dispatchOn<List<TalkError>>(errors, key: TalkForm.errorMessages);
+    dispatchOn<List<TalkError>>(errors);
     return errors.isEmpty;
   }
 
@@ -68,12 +84,10 @@ enum TalkForm {
   actionSave,
   boolPrivate,
   textPassword,
-  sliderReach,
-  errorMessages
+  sliderReach
 }
 
 enum TalkError {
-  title,
   emptyPassword,
   emptyTitle,
   emptyDescription,

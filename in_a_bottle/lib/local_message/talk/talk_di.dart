@@ -9,7 +9,9 @@ class TalkDi extends InjectorModule {
     injector.register<TalkRepository, TalkDataRepository>(
         (i) => TalkDataRepository());
 
-    injector
-        .register((i) => TalkBloc(talkRepository: i.get(), navigator: i.get()));
+    injector.register((i) => TalkBloc(
+        talkRepository: i.get(),
+        navigator: i.get(),
+        locationRepository: i.get()));
   }
 }

@@ -17,7 +17,7 @@ class WidgetFormFactory<T> {
   })  : assert(bloc != null),
         assert(context != null);
 
-  Widget createdByEnum(T enumValue, {Map parameters}) {
+  Widget build(T enumValue, {Map parameters}) {
     if (!isEnum(enumValue)) {
       throw Exception('Only enums allowed');
     }

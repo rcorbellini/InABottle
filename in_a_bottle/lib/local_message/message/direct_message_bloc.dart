@@ -43,7 +43,7 @@ class DirectMessageBloc extends CrudBloc<DirectMessageForm, DirectMessage>
         title: map[DirectMessageForm.textTitle] as String,
         owner: session.user,
         local: Local(
-        isPrivateDM: isPrivateDM,
+            isPrivateDM: isPrivateDM,
             reach: Reach(value: map[DirectMessageForm.sliderReach] as double),
             password: password,
             point: currentPosition));
@@ -65,8 +65,7 @@ class DirectMessageBloc extends CrudBloc<DirectMessageForm, DirectMessage>
       errors.add(DirectMessageError.emptyPassword);
     }
 
-    dispatchOn<List<DirectMessageError>>(errors,
-        key: DirectMessageForm.errorMessages);
+    dispatchOn<List<DirectMessageError>>(errors);
     return errors.isEmpty;
   }
 
@@ -83,12 +82,10 @@ enum DirectMessageForm {
   textPassword,
   boolPrivate,
   sliderReach,
-  actionSave,
-  errorMessages
+  actionSave
 }
 
 enum DirectMessageError {
-  title,
   emptyTitle,
   emptyContent,
   emptyPassword,
