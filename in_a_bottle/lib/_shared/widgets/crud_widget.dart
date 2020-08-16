@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:in_a_bottle/_shared/archtecture/base_bloc.dart';
 import 'package:in_a_bottle/_shared/injection/injector.dart';
@@ -10,7 +9,9 @@ import 'package:fancy_stream/fancy_stream.dart';
 class CrudWidget<FORM, ERROR, BLOC extends BaseBloc<FORM>>
     extends StatefulWidget {
   final CrudBuilder builder;
-  const CrudWidget({Key key, this.builder}) : super(key: key);
+  final Initilizer initlizer;
+
+  const CrudWidget({Key key, this.builder, this.initlizer}) : super(key: key);
   @override
   _CrudWidgetState<FORM, ERROR, BLOC> createState() => _CrudWidgetState();
 }
@@ -27,6 +28,7 @@ class _CrudWidgetState<FORM, ERROR, BLOC extends BaseBloc<FORM>>
     _bloc.listenOn<List<ERROR>>(_onError);
     _messageHandler = Injector().get();
     _factory = WidgetFormFactory<FORM>(bloc: _bloc, context: context);
+    widget.initlizer?.call(_bloc, _factory);
     super.initState();
   }
 
@@ -49,4 +51,7 @@ class _CrudWidgetState<FORM, ERROR, BLOC extends BaseBloc<FORM>>
 }
 
 typedef CrudBuilder = Widget Function(
+    BaseBloc bloc, WidgetFormFactory wfactory);
+
+typedef Initilizer = void Function(
     BaseBloc bloc, WidgetFormFactory wfactory);

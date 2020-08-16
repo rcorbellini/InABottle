@@ -47,6 +47,14 @@ ChatError:
   emptyPassword: "É preciso definir uma 'Senha'."
   emptyTitle: "O 'Título' não pode ficar em branco."
 
+LockForm:
+  Password: "Informe a Senha, para ter acesso a esse Chat."
+  Save: "Validar"    
+LockErro:
+  emptyPassword: "É preciso informar uma 'Senha'."
+  wrongPassword: "'Senha' não confere."
+  internalErro: "Favor carregar novamente"
+
 
 Shared:
   errorTitle: "Atenção"

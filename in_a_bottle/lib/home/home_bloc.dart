@@ -30,7 +30,7 @@ class HomeBloc extends Disposable {
     listenOn<HomeEvent>(_handleEvents);
     dispatchOn<HomeEvent>(LoadTalks());
     dispatchOn<HomeEvent>(LoadFeed());
-    
+
     sessionRepository.load().then(dispatchOn);
   }
 
@@ -40,7 +40,7 @@ class HomeBloc extends Disposable {
     } else if (homeEvent is LoadFeed) {
       loadAllFeed();
     } else if (homeEvent is GoToRoute) {
-      navigator.navigateTo<void>(homeEvent.route);
+      navigator.navigateTo<void>(homeEvent.route, params: homeEvent.params);
     }
   }
 
