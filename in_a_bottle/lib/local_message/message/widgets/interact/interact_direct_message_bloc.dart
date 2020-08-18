@@ -1,27 +1,27 @@
 import 'package:fancy_stream/fancy_stream.dart';
+import 'package:in_a_bottle/local_message/message/message_repository.dart';
+import 'package:in_a_bottle/local_message/message/widgets/interact/interact_direct_message_event.dart';
 import 'package:meta/meta.dart';
 
 import 'package:in_a_bottle/_shared/archtecture/base_bloc.dart';
-import 'package:in_a_bottle/local_message/chat/chat_repository.dart';
-import 'package:in_a_bottle/local_message/chat/interact/interact_event.dart';
 
-class InteractChatBloc extends BaseBloc<InteractEvent> {
-  static const String route = '/interactChat';
-  final ChatRepository chatRepository;
+class InteractDirectMessageBloc extends BaseBloc<InteractEventDirectMessage> {
+  static const String route = '/interactDirectMessage';
+  final MessageRepository messageRepository;
 
-  InteractChatBloc({
-    @required this.chatRepository,
+  InteractDirectMessageBloc({
+    @required this.messageRepository,
   });
 
   @override
-  Future<void> onEvent(InteractEvent event) {
-    if (event is InteractLoadChat) {
-      _loadBySelector(event.selector);
+  Future<void> onEvent(InteractEventDirectMessage event) async {
+    if (event is InteractLoadDirectMessage) {
+      await _loadBySelector(event.selector);
     }
   }
 
-  Future<void> _loadBySelector(String selector) async{
-      final chat = await chatRepository.loadByKey(selector);
-      dispatchOn(chat);
+  Future<void> _loadBySelector(String selector) async {
+    final entity = await messageRepository.loadByKey(selector);
+    dispatchOn(entity);
   }
 }

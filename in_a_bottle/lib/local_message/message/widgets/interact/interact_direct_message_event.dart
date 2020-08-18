@@ -1,10 +1,10 @@
-abstract class InteractEvent{
+abstract class InteractDirectMessageEvent{
 
 }
 
-class InteractLoadChat extends InteractEvent{
+class LoadDirectMessage extends InteractDirectMessageEvent{
     final String selector;
 
-  InteractLoadChat(this.selector);
+  LoadDirectMessage(this.selector);
 
 }

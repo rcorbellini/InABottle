@@ -1,26 +1,28 @@
 import 'package:flutter/material.dart';
 import 'package:in_a_bottle/_shared/injection/injector.dart';
 import 'package:in_a_bottle/common/widget/locked/lock_widget.dart';
-import 'package:in_a_bottle/local_message/chat/chat.dart';
-import 'package:in_a_bottle/local_message/chat/interact/interact_chat_bloc.dart';
 import 'package:fancy_stream/fancy_stream.dart';
-import 'package:in_a_bottle/local_message/chat/interact/interact_event.dart';
-import 'package:in_a_bottle/local_message/local/local_dto.dart';
+import 'package:in_a_bottle/local_message/message/direct_message_dto.dart';
+import 'package:in_a_bottle/local_message/message/widgets/interact/interact_direct_message_bloc.dart';
+import 'package:in_a_bottle/local_message/message/widgets/interact/interact_direct_message_event.dart';
 
-class InteractChatWidget extends StatefulWidget {
+class InteractDirectMessageWidget extends StatefulWidget {
   final String selector;
 
-  const InteractChatWidget({Key key, this.selector}) : super(key: key);
+  const InteractDirectMessageWidget({Key key, this.selector}) : super(key: key);
   @override
-  _InteractChatWidgetState createState() => _InteractChatWidgetState();
+  _InteractDirectMessageWidgetState createState() =>
+      _InteractDirectMessageWidgetState();
 }
 
-class _InteractChatWidgetState extends State<InteractChatWidget> {
-  InteractChatBloc _bloc;
+class _InteractDirectMessageWidgetState
+    extends State<InteractDirectMessageWidget> {
+  InteractDirectMessageBloc _bloc;
   @override
   void initState() {
     _bloc = Injector().get();
-    _bloc.dispatchOn<InteractEvent>(InteractLoadChat(widget.selector));
+    _bloc.dispatchOn<InteractEventDirectMessage>(
+        InteractLoadDirectMessage(widget.selector));
     super.initState();
   }
 
@@ -34,7 +36,7 @@ class _InteractChatWidgetState extends State<InteractChatWidget> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Container(
-          child: StreamBuilder<Chat>(
+          child: StreamBuilder<DirectMessage>(
               stream: _bloc.streamOf(),
               builder: (context, snpashot) {
                 return LockWidget(
