@@ -3,7 +3,7 @@ import 'package:in_a_bottle/_shared/archtecture/base_bloc.dart';
 import 'package:fancy_stream/fancy_stream.dart';
 import 'package:in_a_bottle/_shared/localization/localization.dart';
 import 'package:in_a_bottle/_shared/widgets/widget_factory/widget_component.dart';
-import 'package:in_a_bottle/_shared/widgets/widget_factory/widget_form_factory.dart';
+import 'package:in_a_bottle/_shared/widgets/widget_factory/form_factory.dart';
 
 class WidgetDateRange<T> extends WidgetComponent<DateRangeParameter> {
   final T enumValue;

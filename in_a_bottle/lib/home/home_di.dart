@@ -6,7 +6,7 @@ class HomeDi implements InjectorModule {
   @override
   void initialise(Injector injector) {
     injector.register((i) => HomeBloc(
-        talkRepository: i.get(),
+        talkRepository: i.get(), 
         chatRepository: i.get(),
         messageRepository: i.get(),
         sessionRepository: i.get(),

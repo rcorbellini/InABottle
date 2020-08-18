@@ -4,6 +4,7 @@ import 'package:in_a_bottle/local_message/local/local_dto.dart';
 import 'package:in_a_bottle/user/user_dto.dart';
 
 class Chat extends HomeFeed {
+  final String selector;
   final Local local;
   final List<User> admin;
   final String title;
@@ -11,7 +12,8 @@ class Chat extends HomeFeed {
   final List<MessageChat> messageChat;
 
   Chat(
-      {this.local,
+      {this.selector,
+      this.local,
       this.admin,
       this.title,
       this.messageChat,

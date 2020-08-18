@@ -7,11 +7,11 @@ import 'package:in_a_bottle/_shared/widgets/widget_factory/widget_slider.dart';
 import 'package:in_a_bottle/_shared/widgets/widget_factory/widget_switch.dart';
 import 'package:in_a_bottle/_shared/widgets/widget_factory/widget_text_field.dart';
 
-class WidgetFormFactory<T> {
+class FormFactory<T> {
   final BaseBloc bloc;
   final BuildContext context;
 
-  WidgetFormFactory({
+  FormFactory({
     @required this.bloc,
     @required this.context,
   })  : assert(bloc != null),

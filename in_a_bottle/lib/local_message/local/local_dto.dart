@@ -8,16 +8,18 @@ class Local extends Equatable {
   final Point point;
   final String password;
   final Reach reach;
-  final bool isLocked;
+  final bool _isLocked;
   final bool isPrivateDM;
 
   const Local({
     this.point,
     this.password,
     this.reach,
-    this.isLocked = true,
-    this.isPrivateDM,
-  });
+    bool isLocked = true,
+    this.isPrivateDM = false,
+  }) : _isLocked = isLocked;
+
+  bool get isLocked => isPrivateDM && _isLocked;
 
   Local copyWith({
     Point point,

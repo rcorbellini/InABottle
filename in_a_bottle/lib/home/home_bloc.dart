@@ -49,6 +49,11 @@ class HomeBloc extends Disposable {
   }
 
   Future<void> loadAllFeed() async {
-    dispatchOn<List<HomeFeed>>(await messageRepository.loadAll());
+    final List<HomeFeed> feedList = [];  
+    final List<HomeFeed> t = await chatRepository.loadAll();
+    final List<HomeFeed> t2 = await messageRepository.loadAll();
+    feedList.addAll(t);
+    feedList.addAll(t2);
+    dispatchOn<List<HomeFeed>>(feedList);
   }
 }

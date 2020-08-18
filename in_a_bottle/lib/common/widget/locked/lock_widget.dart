@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:in_a_bottle/_shared/widgets/crud_widget.dart';
-import 'package:in_a_bottle/_shared/widgets/widget_factory/widget_form_factory.dart';
+import 'package:in_a_bottle/_shared/widgets/widget_factory/crud_widget.dart';
+import 'package:in_a_bottle/_shared/widgets/widget_factory/form_factory.dart';
 import 'package:in_a_bottle/_shared/widgets/widget_factory/widget_text_field.dart';
 import 'package:in_a_bottle/common/widget/locked/lock_bloc.dart';
 import 'package:in_a_bottle/local_message/local/local_dto.dart';
@@ -45,7 +45,7 @@ class _LockWidgetState extends State<LockWidget> {
     );
   }
 
-  Widget _buildLock(WidgetFormFactory formFactory) {
+  Widget _buildLock(FormFactory formFactory) {
     return Container(
       child: Column(
         children: [

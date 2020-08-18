@@ -6,13 +6,14 @@ import 'package:in_a_bottle/local_message/local/local_dto.dart';
 abstract class ChatRepository implements BaseRepository<Chat, String> {}
 
 class ChatDataRepository extends ChatRepository {
-  final memory = <Chat>[
+  static final memory = <Chat>[
     Chat(
         title: "teste password",
-        local: Local(
+        local: Local( 
             point: Point(latitude: 10, longitude: 10),
             password: "123",
-            isLocked: true,
+            isPrivateDM: true,
+            isLocked: true, 
             reach: Reach(value: 1)))
   ];
   @override
@@ -22,9 +23,8 @@ class ChatDataRepository extends ChatRepository {
   }
 
   @override
-  Future<List<Chat>> loadAll() {
-    // TODO: implement loadAll
-    return null;
+  Future<List<Chat>> loadAll() async{
+    return memory;
   }
 
   @override

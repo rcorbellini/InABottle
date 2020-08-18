@@ -3,7 +3,7 @@ import 'package:in_a_bottle/_shared/archtecture/base_bloc.dart';
 import 'package:in_a_bottle/_shared/injection/injector.dart';
 import 'package:in_a_bottle/_shared/localization/localization.dart';
 import 'package:in_a_bottle/_shared/widgets/message_handler.dart';
-import 'package:in_a_bottle/_shared/widgets/widget_factory/widget_form_factory.dart';
+import 'package:in_a_bottle/_shared/widgets/widget_factory/form_factory.dart';
 import 'package:fancy_stream/fancy_stream.dart';
 
 class CrudWidget<FORM, ERROR, BLOC extends BaseBloc<FORM>>
@@ -19,7 +19,7 @@ class CrudWidget<FORM, ERROR, BLOC extends BaseBloc<FORM>>
 class _CrudWidgetState<FORM, ERROR, BLOC extends BaseBloc<FORM>>
     extends State<CrudWidget> {
   BLOC _bloc;
-  WidgetFormFactory _factory;
+  FormFactory _factory;
   MessageHandler _messageHandler;
 
   @override
@@ -27,7 +27,7 @@ class _CrudWidgetState<FORM, ERROR, BLOC extends BaseBloc<FORM>>
     _bloc = Injector().get();
     _bloc.listenOn<List<ERROR>>(_onError);
     _messageHandler = Injector().get();
-    _factory = WidgetFormFactory<FORM>(bloc: _bloc, context: context);
+    _factory = FormFactory<FORM>(bloc: _bloc, context: context);
     widget.initlizer?.call(_bloc, _factory);
     super.initState();
   }
@@ -51,7 +51,7 @@ class _CrudWidgetState<FORM, ERROR, BLOC extends BaseBloc<FORM>>
 }
 
 typedef CrudBuilder = Widget Function(
-    BaseBloc bloc, WidgetFormFactory wfactory);
+    BaseBloc bloc, FormFactory wfactory);
 
 typedef Initilizer = void Function(
-    BaseBloc bloc, WidgetFormFactory wfactory);
+    BaseBloc bloc, FormFactory wfactory);
