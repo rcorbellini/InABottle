@@ -73,9 +73,11 @@ extension EnumKey on Object {
         .replaceFirst(enumToString(EnumPrefix.text), '')
         .replaceFirst(enumToString(EnumPrefix.dateRange), '')
         .replaceFirst(enumToString(EnumPrefix.bool), '')
-        .replaceFirst(enumToString(EnumPrefix.slider), '');
+        .replaceFirst(enumToString(EnumPrefix.slider), '')
+        .split(".")
+        .map((e) => e[0].toLowerCase() + e.substring(1))
+        .join(".");
   }
 }
-
 
 enum EnumPrefix { action, text, dateRange, bool, slider }

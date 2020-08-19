@@ -1,10 +1,10 @@
 import 'package:in_a_bottle/_shared/route/sailor_navigator.dart';
 import 'package:in_a_bottle/home/home_bloc.dart';
 import 'package:in_a_bottle/home/widgets/home_widget.dart';
-import 'package:in_a_bottle/local_message/chat/create/create_chat_bloc.dart';
-import 'package:in_a_bottle/local_message/chat/create/create_chat_widget.dart';
-import 'package:in_a_bottle/local_message/chat/interact/interact_chat_bloc.dart';
-import 'package:in_a_bottle/local_message/chat/interact/interact_chat_widget.dart';
+import 'package:in_a_bottle/local_message/hub/create/create_chat_bloc.dart';
+import 'package:in_a_bottle/local_message/hub/create/create_chat_widget.dart';
+import 'package:in_a_bottle/local_message/hub/interact/interact_chat_bloc.dart';
+import 'package:in_a_bottle/local_message/hub/interact/interact_chat_widget.dart';
 import 'package:in_a_bottle/local_message/message/widgets/create/direct_message_bloc.dart';
 import 'package:in_a_bottle/local_message/message/widgets/create/direct_message_widget.dart';
 import 'package:in_a_bottle/local_message/talk/widget/create/talk_bloc.dart';

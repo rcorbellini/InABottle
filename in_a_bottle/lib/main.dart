@@ -6,7 +6,7 @@ import 'package:in_a_bottle/home/home_di.dart';
 import 'package:in_a_bottle/home/widgets/home_widget.dart';
 import 'package:in_a_bottle/_shared/route/navigator.dart'
     as interface_navigator;
-import 'package:in_a_bottle/local_message/chat/chat_di.dart';
+import 'package:in_a_bottle/local_message/hub/chat_di.dart';
 import 'package:in_a_bottle/local_message/message/message_di.dart';
 import 'package:in_a_bottle/local_message/talk/talk_di.dart';
 import 'package:in_a_bottle/session/session_bloc.dart';

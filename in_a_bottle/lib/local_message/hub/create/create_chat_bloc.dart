@@ -1,8 +1,8 @@
 import 'package:in_a_bottle/_shared/archtecture/crud_bloc.dart';
 import 'package:in_a_bottle/_shared/location/location_repository.dart';
 import 'package:in_a_bottle/_shared/route/navigator.dart';
-import 'package:in_a_bottle/local_message/chat/chat.dart';
-import 'package:in_a_bottle/local_message/chat/chat_repository.dart';
+import 'package:in_a_bottle/local_message/hub/chat.dart';
+import 'package:in_a_bottle/local_message/hub/chat_repository.dart';
 import 'package:in_a_bottle/local_message/local/local_dto.dart';
 import 'package:in_a_bottle/session/session_repository.dart';
 import 'package:meta/meta.dart';

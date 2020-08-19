@@ -1,15 +1,15 @@
-TalkForm:
-  Description: "Fale um pouco sobre o que será apresentado nessa talk."
-  Title: "Título da sua Talk."
-  Password: "Informe a Senha"
-  Duration: "selecione uma data"
-  Reach:
+talkForm:
+  description: "Fale um pouco sobre o que será apresentado nessa talk."
+  title: "Título da sua Talk."
+  password: "Informe a Senha"
+  duration: "selecione uma data"
+  reach:
     v1: "Perto"
     v2: "Padrão"
     v3: "Distante"
-  Save: "Salvar"
+  save: "Salvar"
 
-TalkError:
+talkError:
   title: "Atenção"
   emptyTitle: "O 'Título' não pode ficar em branco."
   emptyDescription: "A 'Descrição' da talk não pode ficar em branco."
@@ -18,43 +18,48 @@ TalkError:
 
 
 
-DirectMessageForm:
-  Title: "Título da sua Mensagem."
-  Content: "Deixe sua Mensagem aqui."
-  Password: "Informe a Senha, para ter acesso a essa mensagem."
-  Reach:
+directMessageForm:
+  title: "Título da sua Mensagem."
+  content: "Deixe sua Mensagem aqui."
+  password: "Informe a Senha, para ter acesso a essa mensagem."
+  reach:
     v1: "Perto"
     v2: "Padrão"
     v3: "Distante"
-  Save: "Salvar"
+  save: "Salvar"
 
-DirectMessageError:
+directMessageError:
   title: "Atenção"
   emptyTitle: "O 'Título' não pode ficar em branco."
   emptyContent: "A 'Mensagem' não pode ser vazia. "
   emptyPassword: "É preciso definir uma 'Senha'."
 
 
-ChatForm:
-  Title: "Titulo do Chat."
-  Password: "Informe a Senha, para ter acesso a esse Chat."
-  Reach:
+chatForm:
+  title: "Titulo do Chat."
+  password: "Informe a Senha, para ter acesso a esse Chat."
+  reach:
     v1: "Perto"
     v2: "Padrão"
     v3: "Distante"
-  Save: "Salvar"
-ChatError:
+  save: "Salvar"
+chatError:
   emptyPassword: "É preciso definir uma 'Senha'."
   emptyTitle: "O 'Título' não pode ficar em branco."
 
-LockForm:
-  Password: "Informe a Senha, para ter acesso a esse Chat."
-  Save: "Validar"    
-LockErro:
+hubMessageForm:
+  send: "Enviar"
+  message: "Digite sua mensagem"
+
+
+lockForm:
+  password: "Informe a Senha, para ter acesso a esse Chat."
+  save: "Validar"    
+lockErro:
   emptyPassword: "É preciso informar uma 'Senha'."
   wrongPassword: "'Senha' não confere."
   internalErro: "Favor carregar novamente"
 
 
-Shared:
+shared:
   errorTitle: "Atenção"

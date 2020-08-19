@@ -5,7 +5,7 @@ import 'package:in_a_bottle/home/home_event.dart';
 import 'package:in_a_bottle/home/widgets/home_feed_list_widget.dart';
 import 'package:in_a_bottle/home/widgets/home_talk_list_widget.dart';
 import 'package:fancy_stream/fancy_stream.dart';
-import 'package:in_a_bottle/local_message/chat/create/create_chat_bloc.dart';
+import 'package:in_a_bottle/local_message/hub/create/create_chat_bloc.dart';
 import 'package:in_a_bottle/local_message/message/widgets/create/direct_message_bloc.dart';
 import 'package:in_a_bottle/local_message/talk/widget/create/talk_bloc.dart';
 import 'package:in_a_bottle/session/session_dto.dart';
