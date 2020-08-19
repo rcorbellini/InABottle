@@ -1,5 +1,5 @@
 import 'package:in_a_bottle/home/home_feed.dart';
-import 'package:in_a_bottle/local_message/chat/message_chat.dart';
+import 'package:in_a_bottle/local_message/hub/message_chat.dart';
 import 'package:in_a_bottle/local_message/local/local_dto.dart';
 import 'package:in_a_bottle/user/user_dto.dart';
 

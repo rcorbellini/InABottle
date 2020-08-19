@@ -11,11 +11,15 @@ abstract class MessageHandler {
 class FlushMessageHandler implements MessageHandler {
   @override
   void showError({List<Object> errors, String title, BuildContext context}) {
-    if(errors.isEmpty){
+    if (errors.isEmpty) {
       return;
     }
     final msgErro = errors
-        .map((e) => AppLocalizations.of(context).translate(e.toString()))
+        .map((e) => AppLocalizations.of(context).translate(e
+            .toString()
+            .split(".")
+            .map((e) => e[0].toLowerCase() + e.substring(1))
+            .join(".")))
         .toList()
         .join("\n\u{1F784} ");
 

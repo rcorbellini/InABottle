@@ -44,7 +44,7 @@ class _CrudWidgetState<FORM, ERROR, BLOC extends BaseBloc<FORM>>
   }
 
   void _onError(List<ERROR> errors) {
-    final title = AppLocalizations.of(context).translate("Shared.errorTitle");
+    final title = AppLocalizations.of(context).translate("shared.errorTitle");
 
     _messageHandler.showError(errors: errors, title: title, context: context);
   }

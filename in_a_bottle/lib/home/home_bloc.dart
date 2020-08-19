@@ -4,7 +4,7 @@ import 'package:fancy_stream/fancy_stream.dart';
 import 'package:in_a_bottle/_shared/route/navigator.dart';
 import 'package:in_a_bottle/home/home_feed.dart';
 import 'package:in_a_bottle/home/home_event.dart';
-import 'package:in_a_bottle/local_message/chat/chat_repository.dart';
+import 'package:in_a_bottle/local_message/hub/chat_repository.dart';
 import 'package:in_a_bottle/local_message/message/message_repository.dart';
 import 'package:in_a_bottle/local_message/talk/talk_dto.dart';
 import 'package:in_a_bottle/local_message/talk/talk_repository.dart';
@@ -34,13 +34,16 @@ class HomeBloc extends Disposable {
     sessionRepository.load().then(dispatchOn);
   }
 
-  void _handleEvents(HomeEvent homeEvent) {
+  Future<void> _handleEvents(HomeEvent homeEvent) async {
     if (homeEvent is LoadTalks) {
-      loadAllTalks();
+      await loadAllTalks();
     } else if (homeEvent is LoadFeed) {
-      loadAllFeed();
+      await loadAllFeed();
     } else if (homeEvent is GoToRoute) {
-      navigator.navigateTo<void>(homeEvent.route, params: homeEvent.params);
+      await navigator.navigateTo<void>(homeEvent.route,
+          params: homeEvent.params);
+      await loadAllTalks();
+      await loadAllFeed();
     }
   }
 
@@ -49,7 +52,7 @@ class HomeBloc extends Disposable {
   }
 
   Future<void> loadAllFeed() async {
-    final List<HomeFeed> feedList = [];  
+    final List<HomeFeed> feedList = [];
     final List<HomeFeed> t = await chatRepository.loadAll();
     final List<HomeFeed> t2 = await messageRepository.loadAll();
     feedList.addAll(t);
