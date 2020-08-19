@@ -5,7 +5,7 @@ import 'package:meta/meta.dart';
 
 import 'package:in_a_bottle/_shared/archtecture/base_bloc.dart';
 
-class InteractTalkBloc extends BaseBloc<InteractEventTalk> {
+class InteractTalkBloc extends BaseBloc<InteractTalkEvent> {
   static const String route = '/interactTalk';
   final TalkRepository talkRepository;
 
@@ -14,8 +14,8 @@ class InteractTalkBloc extends BaseBloc<InteractEventTalk> {
   });
 
   @override
-  Future<void> onEvent(InteractEventTalk event) async {
-    if (event is InteractLoadTalk) {
+  Future<void> onEvent(InteractTalkEvent event) async {
+    if (event is LoadTalk) {
       await _loadBySelector(event.selector);
     }
   }

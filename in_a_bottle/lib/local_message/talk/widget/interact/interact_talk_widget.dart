@@ -21,7 +21,7 @@ class _InteractTalkWidgetState
   @override
   void initState() {
     _bloc = Injector().get();
-    _bloc.dispatchOn<InteractEventTalk>(InteractLoadTalk(widget.selector));
+    _bloc.dispatchOn<InteractTalkEvent>(LoadTalk(widget.selector));
     super.initState();
   }
 

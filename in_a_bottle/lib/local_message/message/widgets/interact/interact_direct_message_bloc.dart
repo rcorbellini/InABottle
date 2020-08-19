@@ -5,7 +5,7 @@ import 'package:meta/meta.dart';
 
 import 'package:in_a_bottle/_shared/archtecture/base_bloc.dart';
 
-class InteractDirectMessageBloc extends BaseBloc<InteractEventDirectMessage> {
+class InteractDirectMessageBloc extends BaseBloc<InteractDirectMessageEvent> {
   static const String route = '/interactDirectMessage';
   final MessageRepository messageRepository;
 
@@ -14,8 +14,8 @@ class InteractDirectMessageBloc extends BaseBloc<InteractEventDirectMessage> {
   });
 
   @override
-  Future<void> onEvent(InteractEventDirectMessage event) async {
-    if (event is InteractLoadDirectMessage) {
+  Future<void> onEvent(InteractDirectMessageEvent event) async {
+    if (event is LoadDirectMessage) {
       await _loadBySelector(event.selector);
     }
   }
