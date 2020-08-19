@@ -11,6 +11,9 @@ abstract class MessageHandler {
 class FlushMessageHandler implements MessageHandler {
   @override
   void showError({List<Object> errors, String title, BuildContext context}) {
+    if(errors.isEmpty){
+      return;
+    }
     final msgErro = errors
         .map((e) => AppLocalizations.of(context).translate(e.toString()))
         .toList()

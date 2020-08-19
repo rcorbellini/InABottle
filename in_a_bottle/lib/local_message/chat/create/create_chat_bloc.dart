@@ -1,14 +1,14 @@
 import 'package:in_a_bottle/_shared/archtecture/crud_bloc.dart';
 import 'package:in_a_bottle/_shared/location/location_repository.dart';
 import 'package:in_a_bottle/_shared/route/navigator.dart';
-import 'package:in_a_bottle/local_message/chat/chat_dto.dart';
+import 'package:in_a_bottle/local_message/chat/chat.dart';
 import 'package:in_a_bottle/local_message/chat/chat_repository.dart';
 import 'package:in_a_bottle/local_message/local/local_dto.dart';
 import 'package:in_a_bottle/session/session_repository.dart';
 import 'package:meta/meta.dart';
 import 'package:fancy_stream/fancy_stream.dart';
 
-class ChatBloc extends CrudBloc<ChatForm, Chat> {
+class CreateChatBloc extends CrudBloc<ChatForm, Chat> {
   static const route = "/addChat";
 
   final ChatRepository chatRepository;
@@ -16,7 +16,7 @@ class ChatBloc extends CrudBloc<ChatForm, Chat> {
   final SessionRepository sessionRepository;
   final LocationRepository locationRepository;
 
-  ChatBloc(
+  CreateChatBloc(
       {@required this.chatRepository,
       @required this.navigator,
       @required this.sessionRepository,

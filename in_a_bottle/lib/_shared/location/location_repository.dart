@@ -1,5 +1,5 @@
 import 'package:in_a_bottle/_shared/archtecture/base_repository.dart';
-import 'package:in_a_bottle/_shared/location/point_dto.dart';
+import 'package:in_a_bottle/_shared/location/point.dart';
 
 abstract class LocationRepository{
   Future<Point> loadCurrentPosition();

@@ -30,7 +30,7 @@ class HomeBloc extends Disposable {
     listenOn<HomeEvent>(_handleEvents);
     dispatchOn<HomeEvent>(LoadTalks());
     dispatchOn<HomeEvent>(LoadFeed());
-    
+
     sessionRepository.load().then(dispatchOn);
   }
 
@@ -40,7 +40,7 @@ class HomeBloc extends Disposable {
     } else if (homeEvent is LoadFeed) {
       loadAllFeed();
     } else if (homeEvent is GoToRoute) {
-      navigator.navigateTo<void>(homeEvent.route);
+      navigator.navigateTo<void>(homeEvent.route, params: homeEvent.params);
     }
   }
 
@@ -49,6 +49,11 @@ class HomeBloc extends Disposable {
   }
 
   Future<void> loadAllFeed() async {
-    dispatchOn<List<HomeFeed>>(await messageRepository.loadAll());
+    final List<HomeFeed> feedList = [];  
+    final List<HomeFeed> t = await chatRepository.loadAll();
+    final List<HomeFeed> t2 = await messageRepository.loadAll();
+    feedList.addAll(t);
+    feedList.addAll(t2);
+    dispatchOn<List<HomeFeed>>(feedList);
   }
 }
