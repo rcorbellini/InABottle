@@ -81,7 +81,9 @@ class _InteractChatWidgetState extends State<InteractChatWidget> {
         child: Column(
       children: [
         Text(message.text),
-        ...message.reactions.map<Widget>(_buildReaction).toList(),
+        ...message.reactions
+            .map<Widget>((reaction) => _buildReaction(reaction, message))
+            .toList(),
         w.FlutterReactionButton(
           onReactionChanged: (reaction) {
             final reactionX = reaction as ReactionX;
@@ -122,20 +124,20 @@ class _InteractChatWidgetState extends State<InteractChatWidget> {
                   'https://lh3.google.com/u/2/ogw/ADGmqu8j08OCxlZTqkNOO2m8DSwmLgUGzfd6UlENNrt0=s32-c-mo'),
             ),
           ],
-
-          initialReaction: ReactionX(
-            id: 0,
-            icon: const Icon(Icons.add)
-          ),
+          initialReaction: ReactionX(id: 0, icon: const Icon(Icons.add)),
         )
       ],
     ));
   }
 
   //https://pub.dev/packages/flutter_reaction_button
-  Widget _buildReaction(Reaction reaction) {
+  Widget _buildReaction(Reaction reaction, MessageChat messageChat) {
     return Column(children: [
-      _buildIcon(reaction.reaction),
+      GestureDetector(
+        onTap: () => _bloc.dispatchOn<InteractChatEvent>(
+            SelectReaction(reaction, messageChat)),
+        child: _buildIcon(reaction.reaction),
+      ),
       Text(reaction.amount.toString()),
     ]);
   }
