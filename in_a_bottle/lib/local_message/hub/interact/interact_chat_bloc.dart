@@ -1,6 +1,7 @@
 import 'package:fancy_stream/fancy_stream.dart';
 import 'package:in_a_bottle/local_message/hub/chat.dart';
 import 'package:in_a_bottle/local_message/hub/message_chat.dart';
+import 'package:in_a_bottle/local_message/reaction.dart';
 import 'package:in_a_bottle/session/session_repository.dart';
 import 'package:meta/meta.dart';
 
@@ -22,7 +23,30 @@ class InteractChatBloc extends BaseBloc<InteractChatEvent> {
   Future<void> onEvent(InteractChatEvent event) async {
     if (event is LoadChat) {
       await _loadBySelector(event.selector);
+    } else if (event is SelectReaction) {
+      await _applyReaction(event.reaction, event.messageChat);
     }
+  }
+
+  Future<void> _applyReaction(Reaction reaction, MessageChat message) async {
+    final hub = await _buildEntity();
+
+    final session = await sessionRepository.load();
+    final reactionOfUser = reaction.copyWith(createdBy: session.user);
+
+    bool exist = message.reactions.contains(reactionOfUser);
+
+    if (exist) {
+      message.reactions.remove(reactionOfUser);
+    } else {
+      message.reactions.add(reactionOfUser);
+    }
+
+    await chatRepository.save(hub);
+
+    final hubReactionsCounted = await chatRepository.loadByKey("key");
+
+    _updateHubOnScreen(hubReactionsCounted);
   }
 
   Future<void> _loadBySelector(String selector) async {
@@ -31,27 +55,42 @@ class InteractChatBloc extends BaseBloc<InteractChatEvent> {
   }
 
   Future<void> _sendMessage(HubMessageForm _) async {
-    final map = valuesToMap<HubMessageForm>();
-    final hub = map[HubMessageForm.chat] as Chat;
-    final session = await sessionRepository.load();
-    hub.messageChat.add(MessageChat(
-      user: session.user,
-      createdAt: DateTime.now(),
-      status: "sending",
-      text: map[HubMessageForm.textMessage] as String,
-    ));
+    final hub = await _buildEntity();
+    final message = await _buildMessage();
 
-    _updateUbOnScreen(hub);
-    _cleanMessageText();
+    hub.messageChat.add(message);
+
+    _updateHubOnScreen(hub);
+    _cleanTextMessage();
 
     await chatRepository.save(hub);
   }
 
-  void _updateUbOnScreen(Chat hub){
+  Future<MessageChat> _buildMessage() async {
+    final map = valuesToMap<HubMessageForm>();
+    final session = await sessionRepository.load();
+
+    return MessageChat(
+      user: session.user,
+      createdAt: DateTime.now(),
+      status: "sending",
+      // ignore: prefer_const_literals_to_create_immutables
+      reactions: <Reaction>{},
+      text: map[HubMessageForm.textMessage] as String,
+    );
+  }
+
+  Future<Chat> _buildEntity() async {
+    final map = valuesToMap<HubMessageForm>();
+    final hub = map[HubMessageForm.chat] as Chat;
+    return hub;
+  }
+
+  void _updateHubOnScreen(Chat hub) {
     dispatchOn(hub, key: HubMessageForm.chat);
   }
 
-  void _cleanMessageText(){
+  void _cleanTextMessage() {
     dispatchOn("", key: HubMessageForm.textMessage);
   }
 }
