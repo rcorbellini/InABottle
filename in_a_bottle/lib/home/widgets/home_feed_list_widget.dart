@@ -6,6 +6,8 @@ import 'package:in_a_bottle/local_message/hub/chat.dart';
 import 'package:in_a_bottle/local_message/hub/interact/interact_chat_bloc.dart';
 import 'package:in_a_bottle/local_message/message/direct_message_dto.dart';
 import 'package:fancy_stream/fancy_stream.dart';
+import 'package:in_a_bottle/local_message/message/widgets/interact/interact_direct_message_bloc.dart';
+import 'package:in_a_bottle/local_message/reaction/reaction_widget.dart';
 import 'package:meta/meta.dart';
 
 class HomeFeedList extends StatelessWidget {
@@ -53,7 +55,7 @@ class HomeFeedList extends StatelessWidget {
           children: [
             GestureDetector(
               onTap: () => homeBloc.dispatchOn<HomeEvent>(GoToRoute(
-                  InteractChatBloc.route,
+                  InteractDirectMessageBloc.route,
                   params: <String, dynamic>{"selector": item.selector})),
               child: Container(
                   margin: const EdgeInsets.only(top: 8, left: 16, right: 16),
@@ -80,8 +82,8 @@ class HomeFeedList extends StatelessWidget {
                 margin: const EdgeInsets.only(bottom: 8, left: 16, right: 16),
                 child: Text("@${item.owner?.name ?? '--'}"))
           ]);
-    } else if( item is Chat){
-       return Column(
+    } else if (item is Chat) {
+      return Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           mainAxisSize: MainAxisSize.max,
           children: [

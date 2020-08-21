@@ -43,6 +43,7 @@ class SharedPreferenceStorage extends KeyValueStorage {
       try {
         //tentando converter o map
         final T map = jsonDecode(value) as T;
+        return map;
       } on Exception {
         print("Expected a Map but don't, will return as raw");
       }

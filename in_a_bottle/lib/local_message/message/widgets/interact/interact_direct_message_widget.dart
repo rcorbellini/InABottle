@@ -5,6 +5,7 @@ import 'package:fancy_stream/fancy_stream.dart';
 import 'package:in_a_bottle/local_message/message/direct_message_dto.dart';
 import 'package:in_a_bottle/local_message/message/widgets/interact/interact_direct_message_bloc.dart';
 import 'package:in_a_bottle/local_message/message/widgets/interact/interact_direct_message_event.dart';
+import 'package:in_a_bottle/local_message/reaction/reaction_widget.dart';
 
 class InteractDirectMessageWidget extends StatefulWidget {
   final String selector;
@@ -37,11 +38,21 @@ class _InteractDirectMessageWidgetState
     return Scaffold(
       body: Container(
           child: StreamBuilder<DirectMessage>(
-              stream: _bloc.streamOf(),
+              stream: _bloc.streamOf<DirectMessage>(
+                  key: DirectMessageForm.directMessage),
               builder: (context, snpashot) {
+                final dm = snpashot.data;
                 return LockWidget(
-                  local: snpashot.data?.local,
-                  child: Text("msg aqui"),
+                  local: dm?.local,
+                  child: Column(children: [
+                    Text("msg aqui"),
+                    ReactionWidget(
+                      onReactionChange: (r) =>
+                          _bloc.dispatchOn<InteractDirectMessageEvent>(
+                              SelectReaction(r, dm)),
+                      userReactions: dm?.reactions,
+                    )
+                  ]),
                 );
               })),
     );

@@ -7,6 +7,8 @@ import 'package:in_a_bottle/local_message/hub/interact/interact_chat_bloc.dart';
 import 'package:in_a_bottle/local_message/hub/interact/interact_chat_widget.dart';
 import 'package:in_a_bottle/local_message/message/widgets/create/direct_message_bloc.dart';
 import 'package:in_a_bottle/local_message/message/widgets/create/direct_message_widget.dart';
+import 'package:in_a_bottle/local_message/message/widgets/interact/interact_direct_message_bloc.dart';
+import 'package:in_a_bottle/local_message/message/widgets/interact/interact_direct_message_widget.dart';
 import 'package:in_a_bottle/local_message/talk/widget/create/talk_bloc.dart';
 import 'package:in_a_bottle/local_message/talk/widget/create/talk_widget.dart';
 import 'package:sailor/sailor.dart';
@@ -38,6 +40,20 @@ class SailorRoutes {
         return CreateChatWidget();
       },
     ));
+
+    sailor.addRoute(SailorRoute(
+        name: InteractDirectMessageBloc.route,
+        builder: (context, args, params) {
+          return InteractDirectMessageWidget(
+            selector: params.param<String>('selector'),
+          );
+        },
+        params: [
+          SailorParam<String>(
+            name: 'selector',
+            defaultValue: null,
+          ),
+        ]));
 
     sailor.addRoute(SailorRoute(
         name: InteractChatBloc.route,

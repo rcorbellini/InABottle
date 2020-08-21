@@ -32,6 +32,7 @@ dependencies:
   yaml: ^2.2.1
   flushbar: ^1.10.4
   equatable: ^1.2.3
+  flutter_reaction_button: ^1.0.1
 
 
   # The following adds the Cupertino Icons font to your application.
@@ -85,4 +86,5 @@ flutter:
   # For details regarding fonts from package dependencies,
   # see https://flutter.dev/custom-fonts/#from-packages
   assets:
-  - lang/pt.yaml
+  - lang/
+  - assets/images/

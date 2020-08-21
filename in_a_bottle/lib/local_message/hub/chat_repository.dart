@@ -10,17 +10,16 @@ class ChatDataRepository extends ChatRepository {
   static final memory = <Chat>[
     Chat(
         title: "teste password",
-        messageChat: [
+        messageChat: const [
           MessageChat(text: "texto de teste 1"),
           MessageChat(text: "texto de teste 2")
         ],
-        local: Local( 
+        local: const Local(
             point: Point(latitude: 10, longitude: 10),
             password: "123",
             isPrivateDM: true,
-            isLocked: true, 
-            reach: Reach(value: 1)
-            ))
+            isLocked: true,
+            reach: Reach(value: 1)))
   ];
   @override
   Future delete(String key) {
@@ -29,18 +28,31 @@ class ChatDataRepository extends ChatRepository {
   }
 
   @override
-  Future<List<Chat>> loadAll() async{
+  Future<List<Chat>> loadAll() async {
     return memory;
   }
 
   @override
   Future<Chat> loadByKey(String key) async {
-    return memory[0];
+    final chat = memory[0];
+    final messages = chat.messageChat.map((message) {
+      final reactions = message.reactions.map((userReaction) {
+        int amount = message.reactions
+            .where((r) => r.reaction == userReaction.reaction)
+            .length;
+        return userReaction.copyWith(
+            reaction: userReaction.reaction.copyWith(amount: amount));
+      }).toSet();
+
+      return message.copyWith(reactions: reactions);
+    }).toList();
+
+    return chat.copyWith(messageChat: messages);
   }
 
   @override
-  Future save(Chat entity) async{
-     return memory[0] = entity;
+  Future save(Chat entity) async {
+    return memory[0] = entity;
   }
 
   @override
