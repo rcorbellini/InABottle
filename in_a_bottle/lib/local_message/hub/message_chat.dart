@@ -20,6 +20,7 @@ class MessageChat extends Equatable implements EntityReactable {
       this.createdAt,
       this.reactions = const <UserReaction>{}});
 
+
   MessageChat copyWith({
     User user,
     String text,

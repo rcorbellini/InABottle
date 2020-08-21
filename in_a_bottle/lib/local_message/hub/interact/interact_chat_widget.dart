@@ -92,6 +92,4 @@ class _InteractChatWidgetState extends State<InteractChatWidget> {
     ));
   }
 
-  //https://pub.de
-
 }
