@@ -1,7 +1,8 @@
 import 'package:fancy_stream/fancy_stream.dart';
 import 'package:in_a_bottle/local_message/hub/chat.dart';
 import 'package:in_a_bottle/local_message/hub/message_chat.dart';
-import 'package:in_a_bottle/local_message/reaction.dart';
+import 'package:in_a_bottle/local_message/reaction/type_reaction.dart';
+import 'package:in_a_bottle/local_message/reaction/user_reaction.dart';
 import 'package:in_a_bottle/session/session_repository.dart';
 import 'package:meta/meta.dart';
 
@@ -28,11 +29,13 @@ class InteractChatBloc extends BaseBloc<InteractChatEvent> {
     }
   }
 
-  Future<void> _applyReaction(Reaction reaction, MessageChat message) async {
+  Future<void> _applyReaction(
+      TypeReaction reaction, MessageChat message) async {
     final hub = await _buildEntity();
 
     final session = await sessionRepository.load();
-    final reactionOfUser = reaction.copyWith(createdBy: session.user);
+    final reactionOfUser =
+        UserReaction(createdBy: session.user, reaction: reaction);
 
     bool exist = message.reactions.contains(reactionOfUser);
 
@@ -75,7 +78,7 @@ class InteractChatBloc extends BaseBloc<InteractChatEvent> {
       createdAt: DateTime.now(),
       status: "sending",
       // ignore: prefer_const_literals_to_create_immutables
-      reactions: <Reaction>{},
+      reactions: <UserReaction>{},
       text: map[HubMessageForm.textMessage] as String,
     );
   }

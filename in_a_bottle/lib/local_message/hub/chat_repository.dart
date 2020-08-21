@@ -10,11 +10,11 @@ class ChatDataRepository extends ChatRepository {
   static final memory = <Chat>[
     Chat(
         title: "teste password",
-        messageChat: [
+        messageChat: const [
           MessageChat(text: "texto de teste 1"),
           MessageChat(text: "texto de teste 2")
         ],
-        local: Local(
+        local: const Local(
             point: Point(latitude: 10, longitude: 10),
             password: "123",
             isPrivateDM: true,
@@ -36,17 +36,17 @@ class ChatDataRepository extends ChatRepository {
   Future<Chat> loadByKey(String key) async {
     final chat = memory[0];
     final messages = chat.messageChat.map((message) {
-
-     final reactions =  message.reactions.map((reaction) {
+      final reactions = message.reactions.map((userReaction) {
         int amount = message.reactions
-            .where((r) => r.reaction == reaction.reaction)
+            .where((r) => r.reaction == userReaction.reaction)
             .length;
-        return reaction.copyWith(amount: amount);
+        return userReaction.copyWith(
+            reaction: userReaction.reaction.copyWith(amount: amount));
       }).toSet();
 
       return message.copyWith(reactions: reactions);
     }).toList();
-    
+
     return chat.copyWith(messageChat: messages);
   }
 

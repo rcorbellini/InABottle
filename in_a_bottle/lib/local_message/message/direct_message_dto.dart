@@ -2,14 +2,17 @@ import 'dart:convert';
 
 import 'package:in_a_bottle/home/home_feed.dart';
 import 'package:in_a_bottle/local_message/local/local_dto.dart';
+import 'package:in_a_bottle/local_message/reaction/user_reaction.dart';
 import 'package:in_a_bottle/user/user_dto.dart';
 
-class DirectMessage extends HomeFeed {
+class DirectMessage extends HomeFeed implements EntityReactable {
   final String selector;
   final String text;
   final String title;
   final User owner;
   final Local local;
+  @override
+  final Set<UserReaction> reactions;
 
   DirectMessage({
     this.selector,
@@ -17,6 +20,7 @@ class DirectMessage extends HomeFeed {
     this.title,
     this.owner,
     this.local,
+    this.reactions = const <UserReaction>{},
   });
 
   DirectMessage copyWith({
@@ -25,6 +29,7 @@ class DirectMessage extends HomeFeed {
     String title,
     User owner,
     Local local,
+    Set<UserReaction> reactions,
   }) {
     return DirectMessage(
       selector: selector ?? this.selector,
@@ -32,6 +37,7 @@ class DirectMessage extends HomeFeed {
       title: title ?? this.title,
       owner: owner ?? this.owner,
       local: local ?? this.local,
+      reactions: reactions ?? this.reactions,
     );
   }
 
@@ -42,6 +48,7 @@ class DirectMessage extends HomeFeed {
       'title': title,
       'owner': owner?.toMap(),
       'local': local?.toMap(),
+      'reactions': reactions?.map((x) => x?.toMap())?.toList(),
     };
   }
 
@@ -54,6 +61,10 @@ class DirectMessage extends HomeFeed {
       title: map['title'] as String,
       owner: User.fromMap(map['owner'] as Map<String, dynamic>),
       local: Local.fromMap(map['local'] as Map<String, dynamic>),
+      reactions: Set<UserReaction>.from(
+          (map['reactions'] as Iterable<Map<String, dynamic>>)
+              ?.map<UserReaction>(
+                  (Map<String, dynamic> x) => UserReaction.fromMap(x))),
     );
   }
 
@@ -73,6 +84,7 @@ class DirectMessage extends HomeFeed {
       title,
       owner,
       local,
+      reactions,
     ];
   }
 }
