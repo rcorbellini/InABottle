@@ -47,7 +47,7 @@ class HomeTalkListWidget extends StatelessWidget {
 
   Widget _buildTalkItem(Talk talk) {
     return GestureDetector(
-      onTap: () => homeBloc.dispatchOn(
+      onTap: () => homeBloc.dispatchOn<HomeEvent>(
           GoToRoute(InteractTalkBloc.route, params: {"selector": talk.selector})),
       child: Container(
           margin: const EdgeInsets.all(16),

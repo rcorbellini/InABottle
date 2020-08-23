@@ -13,8 +13,8 @@ class Talk extends Equatable {
   final String descrition;
   final DateTime startDate;
   final DateTime endDate;
-  final List<TalkMessage> open;
-  final List<TalkMessage> close;
+  final List<Message> openMessage;
+  final List<Message> closeMessage;
   final TalkCategory mainCategory;
   final List<TalkCategory> categories;
   final int usersCount;
@@ -26,14 +26,13 @@ class Talk extends Equatable {
     this.descrition,
     this.startDate,
     this.endDate,
-    this.open,
-    this.close,
+    this.openMessage,
+    this.closeMessage,
     this.mainCategory,
     this.categories,
     this.usersCount,
     this.local,
   });
-
 
   @override
   List<Object> get props {
@@ -43,8 +42,8 @@ class Talk extends Equatable {
       descrition,
       startDate,
       endDate,
-      open,
-      close,
+      openMessage,
+      closeMessage,
       mainCategory,
       categories,
       usersCount,
@@ -58,8 +57,8 @@ class Talk extends Equatable {
     String descrition,
     DateTime startDate,
     DateTime endDate,
-    List<TalkMessage> open,
-    List<TalkMessage> close,
+    List<Message> openMessage,
+    List<Message> closeMessage,
     TalkCategory mainCategory,
     List<TalkCategory> categories,
     int usersCount,
@@ -71,8 +70,8 @@ class Talk extends Equatable {
       descrition: descrition ?? this.descrition,
       startDate: startDate ?? this.startDate,
       endDate: endDate ?? this.endDate,
-      open: open ?? this.open,
-      close: close ?? this.close,
+      openMessage: openMessage ?? this.openMessage,
+      closeMessage: closeMessage ?? this.closeMessage,
       mainCategory: mainCategory ?? this.mainCategory,
       categories: categories ?? this.categories,
       usersCount: usersCount ?? this.usersCount,
@@ -87,8 +86,8 @@ class Talk extends Equatable {
       'descrition': descrition,
       'startDate': startDate?.millisecondsSinceEpoch,
       'endDate': endDate?.millisecondsSinceEpoch,
-      'open': open?.map((x) => x?.toMap())?.toList(),
-      'close': close?.map((x) => x?.toMap())?.toList(),
+      'openMessage': openMessage?.map((x) => x?.toMap())?.toList(),
+      'closeMessage': closeMessage?.map((x) => x?.toMap())?.toList(),
       'mainCategory': mainCategory?.toMap(),
       'categories': categories?.map((x) => x?.toMap())?.toList(),
       'usersCount': usersCount,
@@ -98,17 +97,20 @@ class Talk extends Equatable {
 
   factory Talk.fromMap(Map<String, dynamic> map) {
     if (map == null) return null;
-  
+
     return Talk(
       selector: map['selector'],
       title: map['title'],
       descrition: map['descrition'],
       startDate: DateTime.fromMillisecondsSinceEpoch(map['startDate']),
       endDate: DateTime.fromMillisecondsSinceEpoch(map['endDate']),
-      open: List<TalkMessage>.from(map['open']?.map((x) => Message.fromMap(x))),
-      close: List<TalkMessage>.from(map['close']?.map((x) => Message.fromMap(x))),
+      openMessage: List<TalkMessage>.from(
+          map['openMessage']?.map((x) => Message.fromMap(x))),
+      closeMessage: List<TalkMessage>.from(
+          map['closeMessage']?.map((x) => Message.fromMap(x))),
       mainCategory: TalkCategory.fromMap(map['mainCategory']),
-      categories: List<TalkCategory>.from(map['categories']?.map((x) => TalkCategory.fromMap(x))),
+      categories: List<TalkCategory>.from(
+          map['categories']?.map((x) => TalkCategory.fromMap(x))),
       usersCount: map['usersCount'],
       local: Local.fromMap(map['local']),
     );
