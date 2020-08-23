@@ -8,7 +8,7 @@ import 'package:in_a_bottle/local_message/hub/chat.dart';
 import 'package:in_a_bottle/local_message/hub/interact/interact_chat_bloc.dart';
 import 'package:fancy_stream/fancy_stream.dart';
 import 'package:in_a_bottle/local_message/hub/interact/interact_chat_event.dart';
-import 'package:in_a_bottle/local_message/hub/message_chat.dart';
+import 'package:in_a_bottle/local_message/hub/chat_message.dart';
 import 'package:in_a_bottle/local_message/local/local_dto.dart';
 import 'package:in_a_bottle/local_message/reaction/reaction_widget.dart';
 import 'package:in_a_bottle/local_message/reaction/user_reaction.dart';
@@ -66,7 +66,7 @@ class _InteractChatWidgetState extends State<InteractChatWidget> {
     ]);
   }
 
-  Widget _buildHubMessages(List<MessageChat> msgs) {
+  Widget _buildHubMessages(List<ChatMessage> msgs) {
     if (msgs == null) {
       return Container();
     }
@@ -77,7 +77,7 @@ class _InteractChatWidgetState extends State<InteractChatWidget> {
     );
   }
 
-  Widget _buildItem(MessageChat message) {
+  Widget _buildItem(ChatMessage message) {
     return Container(
         child: Column(
       children: [

@@ -60,6 +60,11 @@ lockErro:
   wrongPassword: "'Senha' não confere."
   internalErro: "Favor carregar novamente"
 
+interactTalkForm:
+  send: "Enviar"
+  message: "Digite sua mensagem"
+
+
 
 shared:
   errorTitle: "Atenção"

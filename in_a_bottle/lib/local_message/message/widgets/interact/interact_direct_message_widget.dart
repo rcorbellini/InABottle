@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:in_a_bottle/_shared/injection/injector.dart';
 import 'package:in_a_bottle/common/widget/locked/lock_widget.dart';
 import 'package:fancy_stream/fancy_stream.dart';
-import 'package:in_a_bottle/local_message/message/direct_message_dto.dart';
+import 'package:in_a_bottle/local_message/message/message_model.dart';
 import 'package:in_a_bottle/local_message/message/widgets/interact/interact_direct_message_bloc.dart';
 import 'package:in_a_bottle/local_message/message/widgets/interact/interact_direct_message_event.dart';
 import 'package:in_a_bottle/local_message/reaction/reaction_widget.dart';
@@ -37,8 +37,8 @@ class _InteractDirectMessageWidgetState
   Widget build(BuildContext context) {
     return Scaffold(
       body: Container(
-          child: StreamBuilder<DirectMessage>(
-              stream: _bloc.streamOf<DirectMessage>(
+          child: StreamBuilder<Message>(
+              stream: _bloc.streamOf<Message>(
                   key: DirectMessageForm.directMessage),
               builder: (context, snpashot) {
                 final dm = snpashot.data;

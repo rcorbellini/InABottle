@@ -5,7 +5,7 @@ import 'package:in_a_bottle/local_message/local/local_dto.dart';
 import 'package:in_a_bottle/local_message/reaction/user_reaction.dart';
 import 'package:in_a_bottle/user/user_dto.dart';
 
-class DirectMessage extends HomeFeed implements EntityReactable {
+class Message implements HomeFeed, EntityReactable {
   final String selector;
   final String text;
   final String title;
@@ -14,7 +14,7 @@ class DirectMessage extends HomeFeed implements EntityReactable {
   @override
   final Set<UserReaction> reactions;
 
-  DirectMessage({
+  Message({
     this.selector,
     this.text,
     this.title,
@@ -23,7 +23,7 @@ class DirectMessage extends HomeFeed implements EntityReactable {
     this.reactions = const <UserReaction>{},
   });
 
-  DirectMessage copyWith({
+  Message copyWith({
     String selector,
     String text,
     String title,
@@ -31,7 +31,7 @@ class DirectMessage extends HomeFeed implements EntityReactable {
     Local local,
     Set<UserReaction> reactions,
   }) {
-    return DirectMessage(
+    return Message(
       selector: selector ?? this.selector,
       text: text ?? this.text,
       title: title ?? this.title,
@@ -52,10 +52,10 @@ class DirectMessage extends HomeFeed implements EntityReactable {
     };
   }
 
-  factory DirectMessage.fromMap(Map<String, dynamic> map) {
+  factory Message.fromMap(Map<String, dynamic> map) {
     if (map == null) return null;
 
-    return DirectMessage(
+    return Message(
       selector: map['selector'] as String,
       text: map['text'] as String,
       title: map['title'] as String,
@@ -70,8 +70,8 @@ class DirectMessage extends HomeFeed implements EntityReactable {
 
   String toJson() => json.encode(toMap());
 
-  factory DirectMessage.fromJson(String source) =>
-      DirectMessage.fromMap(json.decode(source) as Map<String, dynamic>);
+  factory Message.fromJson(String source) =>
+      Message.fromMap(json.decode(source) as Map<String, dynamic>);
 
   @override
   bool get stringify => true;

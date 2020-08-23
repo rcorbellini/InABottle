@@ -5,7 +5,7 @@ import 'package:equatable/equatable.dart';
 import 'package:in_a_bottle/local_message/reaction/user_reaction.dart';
 import 'package:in_a_bottle/user/user_dto.dart';
 
-class MessageChat extends Equatable implements EntityReactable {
+class ChatMessage extends Equatable implements EntityReactable {
   final User user;
   final String text;
   final String status;
@@ -13,7 +13,7 @@ class MessageChat extends Equatable implements EntityReactable {
   @override
   final Set<UserReaction> reactions;
 
-  const MessageChat(
+  const ChatMessage(
       {this.user,
       this.text,
       this.status,
@@ -21,14 +21,14 @@ class MessageChat extends Equatable implements EntityReactable {
       this.reactions = const <UserReaction>{}});
 
 
-  MessageChat copyWith({
+  ChatMessage copyWith({
     User user,
     String text,
     String status,
     DateTime createdAt,
     Set<UserReaction> reactions,
   }) {
-    return MessageChat(
+    return ChatMessage(
       user: user ?? this.user,
       text: text ?? this.text,
       status: status ?? this.status,
@@ -47,10 +47,10 @@ class MessageChat extends Equatable implements EntityReactable {
     };
   }
 
-  factory MessageChat.fromMap(Map<String, dynamic> map) {
+  factory ChatMessage.fromMap(Map<String, dynamic> map) {
     if (map == null) return null;
 
-    return MessageChat(
+    return ChatMessage(
       user: User.fromMap(map['user'] as Map<String, dynamic>),
       text: map['text'] as String,
       status: map['status'] as String,
@@ -64,8 +64,8 @@ class MessageChat extends Equatable implements EntityReactable {
 
   String toJson() => json.encode(toMap());
 
-  factory MessageChat.fromJson(String source) =>
-      MessageChat.fromMap(json.decode(source) as Map<String, dynamic>);
+  factory ChatMessage.fromJson(String source) =>
+      ChatMessage.fromMap(json.decode(source) as Map<String, dynamic>);
 
   @override
   bool get stringify => true;

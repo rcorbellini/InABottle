@@ -1,7 +1,7 @@
 import 'package:in_a_bottle/_shared/archtecture/base_repository.dart';
 import 'package:in_a_bottle/_shared/location/point.dart';
 import 'package:in_a_bottle/local_message/hub/chat.dart';
-import 'package:in_a_bottle/local_message/hub/message_chat.dart';
+import 'package:in_a_bottle/local_message/hub/chat_message.dart';
 import 'package:in_a_bottle/local_message/local/local_dto.dart';
 
 abstract class ChatRepository implements BaseRepository<Chat, String> {}
@@ -11,8 +11,8 @@ class ChatDataRepository extends ChatRepository {
     Chat(
         title: "teste password",
         messageChat: const [
-          MessageChat(text: "texto de teste 1"),
-          MessageChat(text: "texto de teste 2")
+          ChatMessage(text: "texto de teste 1"),
+          ChatMessage(text: "texto de teste 2")
         ],
         local: const Local(
             point: Point(latitude: 10, longitude: 10),

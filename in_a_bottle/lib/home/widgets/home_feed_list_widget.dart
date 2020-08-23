@@ -4,7 +4,7 @@ import 'package:in_a_bottle/home/home_event.dart';
 import 'package:in_a_bottle/home/home_feed.dart';
 import 'package:in_a_bottle/local_message/hub/chat.dart';
 import 'package:in_a_bottle/local_message/hub/interact/interact_chat_bloc.dart';
-import 'package:in_a_bottle/local_message/message/direct_message_dto.dart';
+import 'package:in_a_bottle/local_message/message/message_model.dart';
 import 'package:fancy_stream/fancy_stream.dart';
 import 'package:in_a_bottle/local_message/message/widgets/interact/interact_direct_message_bloc.dart';
 import 'package:in_a_bottle/local_message/reaction/reaction_widget.dart';
@@ -48,7 +48,7 @@ class HomeFeedList extends StatelessWidget {
   }
 
   Widget _buildItem(HomeFeed item) {
-    if (item is DirectMessage) {
+    if (item is Message) {
       return Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           mainAxisSize: MainAxisSize.max,
