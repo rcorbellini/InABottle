@@ -1,4 +1,4 @@
-import 'package:in_a_bottle/local_message/message/direct_message_dto.dart';
+import 'package:in_a_bottle/local_message/message/message_model.dart';
 import 'package:in_a_bottle/local_message/reaction/type_reaction.dart';
 
 abstract class InteractDirectMessageEvent {}
@@ -11,7 +11,7 @@ class LoadDirectMessage extends InteractDirectMessageEvent {
 
 class SelectReaction extends InteractDirectMessageEvent {
   final TypeReaction reaction;
-  final DirectMessage message;
+  final Message message;
 
   SelectReaction(this.reaction, this.message);
 }

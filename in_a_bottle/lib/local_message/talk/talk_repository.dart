@@ -1,5 +1,5 @@
 import 'package:in_a_bottle/_shared/archtecture/base_repository.dart';
-import 'package:in_a_bottle/local_message/talk/talk_dto.dart';
+import 'package:in_a_bottle/local_message/talk/talk_model.dart';
 
 abstract class TalkRepository extends BaseRepository<Talk, String> {}
 
@@ -23,9 +23,8 @@ class TalkDataRepository implements TalkRepository {
   }
 
   @override
-  Future<Talk> loadByKey(String key) {
-    // TODO: implement loadByKey
-    return null;
+  Future<Talk> loadByKey(String key) async {
+    return memory[0];
   }
 
   @override

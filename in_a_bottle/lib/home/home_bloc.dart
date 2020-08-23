@@ -6,7 +6,7 @@ import 'package:in_a_bottle/home/home_feed.dart';
 import 'package:in_a_bottle/home/home_event.dart';
 import 'package:in_a_bottle/local_message/hub/chat_repository.dart';
 import 'package:in_a_bottle/local_message/message/message_repository.dart';
-import 'package:in_a_bottle/local_message/talk/talk_dto.dart';
+import 'package:in_a_bottle/local_message/talk/talk_model.dart';
 import 'package:in_a_bottle/local_message/talk/talk_repository.dart';
 import 'package:in_a_bottle/session/session_repository.dart';
 import 'package:meta/meta.dart';

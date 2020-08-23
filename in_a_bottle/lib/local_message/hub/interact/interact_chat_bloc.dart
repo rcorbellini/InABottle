@@ -1,6 +1,6 @@
 import 'package:fancy_stream/fancy_stream.dart';
 import 'package:in_a_bottle/local_message/hub/chat.dart';
-import 'package:in_a_bottle/local_message/hub/message_chat.dart';
+import 'package:in_a_bottle/local_message/hub/chat_message.dart';
 import 'package:in_a_bottle/local_message/reaction/type_reaction.dart';
 import 'package:in_a_bottle/local_message/reaction/user_reaction.dart';
 import 'package:in_a_bottle/session/session_repository.dart';
@@ -30,7 +30,7 @@ class InteractChatBloc extends BaseBloc<InteractChatEvent> {
   }
 
   Future<void> _applyReaction(
-      TypeReaction reaction, MessageChat message) async {
+      TypeReaction reaction, ChatMessage message) async {
     final hub = await _buildEntity();
 
     final session = await sessionRepository.load();
@@ -69,11 +69,11 @@ class InteractChatBloc extends BaseBloc<InteractChatEvent> {
     await chatRepository.save(hub);
   }
 
-  Future<MessageChat> _buildMessage() async {
+  Future<ChatMessage> _buildMessage() async {
     final map = valuesToMap<HubMessageForm>();
     final session = await sessionRepository.load();
 
-    return MessageChat(
+    return ChatMessage(
       user: session.user,
       createdAt: DateTime.now(),
       status: "sending",

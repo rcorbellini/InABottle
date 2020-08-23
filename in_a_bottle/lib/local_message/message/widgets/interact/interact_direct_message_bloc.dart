@@ -1,5 +1,5 @@
 import 'package:fancy_stream/fancy_stream.dart';
-import 'package:in_a_bottle/local_message/message/direct_message_dto.dart';
+import 'package:in_a_bottle/local_message/message/message_model.dart';
 import 'package:in_a_bottle/local_message/message/message_repository.dart';
 import 'package:in_a_bottle/local_message/message/widgets/interact/interact_direct_message_event.dart';
 import 'package:in_a_bottle/local_message/reaction/type_reaction.dart';
@@ -32,7 +32,7 @@ class InteractDirectMessageBloc extends BaseBloc<InteractDirectMessageEvent> {
   }
 
   Future<void> _applyReaction(
-      TypeReaction reaction, DirectMessage message) async {
+      TypeReaction reaction, Message message) async {
     final entity = await _buildEntity();
 
     final session = await sessionRepository.load();
@@ -54,14 +54,14 @@ class InteractDirectMessageBloc extends BaseBloc<InteractDirectMessageEvent> {
     _updateHubOnScreen(hubReactionsCounted);
   }
 
-  void _updateHubOnScreen(DirectMessage entity) {
-    dispatchOn<DirectMessage>(entity, key: DirectMessageForm.directMessage);
+  void _updateHubOnScreen(Message entity) {
+    dispatchOn<Message>(entity, key: DirectMessageForm.directMessage);
   }
 
-  Future<DirectMessage> _buildEntity() async {
+  Future<Message> _buildEntity() async {
     final map = valuesToMap<DirectMessageForm>();
 
-    return map[DirectMessageForm.directMessage] as DirectMessage;
+    return map[DirectMessageForm.directMessage] as Message;
   }
 }
 

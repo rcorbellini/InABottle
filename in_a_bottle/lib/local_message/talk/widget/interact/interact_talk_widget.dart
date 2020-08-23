@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:in_a_bottle/_shared/injection/injector.dart';
 import 'package:in_a_bottle/common/widget/locked/lock_widget.dart';
 import 'package:fancy_stream/fancy_stream.dart';
-import 'package:in_a_bottle/local_message/talk/talk_dto.dart';
+import 'package:in_a_bottle/local_message/talk/talk_model.dart';
 import 'package:in_a_bottle/local_message/talk/widget/interact/interact_talk_bloc.dart';
 import 'package:in_a_bottle/local_message/talk/widget/interact/interact_talk_event.dart';
 

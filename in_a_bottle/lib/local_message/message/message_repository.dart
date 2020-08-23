@@ -1,15 +1,15 @@
 import 'package:in_a_bottle/_shared/archtecture/base_repository.dart';
 import 'package:in_a_bottle/local_message/local/local_dto.dart';
-import 'package:in_a_bottle/local_message/message/direct_message_dto.dart';
+import 'package:in_a_bottle/local_message/message/message_model.dart';
 import 'package:in_a_bottle/_shared/location/point.dart';
 import 'package:in_a_bottle/user/user_dto.dart';
 
 abstract class MessageRepository
-    implements BaseRepository<DirectMessage, String> {}
+    implements BaseRepository<Message, String> {}
 
 class MessageDataRepository extends MessageRepository {
-  static final memory = <DirectMessage>[
-    DirectMessage(
+  static final memory = <Message>[
+    Message(
         local: Local(
           point: Point(latitude: 10, longitude: 10),
         ),
@@ -19,7 +19,7 @@ class MessageDataRepository extends MessageRepository {
             name: "Rafael Corbellini",
             photoUrl:
                 "https://lh3.googleusercontent.com/a-/AOh14GjoxZnVNWM7gOM9SE1Ru8ItjltX7iw5QT2809l8sn0=s96-c")),
-    DirectMessage(
+    Message(
         local: Local(
           point: Point(latitude: 10, longitude: 10),
         ),
@@ -29,7 +29,7 @@ class MessageDataRepository extends MessageRepository {
                 "https://lh3.googleusercontent.com/a-/AOh14GjoxZnVNWM7gOM9SE1Ru8ItjltX7iw5QT2809l8sn0=s96-c"),
         text: "blabla",
         title: "Title Ba"),
-    DirectMessage(
+    Message(
         local: Local(
           point: Point(latitude: 10, longitude: 10),
         ),
@@ -39,7 +39,7 @@ class MessageDataRepository extends MessageRepository {
                 "https://lh3.googleusercontent.com/a-/AOh14GjoxZnVNWM7gOM9SE1Ru8ItjltX7iw5QT2809l8sn0=s96-c"),
         text: "blabla",
         title: "Title Ba"),
-    DirectMessage(
+    Message(
         local: Local(
           point: Point(latitude: 10, longitude: 10),
         ),
@@ -49,23 +49,13 @@ class MessageDataRepository extends MessageRepository {
                 "https://lh3.googleusercontent.com/a-/AOh14GjoxZnVNWM7gOM9SE1Ru8ItjltX7iw5QT2809l8sn0=s96-c"),
         text: "blabla",
         title: "Title Ba"),
-    DirectMessage(
+    Message(
         local: Local(
           point: Point(latitude: 10, longitude: 10),
         ),
         text: "blabla",
         title: "Title Ba"),
-    DirectMessage(
-        local: Local(
-          point: Point(latitude: 10, longitude: 10),
-        ),
-        owner: User(
-            name: "Rc",
-            photoUrl:
-                "https://lh3.googleusercontent.com/a-/AOh14GjoxZnVNWM7gOM9SE1Ru8ItjltX7iw5QT2809l8sn0=s96-c"),
-        text: "blabla",
-        title: "Title Ba"),
-    DirectMessage(
+    Message(
         local: Local(
           point: Point(latitude: 10, longitude: 10),
         ),
@@ -75,7 +65,17 @@ class MessageDataRepository extends MessageRepository {
                 "https://lh3.googleusercontent.com/a-/AOh14GjoxZnVNWM7gOM9SE1Ru8ItjltX7iw5QT2809l8sn0=s96-c"),
         text: "blabla",
         title: "Title Ba"),
-    DirectMessage(
+    Message(
+        local: Local(
+          point: Point(latitude: 10, longitude: 10),
+        ),
+        owner: User(
+            name: "Rc",
+            photoUrl:
+                "https://lh3.googleusercontent.com/a-/AOh14GjoxZnVNWM7gOM9SE1Ru8ItjltX7iw5QT2809l8sn0=s96-c"),
+        text: "blabla",
+        title: "Title Ba"),
+    Message(
         local: Local(
           point: Point(latitude: 10, longitude: 10),
         ),
@@ -87,12 +87,12 @@ class MessageDataRepository extends MessageRepository {
         title: "Title Ba"),
   ];
   @override
-  Future<List<DirectMessage>> loadAll() async {
+  Future<List<Message>> loadAll() async {
     return memory;
   }
 
   @override
-  Future<DirectMessage> loadByKey(String key) async {
+  Future<Message> loadByKey(String key) async {
     final entity = memory[0];
     final reactions = entity.reactions.map((userReaction) {
       int amount = entity.reactions
@@ -112,12 +112,12 @@ class MessageDataRepository extends MessageRepository {
   }
 
   @override
-  Future save(DirectMessage entity) async {
+  Future save(Message entity) async {
     memory[0] = entity;
   }
 
   @override
-  Future saveAll(Iterable<DirectMessage> entities) {
+  Future saveAll(Iterable<Message> entities) {
     // TODO: implement saveAll
     return null;
   }

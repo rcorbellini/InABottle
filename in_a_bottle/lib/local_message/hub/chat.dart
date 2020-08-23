@@ -3,7 +3,7 @@ import 'dart:convert';
 import 'package:equatable/equatable.dart';
 
 import 'package:in_a_bottle/home/home_feed.dart';
-import 'package:in_a_bottle/local_message/hub/message_chat.dart';
+import 'package:in_a_bottle/local_message/hub/chat_message.dart';
 import 'package:in_a_bottle/local_message/local/local_dto.dart';
 import 'package:in_a_bottle/user/user_dto.dart';
 
@@ -13,7 +13,7 @@ class Chat extends HomeFeed {
   final List<User> admin;
   final String title;
   final User createdBy;
-  final List<MessageChat> messageChat;
+  final List<ChatMessage> messageChat;
 
   Chat({
     this.selector,
@@ -30,7 +30,7 @@ class Chat extends HomeFeed {
     List<User> admin,
     String title,
     User createdBy,
-    List<MessageChat> messageChat,
+    List<ChatMessage> messageChat,
   }) {
     return Chat(
       selector: selector ?? this.selector,
@@ -63,9 +63,9 @@ class Chat extends HomeFeed {
           ?.map<User>((x) => User.fromMap(x))),
       title: map['title'] as String,
       createdBy: User.fromMap(map['createdBy'] as Map<String, dynamic>),
-      messageChat: List<MessageChat>.from(
+      messageChat: List<ChatMessage>.from(
           (map['messageChat'] as Iterable<Map<String, dynamic>>)
-              ?.map<MessageChat>((x) => MessageChat.fromMap(x))),
+              ?.map<ChatMessage>((x) => ChatMessage.fromMap(x))),
     );
   }
 
