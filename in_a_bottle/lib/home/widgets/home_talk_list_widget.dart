@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:in_a_bottle/home/home_bloc.dart';
+import 'package:in_a_bottle/home/home_event.dart';
 import 'package:in_a_bottle/local_message/talk/talk_model.dart';
 import 'package:fancy_stream/fancy_stream.dart';
+import 'package:in_a_bottle/local_message/talk/widget/interact/interact_talk_bloc.dart';
 import 'package:meta/meta.dart';
 
 class HomeTalkListWidget extends StatelessWidget {
@@ -44,16 +46,20 @@ class HomeTalkListWidget extends StatelessWidget {
   }
 
   Widget _buildTalkItem(Talk talk) {
-    return Container(
-        margin: const EdgeInsets.all(16),
-        width: MediaQuery.of(context).size.height * 0.30,
-        decoration: BoxDecoration(
-            color: Colors.black12,
-            borderRadius: const BorderRadius.all(Radius.circular(16.0))),
-        padding: const EdgeInsets.all(16),
-        child: Text(
-          talk.title,
-          style: Theme.of(context).textTheme.subhead,
-        ));
+    return GestureDetector(
+      onTap: () => homeBloc.dispatchOn(
+          GoToRoute(InteractTalkBloc.route, params: {"selector": talk.selector})),
+      child: Container(
+          margin: const EdgeInsets.all(16),
+          width: MediaQuery.of(context).size.height * 0.30,
+          decoration: BoxDecoration(
+              color: Colors.black12,
+              borderRadius: const BorderRadius.all(Radius.circular(16.0))),
+          padding: const EdgeInsets.all(16),
+          child: Text(
+            talk.title,
+            style: Theme.of(context).textTheme.subhead,
+          )),
+    );
   }
 }

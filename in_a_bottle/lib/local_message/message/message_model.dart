@@ -5,7 +5,7 @@ import 'package:in_a_bottle/local_message/local/local_dto.dart';
 import 'package:in_a_bottle/local_message/reaction/user_reaction.dart';
 import 'package:in_a_bottle/user/user_dto.dart';
 
-class Message extends HomeFeed implements EntityReactable {
+class Message implements HomeFeed, EntityReactable {
   final String selector;
   final String text;
   final String title;
