@@ -1,6 +1,8 @@
 import 'dart:async';
 
 import 'package:fancy_stream/fancy_stream.dart';
+import 'package:in_a_bottle/_shared/location/location_repository.dart';
+import 'package:in_a_bottle/_shared/location/point.dart';
 import 'package:in_a_bottle/_shared/route/navigator.dart';
 import 'package:in_a_bottle/home/home_feed.dart';
 import 'package:in_a_bottle/home/home_event.dart';
@@ -18,6 +20,7 @@ class HomeBloc extends Disposable {
   final ChatRepository chatRepository;
   final MessageRepository messageRepository;
   final SessionRepository sessionRepository;
+  final LocationRepository locationRepository;
   final Navigator navigator;
 
   HomeBloc({
@@ -26,35 +29,41 @@ class HomeBloc extends Disposable {
     @required this.chatRepository,
     @required this.messageRepository,
     @required this.sessionRepository,
+    @required this.locationRepository,
   }) {
+    //TODO usar BaseBloc
     listenOn<HomeEvent>(_handleEvents);
-    dispatchOn<HomeEvent>(LoadTalks());
-    dispatchOn<HomeEvent>(LoadFeed());
-
     sessionRepository.load().then(dispatchOn);
+    locationRepository.loadCurrentPosition().then(loadHomeByPosition);
   }
 
   Future<void> _handleEvents(HomeEvent homeEvent) async {
     if (homeEvent is LoadTalks) {
-      await loadAllTalks();
+      await loadTalksByLocation(null);
     } else if (homeEvent is LoadFeed) {
-      await loadAllFeed();
+      await loadFeedByLocation(null);
     } else if (homeEvent is GoToRoute) {
       await navigator.navigateTo<void>(homeEvent.route,
           params: homeEvent.params);
-      await loadAllTalks();
-      await loadAllFeed();
+    } else if (homeEvent is LocationChange) {
+      loadHomeByPosition(homeEvent.location);
     }
   }
 
-  Future<void> loadAllTalks() async {
-    dispatchOn<List<Talk>>(await talkRepository.loadAll());
+  void loadHomeByPosition(Point position) {
+    loadTalksByLocation(position);
+    loadFeedByLocation(position);
   }
 
-  Future<void> loadAllFeed() async {
+  Future<void> loadTalksByLocation(Point location) async {
+    dispatchOn<List<Talk>>(await talkRepository.loadAllByLocation(location));
+  }
+
+  Future<void> loadFeedByLocation(Point location) async {
     final List<HomeFeed> feedList = [];
-    final List<HomeFeed> t = await chatRepository.loadAll();
-    final List<HomeFeed> t2 = await messageRepository.loadAll();
+    final List<HomeFeed> t = await chatRepository.loadAllByLocation(location);
+    final List<HomeFeed> t2 =
+        await messageRepository.loadAllByLocation(location);
     feedList.addAll(t);
     feedList.addAll(t2);
     dispatchOn<List<HomeFeed>>(feedList);

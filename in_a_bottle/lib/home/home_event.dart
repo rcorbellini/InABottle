@@ -1,3 +1,4 @@
+import 'package:in_a_bottle/_shared/location/point.dart';
 import 'package:in_a_bottle/home/home_feed.dart';
 import 'package:in_a_bottle/local_message/local/local_dto.dart';
 import 'package:in_a_bottle/local_message/message/message_model.dart';
@@ -7,6 +8,11 @@ abstract class HomeEvent {}
 
 class LoadTalks implements HomeEvent {
   LoadTalks();
+}
+
+class LocationChange implements HomeEvent {
+  final Point location;
+  LocationChange(this.location);
 }
 
 class LoadFeed implements HomeEvent {
@@ -22,8 +28,7 @@ class GoToRoute extends HomeEvent {
   GoToRoute(this.route, {this.params});
 }
 
-
-class SelectReaction extends HomeEvent{
+class SelectReaction extends HomeEvent {
   final TypeReaction reaction;
   final Message message;
 

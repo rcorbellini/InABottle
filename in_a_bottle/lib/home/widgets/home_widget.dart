@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:in_a_bottle/_shared/injection/injector.dart';
-import 'package:in_a_bottle/home/home_bloc.dart';
+import 'package:in_a_bottle/home/widgets/home_bloc.dart';
 import 'package:in_a_bottle/home/home_event.dart';
 import 'package:in_a_bottle/home/widgets/home_feed_list_widget.dart';
 import 'package:in_a_bottle/home/widgets/home_talk_list_widget.dart';

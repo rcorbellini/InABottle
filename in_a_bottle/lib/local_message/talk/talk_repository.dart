@@ -4,7 +4,9 @@ import 'package:in_a_bottle/local_message/local/local_dto.dart';
 import 'package:in_a_bottle/local_message/talk/talk.dart';
 import 'package:in_a_bottle/local_message/talk/talk_model.dart';
 
-abstract class TalkRepository extends BaseRepository<Talk, String> {}
+abstract class TalkRepository extends BaseRepository<Talk, String> {
+  Future<List<Talk>> loadAllByLocation(Point location);
+}
 
 class TalkDataRepository implements TalkRepository {
   static final memory = [
@@ -14,8 +16,8 @@ class TalkDataRepository implements TalkRepository {
         isLocked: false,
         isPrivateDM: false,
         point: Point(
-          latitude: 1,
-          longitude: 2,
+          latitude: 0,
+          longitude: 0,
         ),
         reach: Reach(
           descricao: 'a',
@@ -37,6 +39,20 @@ class TalkDataRepository implements TalkRepository {
   @override
   Future<List<Talk>> loadAll() async {
     return memory;
+  }
+
+  @override
+  Future<List<Talk>> loadAllByLocation(Point location) async {
+    return memory.where((element) {
+      if (element?.local?.point == null) {
+        return false;
+      }
+
+      final distance = location.distanceOf(element.local.point);
+      final allowed = element.local.reach?.ditanceAllowed ?? 50;
+
+      return distance < allowed;
+    }).toList();
   }
 
   @override

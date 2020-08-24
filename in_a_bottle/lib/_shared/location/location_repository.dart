@@ -1,11 +1,12 @@
 import 'package:in_a_bottle/_shared/archtecture/base_repository.dart';
 import 'package:in_a_bottle/_shared/location/point.dart';
 
-abstract class LocationRepository{
+abstract class LocationRepository {
   Future<Point> loadCurrentPosition();
 }
 
-class LocationDataRepository implements BaseRepository<Point, String>, LocationRepository{
+class LocationDataRepository
+    implements BaseRepository<Point, String>, LocationRepository {
   @override
   Future delete(String key) {
     // TODO: implement delete
@@ -37,9 +38,7 @@ class LocationDataRepository implements BaseRepository<Point, String>, LocationR
   }
 
   @override
-  Future<Point> loadCurrentPosition() {
-    // TODO: implement loadCurrentPosition
-    return null;
+  Future<Point> loadCurrentPosition() async {
+    return Point(latitude: 0, longitude: 0);
   }
-
 }
