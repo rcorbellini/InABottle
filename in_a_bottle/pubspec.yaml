@@ -27,12 +27,13 @@ dependencies:
   fancy_stream: ^1.3.1+6
   sailor: ^0.7.1
   shared_preferences: '>=0.5.8 <2.0.0'
-  #IOS*
+  #TPDP  ANDROID & IOS*
   google_sign_in: ^4.5.1
   yaml: ^2.2.1
   flushbar: ^1.10.4
   equatable: ^1.2.3
   flutter_reaction_button: ^1.0.1
+  latlong: ^0.6.1
 
 
   # The following adds the Cupertino Icons font to your application.

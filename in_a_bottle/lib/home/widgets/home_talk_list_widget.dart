@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:in_a_bottle/home/home_bloc.dart';
+import 'package:in_a_bottle/home/widgets/home_bloc.dart';
 import 'package:in_a_bottle/home/home_event.dart';
 import 'package:in_a_bottle/local_message/talk/talk_model.dart';
 import 'package:fancy_stream/fancy_stream.dart';

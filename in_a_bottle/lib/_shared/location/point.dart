@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:equatable/equatable.dart';
+import 'package:latlong/latlong.dart';
 
 class Point extends Equatable {
   final double latitude;
@@ -10,6 +11,16 @@ class Point extends Equatable {
     this.latitude,
     this.longitude,
   });
+
+  int distanceOf(Point point) {
+    return Distance().distance(
+      LatLng(latitude, longitude),
+      LatLng(
+        point.latitude,
+        point.longitude,
+      ),
+    );
+  }
 
   Point copyWith({
     double latitude,

@@ -88,6 +88,8 @@ class Reach extends Equatable {
     this.value,
   });
 
+  int get ditanceAllowed => value == 0 ? 50 : value == 1 ? 100 : 150;
+
   @override
   List<Object> get props => [descricao, value];
 

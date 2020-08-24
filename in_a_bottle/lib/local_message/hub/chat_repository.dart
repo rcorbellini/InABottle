@@ -4,7 +4,9 @@ import 'package:in_a_bottle/local_message/hub/chat.dart';
 import 'package:in_a_bottle/local_message/hub/chat_message.dart';
 import 'package:in_a_bottle/local_message/local/local_dto.dart';
 
-abstract class ChatRepository implements BaseRepository<Chat, String> {}
+abstract class ChatRepository implements BaseRepository<Chat, String> {
+  Future<List<Chat>> loadAllByLocation(Point location);
+}
 
 class ChatDataRepository extends ChatRepository {
   static final memory = <Chat>[
@@ -15,7 +17,7 @@ class ChatDataRepository extends ChatRepository {
           ChatMessage(text: "texto de teste 2")
         ],
         local: const Local(
-            point: Point(latitude: 10, longitude: 10),
+            point: Point(latitude: 0, longitude: 0),
             password: "123",
             isPrivateDM: true,
             isLocked: true,
@@ -30,6 +32,20 @@ class ChatDataRepository extends ChatRepository {
   @override
   Future<List<Chat>> loadAll() async {
     return memory;
+  }
+
+  @override
+  Future<List<Chat>> loadAllByLocation(Point location) async {
+    return memory.where((element) {
+      if (element?.local?.point == null) {
+        return false;
+      }
+
+      final distance = location.distanceOf(element.local.point);
+      final allowed = element.local.reach?.ditanceAllowed ?? 50;
+
+      return distance < allowed;
+    }).toList();
   }
 
   @override

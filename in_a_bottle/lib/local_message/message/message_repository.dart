@@ -4,14 +4,15 @@ import 'package:in_a_bottle/local_message/message/message_model.dart';
 import 'package:in_a_bottle/_shared/location/point.dart';
 import 'package:in_a_bottle/user/user_dto.dart';
 
-abstract class MessageRepository
-    implements BaseRepository<Message, String> {}
+abstract class MessageRepository implements BaseRepository<Message, String> {
+  Future<List<Message>> loadAllByLocation(Point location);
+}
 
 class MessageDataRepository extends MessageRepository {
   static final memory = <Message>[
     Message(
         local: Local(
-          point: Point(latitude: 10, longitude: 10),
+          point: Point(latitude: 0, longitude: 0),
         ),
         text: "De buenas?",
         title: "Hmmm No Title",
@@ -89,6 +90,19 @@ class MessageDataRepository extends MessageRepository {
   @override
   Future<List<Message>> loadAll() async {
     return memory;
+  }
+
+  @override
+  Future<List<Message>> loadAllByLocation(Point location) async {
+    return memory.where((element) {
+      if (element?.local?.point == null) {
+        return false;
+      }
+      final distance = location.distanceOf(element.local.point);
+      final allowed = element.local.reach?.ditanceAllowed ?? 50;
+
+      return distance < allowed;
+    }).toList();
   }
 
   @override
