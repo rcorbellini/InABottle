@@ -82,6 +82,7 @@ enum DirectMessageForm {
   textPassword,
   boolPrivate,
   sliderReach,
+  tags,
   actionSave
 }
 

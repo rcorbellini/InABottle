@@ -16,26 +16,31 @@ class _CreateChatWidgetState extends State<CreateChatWidget> {
         builder: (_bloc, _factory) {
       return Container(
         child: SingleChildScrollView(
-            child: Column(children: [
-          _factory.build(ChatForm.textTitle),
-          _factory.build(ChatForm.boolPrivate),
-          StreamBuilder<bool>(
-              stream: _bloc.streamOf(key: ChatForm.boolPrivate),
-              builder: (date, snapshot) {
-                final _switcherState = snapshot.data ?? false;
-                if (!_switcherState) {
-                  return Container();
-                }
+          child: Column(
+            children: [
+              _factory.build(ChatForm.textTitle),
+              _factory.build(ChatForm.boolPrivate),
+              StreamBuilder<bool>(
+                  stream: _bloc.streamOf(key: ChatForm.boolPrivate),
+                  builder: (date, snapshot) {
+                    final _switcherState = snapshot.data ?? false;
+                    if (!_switcherState) {
+                      return Container();
+                    }
 
-                return _factory.build(ChatForm.textPassword,
-                    parameters: <TextFieldParameter, dynamic>{
-                      TextFieldParameter.obscureText: true
-                    });
-              }),
-          _factory.build(ChatForm.sliderReach),
-          _factory.build(ChatForm.actionSave)
-        ])),
+                    return _factory.build(ChatForm.textPassword,
+                        parameters: <TextFieldParameter, dynamic>{
+                          TextFieldParameter.obscureText: true
+                        });
+                  }),
+              _factory.build(ChatForm.sliderReach),
+              _factory.build(ChatForm.tags),
+              _factory.build(ChatForm.actionSave),
+            ],
+          ),
+        ),
       );
     });
   }
+
 }

@@ -82,6 +82,7 @@ enum TalkForm {
   textDescription,
   dateRangeDuration,
   actionSave,
+  tags,
   boolPrivate,
   textPassword,
   sliderReach

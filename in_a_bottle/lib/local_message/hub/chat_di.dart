@@ -15,6 +15,7 @@ class ChatDI extends InjectorModule {
           locationRepository: i.get(),
           sessionRepository: i.get(),
           navigator: i.get(),
+          tagRepository: i.get()
         ));
 
     injector.register((injector) => InteractChatBloc(

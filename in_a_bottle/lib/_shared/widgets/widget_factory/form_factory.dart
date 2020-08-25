@@ -5,6 +5,7 @@ import 'package:in_a_bottle/_shared/widgets/widget_factory/widget_button.dart';
 import 'package:in_a_bottle/_shared/widgets/widget_factory/widget_date_range.dart';
 import 'package:in_a_bottle/_shared/widgets/widget_factory/widget_slider.dart';
 import 'package:in_a_bottle/_shared/widgets/widget_factory/widget_switch.dart';
+import 'package:in_a_bottle/_shared/widgets/widget_factory/widget_tag.dart';
 import 'package:in_a_bottle/_shared/widgets/widget_factory/widget_text_field.dart';
 
 class FormFactory<T> {
@@ -62,6 +63,14 @@ class FormFactory<T> {
       );
     }
 
+    if (stringValue.startsWith(enumToString(EnumPrefix.tag))) {
+      return WidgetTag<T>(
+        bloc: bloc,
+        enumValue: enumValue,
+        parameters: parameters as Map<String, dynamic>,
+      );
+    }
+
     return const Text("Widget Not found :[");
   }
 }
@@ -74,10 +83,11 @@ extension EnumKey on Object {
         .replaceFirst(enumToString(EnumPrefix.dateRange), '')
         .replaceFirst(enumToString(EnumPrefix.bool), '')
         .replaceFirst(enumToString(EnumPrefix.slider), '')
+        .replaceFirst(enumToString(EnumPrefix.tag), '')
         .split(".")
         .map((e) => e[0].toLowerCase() + e.substring(1))
         .join(".");
   }
 }
 
-enum EnumPrefix { action, text, dateRange, bool, slider }
+enum EnumPrefix { action, text, dateRange, bool, slider, tag }
