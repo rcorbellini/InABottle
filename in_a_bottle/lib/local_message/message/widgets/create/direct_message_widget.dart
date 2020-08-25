@@ -34,6 +34,7 @@ class _DirectMessageWidgetState extends State<DirectMessageWidget> {
                       });
                 }),
             _factory.build(DirectMessageForm.sliderReach),
+            _factory.build(DirectMessageForm.tags),
             _factory.build(DirectMessageForm.actionSave)
           ])),
         );

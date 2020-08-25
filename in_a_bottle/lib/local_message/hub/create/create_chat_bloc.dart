@@ -4,6 +4,7 @@ import 'package:in_a_bottle/_shared/route/navigator.dart';
 import 'package:in_a_bottle/local_message/hub/chat.dart';
 import 'package:in_a_bottle/local_message/hub/chat_repository.dart';
 import 'package:in_a_bottle/local_message/local/local_dto.dart';
+import 'package:in_a_bottle/local_message/tag/tag_repository.dart';
 import 'package:in_a_bottle/session/session_repository.dart';
 import 'package:meta/meta.dart';
 import 'package:fancy_stream/fancy_stream.dart';
@@ -15,16 +16,22 @@ class CreateChatBloc extends CrudBloc<ChatForm, Chat> {
   final Navigator navigator;
   final SessionRepository sessionRepository;
   final LocationRepository locationRepository;
+  final TagRepository tagRepository;
 
-  CreateChatBloc(
-      {@required this.chatRepository,
-      @required this.navigator,
-      @required this.sessionRepository,
-      @required this.locationRepository})
-      : assert(chatRepository != null),
+  CreateChatBloc({
+    @required this.chatRepository,
+    @required this.navigator,
+    @required this.sessionRepository,
+    @required this.locationRepository,
+    @required this.tagRepository,
+  })  : assert(chatRepository != null),
         assert(navigator != null),
         assert(sessionRepository != null),
-        assert(locationRepository != null);
+        assert(locationRepository != null) {
+    tagRepository
+        .loadAll()
+        .then((value) => dispatchOn(value, key: ChatForm.tags));
+  }
 
   @override
   Future<Chat> buildEntity() async {
@@ -72,6 +79,7 @@ class CreateChatBloc extends CrudBloc<ChatForm, Chat> {
 enum ChatForm {
   textTitle,
   boolPrivate,
+  tags,
   textPassword,
   sliderReach,
   actionSave,
