@@ -50,7 +50,7 @@ class _HomeWidgetState extends State<HomeWidget> {
             return Text("--1212");
           }
 
-          return Text(snapshot.data.user.photoUrl);
+          return Text(snapshot.data?.user?.photoUrl??'-|-');
         },
       ),
     );

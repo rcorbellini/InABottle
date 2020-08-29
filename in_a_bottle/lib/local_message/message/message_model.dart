@@ -1,5 +1,7 @@
 import 'dart:convert';
 
+import 'package:flutter/foundation.dart';
+
 import 'package:in_a_bottle/home/home_feed.dart';
 import 'package:in_a_bottle/local_message/local/local_dto.dart';
 import 'package:in_a_bottle/local_message/reaction/user_reaction.dart';
@@ -42,7 +44,7 @@ class Message implements HomeFeed, EntityReactable {
   }
 
   Map<String, dynamic> toMap() {
-    return <String, dynamic>{
+    return {
       'selector': selector,
       'text': text,
       'title': title,
@@ -54,24 +56,20 @@ class Message implements HomeFeed, EntityReactable {
 
   factory Message.fromMap(Map<String, dynamic> map) {
     if (map == null) return null;
-
+  
     return Message(
-      selector: map['selector'] as String,
-      text: map['text'] as String,
-      title: map['title'] as String,
-      owner: User.fromMap(map['owner'] as Map<String, dynamic>),
-      local: Local.fromMap(map['local'] as Map<String, dynamic>),
-      reactions: Set<UserReaction>.from(
-          (map['reactions'] as Iterable<Map<String, dynamic>>)
-              ?.map<UserReaction>(
-                  (Map<String, dynamic> x) => UserReaction.fromMap(x))),
+      selector: map['selector']?.toString(),
+      text: map['text'],
+      title: map['title'],
+      owner: User.fromMap(map['owner']),
+      local: Local.fromMap(map['local']),
+      reactions: Set<UserReaction>.from(map['reactions']?.map((x) => UserReaction.fromMap(x))),
     );
   }
 
   String toJson() => json.encode(toMap());
 
-  factory Message.fromJson(String source) =>
-      Message.fromMap(json.decode(source) as Map<String, dynamic>);
+  factory Message.fromJson(String source) => Message.fromMap(json.decode(source));
 
   @override
   bool get stringify => true;
@@ -86,5 +84,33 @@ class Message implements HomeFeed, EntityReactable {
       local,
       reactions,
     ];
+  }
+
+  @override
+  String toString() {
+    return 'Message(selector: $selector, text: $text, title: $title, owner: $owner, local: $local, reactions: $reactions)';
+  }
+
+  @override
+  bool operator ==(Object o) {
+    if (identical(this, o)) return true;
+  
+    return o is Message &&
+      o.selector == selector &&
+      o.text == text &&
+      o.title == title &&
+      o.owner == owner &&
+      o.local == local &&
+      setEquals(o.reactions, reactions);
+  }
+
+  @override
+  int get hashCode {
+    return selector.hashCode ^
+      text.hashCode ^
+      title.hashCode ^
+      owner.hashCode ^
+      local.hashCode ^
+      reactions.hashCode;
   }
 }

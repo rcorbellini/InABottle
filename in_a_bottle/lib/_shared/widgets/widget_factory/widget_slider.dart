@@ -23,7 +23,7 @@ class WidgetSlider<T> extends WidgetComponent<SliderParameter> {
         builder: (date, snapshot) {
           final value = snapshot?.data ?? 1;
           final label = AppLocalizations.of(context)
-              .translate("${enumValue.toYamlKey()}.v$value");
+              .translate("${enumValue.toYamlKey()}.v${value.toInt()}");
           return Slider(
             value: value,
             min: getParameter(SliderParameter.min, defaultValue: 1.0),

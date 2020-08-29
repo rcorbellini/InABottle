@@ -45,6 +45,8 @@ class HomeBloc extends Disposable {
     } else if (homeEvent is GoToRoute) {
       await navigator.navigateTo<void>(homeEvent.route,
           params: homeEvent.params);
+
+      loadHomeByPosition(Point(latitude: 0, longitude: 0));
     } else if (homeEvent is LocationChange) {
       loadHomeByPosition(homeEvent.location);
     }
@@ -59,9 +61,9 @@ class HomeBloc extends Disposable {
     dispatchOn<List<Talk>>(await talkRepository.loadAllByLocation(location));
   }
 
-  Future<void> loadFeedByLocation(Point location) async {
+  Future<void> loadFeedByLocation(Point location) async {    
     final List<HomeFeed> feedList = [];
-    final List<HomeFeed> t = await chatRepository.loadAllByLocation(location);
+    final List<HomeFeed> t = [];
     final List<HomeFeed> t2 =
         await messageRepository.loadAllByLocation(location);
     feedList.addAll(t);
