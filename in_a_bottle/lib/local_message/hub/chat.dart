@@ -1,13 +1,14 @@
 import 'dart:convert';
 
 import 'package:equatable/equatable.dart';
+import 'package:in_a_bottle/_shared/archtecture/base_model.dart';
 
 import 'package:in_a_bottle/home/home_feed.dart';
 import 'package:in_a_bottle/local_message/hub/chat_message.dart';
 import 'package:in_a_bottle/local_message/local/local_dto.dart';
 import 'package:in_a_bottle/user/user_dto.dart';
 
-class Chat extends HomeFeed {
+class Chat extends Equatable implements BaseModel, HomeFeed {
   final String selector;
   final Local local;
   final List<User> admin;

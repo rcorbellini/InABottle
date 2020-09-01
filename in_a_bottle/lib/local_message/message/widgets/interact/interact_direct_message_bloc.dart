@@ -49,7 +49,7 @@ class InteractDirectMessageBloc extends BaseBloc<InteractDirectMessageEvent> {
 
     await messageRepository.save(entity);
 
-    final hubReactionsCounted = await messageRepository.loadByKey("key");
+    final hubReactionsCounted = await messageRepository.loadByKey(entity.selector);
 
     _updateHubOnScreen(hubReactionsCounted);
   }

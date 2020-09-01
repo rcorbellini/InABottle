@@ -1,42 +1,27 @@
 import 'package:in_a_bottle/_shared/archtecture/base_repository.dart';
 import 'package:in_a_bottle/_shared/location/point.dart';
 import 'package:in_a_bottle/local_message/hub/chat.dart';
-import 'package:in_a_bottle/local_message/hub/chat_message.dart';
-import 'package:in_a_bottle/local_message/local/local_dto.dart';
+import 'package:in_a_bottle/local_message/hub/chat_storage.dart';
 
 abstract class ChatRepository implements BaseRepository<Chat, String> {
   Future<List<Chat>> loadAllByLocation(Point location);
 }
 
-class ChatDataRepository extends ChatRepository {
-  static final memory = <Chat>[
-    Chat(
-        title: "teste password",
-        messageChat: const [
-          ChatMessage(text: "texto de teste 1"),
-          ChatMessage(text: "texto de teste 2")
-        ],
-        local: const Local(
-            point: Point(latitude: 0, longitude: 0),
-            password: "123",
-            isPrivateDM: true,
-            isLocked: true,
-            reach: Reach(value: 1)))
-  ];
-  @override
-  Future delete(String key) {
-    // TODO: implement delete
-    return null;
-  }
+class ChatDataRepository implements ChatRepository {
+  final ChatStorage dao;
+
+  ChatDataRepository(this.dao);
 
   @override
-  Future<List<Chat>> loadAll() async {
-    return memory;
-  }
+  Future delete(String key) => dao.delete(key);
+
+  @override
+  Future<List<Chat>> loadAll() => dao.loadAll();
 
   @override
   Future<List<Chat>> loadAllByLocation(Point location) async {
-    return memory.where((element) {
+    final all = await dao.loadAll();
+    return all.where((element) {
       if (element?.local?.point == null) {
         return false;
       }
@@ -50,7 +35,7 @@ class ChatDataRepository extends ChatRepository {
 
   @override
   Future<Chat> loadByKey(String key) async {
-    final chat = memory[0];
+    final chat = await dao.loadByKey(key);
     final messages = chat.messageChat.map((message) {
       final reactions = message.reactions.map((userReaction) {
         int amount = message.reactions
@@ -67,13 +52,16 @@ class ChatDataRepository extends ChatRepository {
   }
 
   @override
-  Future save(Chat entity) async {
-    return memory[0] = entity;
+  Future save(Chat entity) {
+    if (entity.selector == null) {
+      return dao.insert(entity);
+    } else {
+      return dao.update(entity);
+    }
   }
 
   @override
   Future saveAll(Iterable<Chat> entities) {
-    // TODO: implement saveAll
-    return null;
+    return dao.saveAll(entities);
   }
 }

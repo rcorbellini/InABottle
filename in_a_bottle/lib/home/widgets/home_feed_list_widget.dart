@@ -7,7 +7,6 @@ import 'package:in_a_bottle/local_message/hub/interact/interact_chat_bloc.dart';
 import 'package:in_a_bottle/local_message/message/message_model.dart';
 import 'package:fancy_stream/fancy_stream.dart';
 import 'package:in_a_bottle/local_message/message/widgets/interact/interact_direct_message_bloc.dart';
-import 'package:in_a_bottle/local_message/reaction/reaction_widget.dart';
 import 'package:meta/meta.dart';
 
 class HomeFeedList extends StatelessWidget {
@@ -69,11 +68,11 @@ class HomeFeedList extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          item.title,
+                          item.title ?? '--',
                           style: Theme.of(context).textTheme.headline6,
                         ),
                         Text(
-                          item.local.isLocked ? 'Locked' : item.text,
+                          item.local.isLocked ? 'Locked' : item.text ?? '--',
                           style: Theme.of(context).textTheme.bodyText2,
                         )
                       ])),

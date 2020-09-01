@@ -19,7 +19,7 @@ class Point extends Equatable {
         point.latitude,
         point.longitude,
       ),
-    );
+    ).toInt();
   }
 
   Point copyWith({
