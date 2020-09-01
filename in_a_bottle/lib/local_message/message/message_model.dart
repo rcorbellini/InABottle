@@ -1,13 +1,16 @@
 import 'dart:convert';
 
+import 'package:equatable/equatable.dart';
 import 'package:flutter/foundation.dart';
+import 'package:in_a_bottle/_shared/archtecture/base_model.dart';
 
 import 'package:in_a_bottle/home/home_feed.dart';
 import 'package:in_a_bottle/local_message/local/local_dto.dart';
 import 'package:in_a_bottle/local_message/reaction/user_reaction.dart';
 import 'package:in_a_bottle/user/user_dto.dart';
 
-class Message implements HomeFeed, EntityReactable {
+class Message extends Equatable
+    implements HomeFeed, BaseModel, EntityReactable {
   final String selector;
   final String text;
   final String title;
@@ -56,20 +59,22 @@ class Message implements HomeFeed, EntityReactable {
 
   factory Message.fromMap(Map<String, dynamic> map) {
     if (map == null) return null;
-  
+
     return Message(
       selector: map['selector']?.toString(),
       text: map['text'],
       title: map['title'],
       owner: User.fromMap(map['owner']),
       local: Local.fromMap(map['local']),
-      reactions: Set<UserReaction>.from(map['reactions']?.map((x) => UserReaction.fromMap(x))),
+      reactions: Set<UserReaction>.from(
+          map['reactions']?.map((x) => UserReaction.fromMap(x)) ?? []),
     );
   }
 
   String toJson() => json.encode(toMap());
 
-  factory Message.fromJson(String source) => Message.fromMap(json.decode(source));
+  factory Message.fromJson(String source) =>
+      Message.fromMap(json.decode(source));
 
   @override
   bool get stringify => true;
@@ -94,23 +99,23 @@ class Message implements HomeFeed, EntityReactable {
   @override
   bool operator ==(Object o) {
     if (identical(this, o)) return true;
-  
+
     return o is Message &&
-      o.selector == selector &&
-      o.text == text &&
-      o.title == title &&
-      o.owner == owner &&
-      o.local == local &&
-      setEquals(o.reactions, reactions);
+        o.selector == selector &&
+        o.text == text &&
+        o.title == title &&
+        o.owner == owner &&
+        o.local == local &&
+        setEquals(o.reactions, reactions);
   }
 
   @override
   int get hashCode {
     return selector.hashCode ^
-      text.hashCode ^
-      title.hashCode ^
-      owner.hashCode ^
-      local.hashCode ^
-      reactions.hashCode;
+        text.hashCode ^
+        title.hashCode ^
+        owner.hashCode ^
+        local.hashCode ^
+        reactions.hashCode;
   }
 }

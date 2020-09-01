@@ -2,12 +2,12 @@ import 'dart:convert';
 
 import 'package:equatable/equatable.dart';
 
+import 'package:in_a_bottle/_shared/archtecture/base_model.dart';
 import 'package:in_a_bottle/local_message/local/local_dto.dart';
 import 'package:in_a_bottle/local_message/message/message_model.dart';
 import 'package:in_a_bottle/local_message/talk/talk_category_dto.dart';
-import 'package:in_a_bottle/local_message/talk/talk_message.dart';
 
-class Talk extends Equatable {
+class Talk extends Equatable implements BaseModel {
   final String selector;
   final String title;
   final String descrition;
@@ -97,20 +97,17 @@ class Talk extends Equatable {
 
   factory Talk.fromMap(Map<String, dynamic> map) {
     if (map == null) return null;
-
+  
     return Talk(
       selector: map['selector'],
       title: map['title'],
       descrition: map['descrition'],
       startDate: DateTime.fromMillisecondsSinceEpoch(map['startDate']),
       endDate: DateTime.fromMillisecondsSinceEpoch(map['endDate']),
-      openMessage: List<TalkMessage>.from(
-          map['openMessage']?.map((x) => Message.fromMap(x))),
-      closeMessage: List<TalkMessage>.from(
-          map['closeMessage']?.map((x) => Message.fromMap(x))),
+      openMessage: List<Message>.from(map['openMessage']?.map((x) => Message.fromMap(x))),
+      closeMessage: List<Message>.from(map['closeMessage']?.map((x) => Message.fromMap(x))),
       mainCategory: TalkCategory.fromMap(map['mainCategory']),
-      categories: List<TalkCategory>.from(
-          map['categories']?.map((x) => TalkCategory.fromMap(x))),
+      categories: List<TalkCategory>.from(map['categories']?.map((x) => TalkCategory.fromMap(x))),
       usersCount: map['usersCount'],
       local: Local.fromMap(map['local']),
     );

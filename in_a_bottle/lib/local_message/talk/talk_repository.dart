@@ -1,49 +1,25 @@
 import 'package:in_a_bottle/_shared/archtecture/base_repository.dart';
 import 'package:in_a_bottle/_shared/location/point.dart';
-import 'package:in_a_bottle/local_message/local/local_dto.dart';
 import 'package:in_a_bottle/local_message/talk/talk.dart';
 import 'package:in_a_bottle/local_message/talk/talk_model.dart';
+import 'package:in_a_bottle/local_message/talk/talk_storage.dart';
 
 abstract class TalkRepository extends BaseRepository<Talk, String> {
   Future<List<Talk>> loadAllByLocation(Point location);
 }
 
 class TalkDataRepository implements TalkRepository {
-  static final memory = [
-    Talk(
-      title: "teste",
-      local: Local(
-        isLocked: false,
-        isPrivateDM: false,
-        point: Point(
-          latitude: 0,
-          longitude: 0,
-        ),
-        reach: Reach(
-          descricao: 'a',
-          value: 1,
-        ),
-      ),
-      openMessage: [
-        TalkMessage(text: "bla"),
-      ],
-      closeMessage: [
-        TalkMessage(text: "blu"),
-      ],
-    ),
-    Talk(title: "teste1"),
-    Talk(title: "teste2"),
-    Talk(title: "teste3"),
-    Talk(title: "teste4")
-  ];
+  final TalkStorage dao;
+
+  TalkDataRepository(this.dao);
+
   @override
-  Future<List<Talk>> loadAll() async {
-    return memory;
-  }
+  Future<List<Talk>> loadAll() => dao.loadAll();
 
   @override
   Future<List<Talk>> loadAllByLocation(Point location) async {
-    return memory.where((element) {
+    final all = await dao.loadAll();
+    return all.where((element) {
       if (element?.local?.point == null) {
         return false;
       }
@@ -56,14 +32,11 @@ class TalkDataRepository implements TalkRepository {
   }
 
   @override
-  Future delete(String key) {
-    // TODO: implement delete
-    return null;
-  }
+  Future delete(String key) => dao.delete(key);
 
   @override
   Future<Talk> loadByKey(String key) async {
-    final entity = memory[0];
+    final entity = await dao.loadByKey(key);
     final openMessage = entity.openMessage.map((message) {
       final reactions = message.reactions.map((userReaction) {
         int amount = message.reactions
@@ -94,12 +67,13 @@ class TalkDataRepository implements TalkRepository {
 
   @override
   Future save(Talk entity) async {
-    memory[0] = entity;
+    if (entity.selector == null) {
+      return dao.insert(entity);
+    } else {
+      return dao.update(entity);
+    }
   }
 
   @override
-  Future saveAll(Iterable<Talk> entities) {
-    // TODO: implement saveAll
-    return null;
-  }
+  Future saveAll(Iterable<Talk> entities) => dao.saveAll(entities);
 }
