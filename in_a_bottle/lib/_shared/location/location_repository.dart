@@ -1,44 +1,15 @@
-import 'package:in_a_bottle/_shared/archtecture/base_repository.dart';
+import 'package:geolocator/geolocator.dart';
 import 'package:in_a_bottle/_shared/location/point.dart';
 
 abstract class LocationRepository {
   Future<Point> loadCurrentPosition();
 }
 
-class LocationDataRepository
-    implements BaseRepository<Point, String>, LocationRepository {
-  @override
-  Future delete(String key) {
-    // TODO: implement delete
-    return null;
-  }
-
-  @override
-  Future<List<Point>> loadAll() {
-    // TODO: implement loadAll
-    return null;
-  }
-
-  @override
-  Future<Point> loadByKey(String key) {
-    // TODO: implement loadByKey
-    return null;
-  }
-
-  @override
-  Future save(Point entity) {
-    // TODO: implement save
-    return null;
-  }
-
-  @override
-  Future saveAll(Iterable<Point> entities) {
-    // TODO: implement saveAll
-    return null;
-  }
+class LocationDataRepository implements LocationRepository { 
 
   @override
   Future<Point> loadCurrentPosition() async {
-    return Point(latitude: 0, longitude: 0);
+    Position position = await getCurrentPosition(desiredAccuracy: LocationAccuracy.high);
+    return Point(latitude: position.latitude, longitude: position.longitude);
   }
 }
