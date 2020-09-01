@@ -45,8 +45,7 @@ class HomeBloc extends Disposable {
     } else if (homeEvent is GoToRoute) {
       await navigator.navigateTo<void>(homeEvent.route,
           params: homeEvent.params);
-
-      loadHomeByPosition(Point(latitude: 0, longitude: 0));
+      loadHomeByPosition(await locationRepository.loadCurrentPosition());
     } else if (homeEvent is LocationChange) {
       loadHomeByPosition(homeEvent.location);
     }
