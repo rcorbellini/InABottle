@@ -1,33 +1,30 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_reaction_button/flutter_reaction_button.dart' as w;
 import 'package:in_a_bottle/_shared/injection/injector.dart';
 import 'package:in_a_bottle/_shared/widgets/widget_factory/form_factory.dart';
-import 'package:in_a_bottle/_shared/widgets/widget_factory/widget_button.dart';
 import 'package:in_a_bottle/common/widget/locked/lock_widget.dart';
-import 'package:in_a_bottle/local_message/hub/chat.dart';
-import 'package:in_a_bottle/local_message/hub/interact/interact_chat_bloc.dart';
+import 'package:in_a_bottle/local_message/hub/hub_message.dart';
+import 'package:in_a_bottle/local_message/hub/interact/interact_hub_message_bloc.dart';
 import 'package:fancy_stream/fancy_stream.dart';
-import 'package:in_a_bottle/local_message/hub/interact/interact_chat_event.dart';
-import 'package:in_a_bottle/local_message/hub/chat_message.dart';
-import 'package:in_a_bottle/local_message/local/local_dto.dart';
+import 'package:in_a_bottle/local_message/hub/interact/interact_hub_message_event.dart';
+import 'package:in_a_bottle/local_message/message/message.dart';
 import 'package:in_a_bottle/local_message/reaction/reaction_widget.dart';
-import 'package:in_a_bottle/local_message/reaction/user_reaction.dart';
 
-class InteractChatWidget extends StatefulWidget {
+class InteractHubMessageWidget extends StatefulWidget {
   final String selector;
 
-  const InteractChatWidget({Key key, this.selector}) : super(key: key);
+  const InteractHubMessageWidget({Key key, this.selector}) : super(key: key);
   @override
-  _InteractChatWidgetState createState() => _InteractChatWidgetState();
+  _InteractHubMessageWidgetState createState() =>
+      _InteractHubMessageWidgetState();
 }
 
-class _InteractChatWidgetState extends State<InteractChatWidget> {
-  InteractChatBloc _bloc;
+class _InteractHubMessageWidgetState extends State<InteractHubMessageWidget> {
+  InteractHubMessageBloc _bloc;
   FormFactory<HubMessageForm> _formFactory;
   @override
   void initState() {
     _bloc = Injector().get();
-    _bloc.dispatchOn<InteractChatEvent>(LoadChat(widget.selector));
+    _bloc.dispatchOn<InteractHubMessageEvent>(LoadChat(widget.selector));
     _formFactory = FormFactory<HubMessageForm>(context: context, bloc: _bloc);
     super.initState();
   }
@@ -42,7 +39,7 @@ class _InteractChatWidgetState extends State<InteractChatWidget> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Container(
-          child: StreamBuilder<Chat>(
+          child: StreamBuilder<HubMessage>(
               stream: _bloc.streamOf(key: HubMessageForm.chat),
               builder: (context, snpashot) {
                 final hub = snpashot.data;
@@ -54,7 +51,7 @@ class _InteractChatWidgetState extends State<InteractChatWidget> {
     );
   }
 
-  Widget _content(Chat hub) {
+  Widget _content(HubMessage hub) {
     return Column(
         children: [_buildHubMessages(hub?.messageChat), _formMessage()]);
   }
@@ -66,7 +63,7 @@ class _InteractChatWidgetState extends State<InteractChatWidget> {
     ]);
   }
 
-  Widget _buildHubMessages(List<ChatMessage> msgs) {
+  Widget _buildHubMessages(List<Message> msgs) {
     if (msgs == null) {
       return Container();
     }
@@ -77,19 +74,18 @@ class _InteractChatWidgetState extends State<InteractChatWidget> {
     );
   }
 
-  Widget _buildItem(ChatMessage message) {
+  Widget _buildItem(Message message) {
     return Container(
         child: Column(
       children: [
         Text(message.text),
         ReactionWidget(
           onReactionChange: (typeReaction) =>
-              _bloc.dispatchOn<InteractChatEvent>(
+              _bloc.dispatchOn<InteractHubMessageEvent>(
                   SelectReaction(typeReaction, message)),
           userReactions: message.reactions,
         )
       ],
     ));
   }
-
 }

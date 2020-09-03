@@ -1,7 +1,7 @@
 import 'package:in_a_bottle/_shared/archtecture/base_repository.dart';
 import 'package:in_a_bottle/_shared/location/point.dart';
 import 'package:in_a_bottle/local_message/talk/talk.dart';
-import 'package:in_a_bottle/local_message/talk/talk_model.dart';
+import 'package:in_a_bottle/local_message/talk/talk.dart';
 import 'package:in_a_bottle/local_message/talk/talk_storage.dart';
 
 abstract class TalkRepository extends BaseRepository<Talk, String> {

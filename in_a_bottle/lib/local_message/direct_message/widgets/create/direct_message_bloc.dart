@@ -4,18 +4,19 @@ import 'package:fancy_stream/fancy_stream.dart';
 import 'package:in_a_bottle/_shared/archtecture/crud_bloc.dart';
 import 'package:in_a_bottle/_shared/route/navigator.dart';
 import 'package:in_a_bottle/_shared/transformers/campo_obrigatorio_validator.dart';
-import 'package:in_a_bottle/local_message/local/local_dto.dart';
-import 'package:in_a_bottle/local_message/message/message_model.dart';
-import 'package:in_a_bottle/local_message/message/message_repository.dart';
+import 'package:in_a_bottle/local_message/local/local.dart';
+import 'package:in_a_bottle/local_message/direct_message/direct_message.dart';
+import 'package:in_a_bottle/local_message/direct_message/direct_message_repository.dart';
 import 'package:in_a_bottle/_shared/location/location_repository.dart';
+import 'package:in_a_bottle/local_message/message/message.dart';
 import 'package:in_a_bottle/session/session_repository.dart';
 import 'package:meta/meta.dart';
 
-class DirectMessageBloc extends CrudBloc<DirectMessageForm, Message>
+class DirectMessageBloc extends CrudBloc<DirectMessageForm, DirectMessage>
     with CampoObrigatorioValidator {
   static const String route = "/addDirectMessage";
 
-  final MessageRepository messageDataRepository;
+  final DirectMessageRepository messageDataRepository;
   final SessionRepository sessionRepository;
   final LocationRepository locationRepository;
   final Navigator navigator;
@@ -30,7 +31,7 @@ class DirectMessageBloc extends CrudBloc<DirectMessageForm, Message>
   }
 
   @override
-  Future<Message> buildEntity() async {
+  Future<DirectMessage> buildEntity() async {
     final map = valuesToMap<DirectMessageForm>();
     final session = await sessionRepository.load();
     final isPrivateDM = map[DirectMessageForm.boolPrivate] as bool ?? false;
@@ -38,10 +39,13 @@ class DirectMessageBloc extends CrudBloc<DirectMessageForm, Message>
         isPrivateDM ? map[DirectMessageForm.textPassword]?.toString() : null;
     final currentPosition = await locationRepository.loadCurrentPosition();
 
-    return Message(
-        text: map[DirectMessageForm.textContent] as String,
-        title: map[DirectMessageForm.textTitle] as String,
-        owner: session.user,
+    return DirectMessage(
+        message: Message(
+          text: map[DirectMessageForm.textContent] as String,
+          title: map[DirectMessageForm.textTitle] as String,
+          createdAt: DateTime.now(),
+          createdBy: session.user,
+        ),
         local: Local(
             isPrivateDM: isPrivateDM,
             reach: Reach(value: map[DirectMessageForm.sliderReach] as double),
@@ -50,13 +54,13 @@ class DirectMessageBloc extends CrudBloc<DirectMessageForm, Message>
   }
 
   @override
-  Future<bool> validate(Message entity) async {
+  Future<bool> validate(DirectMessage entity) async {
     final errors = <DirectMessageError>[];
-    if ((entity.title?.trim() ?? "").isEmpty) {
+    if ((entity.message.title?.trim() ?? "").isEmpty) {
       errors.add(DirectMessageError.emptyTitle);
     }
 
-    if ((entity.text?.trim() ?? "").isEmpty) {
+    if ((entity.message.text?.trim() ?? "").isEmpty) {
       errors.add(DirectMessageError.emptyContent);
     }
 
@@ -70,7 +74,7 @@ class DirectMessageBloc extends CrudBloc<DirectMessageForm, Message>
   }
 
   @override
-  Future<void> save(Message entity) async {
+  Future<void> save(DirectMessage entity) async {
     await messageDataRepository.save(entity);
     navigator.pop();
   }

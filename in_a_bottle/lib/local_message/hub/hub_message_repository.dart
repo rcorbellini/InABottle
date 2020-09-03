@@ -1,25 +1,25 @@
 import 'package:in_a_bottle/_shared/archtecture/base_repository.dart';
 import 'package:in_a_bottle/_shared/location/point.dart';
-import 'package:in_a_bottle/local_message/hub/chat.dart';
-import 'package:in_a_bottle/local_message/hub/chat_storage.dart';
+import 'package:in_a_bottle/local_message/hub/hub_message.dart';
+import 'package:in_a_bottle/local_message/hub/hub_message_storage.dart';
 
-abstract class ChatRepository implements BaseRepository<Chat, String> {
-  Future<List<Chat>> loadAllByLocation(Point location);
+abstract class HubMessageRepository implements BaseRepository<HubMessage, String> {
+  Future<List<HubMessage>> loadAllByLocation(Point location);
 }
 
-class ChatDataRepository implements ChatRepository {
-  final ChatStorage dao;
+class HubMesageDataRepository implements HubMessageRepository {
+  final HubMessageStorage dao;
 
-  ChatDataRepository(this.dao);
+  HubMesageDataRepository(this.dao);
 
   @override
   Future delete(String key) => dao.delete(key);
 
   @override
-  Future<List<Chat>> loadAll() => dao.loadAll();
+  Future<List<HubMessage>> loadAll() => dao.loadAll();
 
   @override
-  Future<List<Chat>> loadAllByLocation(Point location) async {
+  Future<List<HubMessage>> loadAllByLocation(Point location) async {
     final all = await dao.loadAll();
     return all.where((element) {
       if (element?.local?.point == null) {
@@ -34,7 +34,7 @@ class ChatDataRepository implements ChatRepository {
   }
 
   @override
-  Future<Chat> loadByKey(String key) async {
+  Future<HubMessage> loadByKey(String key) async {
     final chat = await dao.loadByKey(key);
     final messages = chat.messageChat.map((message) {
       final reactions = message.reactions.map((userReaction) {
@@ -52,7 +52,7 @@ class ChatDataRepository implements ChatRepository {
   }
 
   @override
-  Future save(Chat entity) {
+  Future save(HubMessage entity) {
     if (entity.selector == null) {
       return dao.insert(entity);
     } else {
@@ -61,7 +61,7 @@ class ChatDataRepository implements ChatRepository {
   }
 
   @override
-  Future saveAll(Iterable<Chat> entities) {
+  Future saveAll(Iterable<HubMessage> entities) {
     return dao.saveAll(entities);
   }
 }
