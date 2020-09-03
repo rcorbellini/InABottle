@@ -1,5 +1,5 @@
+import 'package:fancy_stream/fancy_stream.dart';
 import 'package:flutter/material.dart';
-import 'package:in_a_bottle/_shared/archtecture/base_bloc.dart';
 import 'package:in_a_bottle/_shared/utils.dart';
 import 'package:in_a_bottle/_shared/widgets/widget_factory/widget_button.dart';
 import 'package:in_a_bottle/_shared/widgets/widget_factory/widget_date_range.dart';
@@ -9,7 +9,7 @@ import 'package:in_a_bottle/_shared/widgets/widget_factory/widget_tag.dart';
 import 'package:in_a_bottle/_shared/widgets/widget_factory/widget_text_field.dart';
 
 class FormFactory<T> {
-  final BaseBloc bloc;
+  final Disposable bloc;
   final BuildContext context;
 
   FormFactory({

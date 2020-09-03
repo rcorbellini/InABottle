@@ -12,4 +12,5 @@ abstract class WidgetComponent<T> extends StatelessWidget {
 
     return parameters[param] as V ?? defaultValue;
   }
+  
 }

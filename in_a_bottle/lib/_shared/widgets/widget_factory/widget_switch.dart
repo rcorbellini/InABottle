@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:in_a_bottle/_shared/archtecture/base_bloc.dart';
 import 'package:fancy_stream/fancy_stream.dart';
 
 class WidgetSwitch<T> extends StatelessWidget {
   final T enumValue;
-  final BaseBloc bloc;
+  final Disposable bloc;
   final Map<String, dynamic> parameters;
 
   const WidgetSwitch({Key key, this.enumValue, this.bloc, this.parameters})

@@ -1,12 +1,12 @@
+import 'package:fancy_stream/fancy_stream.dart';
 import 'package:flutter/material.dart';
-import 'package:in_a_bottle/_shared/archtecture/base_bloc.dart';
 import 'package:in_a_bottle/_shared/localization/localization.dart';
 import 'package:in_a_bottle/_shared/widgets/reactive_text_builder.dart';
 import 'package:in_a_bottle/_shared/widgets/widget_factory/widget_component.dart';
 import 'package:in_a_bottle/_shared/widgets/widget_factory/form_factory.dart';
 
 class WidgetTextField<T> extends WidgetComponent<TextFieldParameter> {
-  final BaseBloc bloc;
+  final Disposable bloc;
   final T enumValue;
 
   const WidgetTextField({
