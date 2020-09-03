@@ -6,9 +6,9 @@ import 'package:in_a_bottle/_shared/location/point.dart';
 import 'package:in_a_bottle/_shared/route/navigator.dart';
 import 'package:in_a_bottle/home/home_feed.dart';
 import 'package:in_a_bottle/home/home_event.dart';
-import 'package:in_a_bottle/local_message/hub/chat_repository.dart';
-import 'package:in_a_bottle/local_message/message/message_repository.dart';
-import 'package:in_a_bottle/local_message/talk/talk_model.dart';
+import 'package:in_a_bottle/local_message/hub/hub_message_repository.dart';
+import 'package:in_a_bottle/local_message/direct_message/direct_message_repository.dart';
+import 'package:in_a_bottle/local_message/talk/talk.dart';
 import 'package:in_a_bottle/local_message/talk/talk_repository.dart';
 import 'package:in_a_bottle/session/session_repository.dart';
 import 'package:meta/meta.dart';
@@ -17,8 +17,8 @@ class HomeBloc extends Disposable {
   static const String route = '/home';
 
   final TalkRepository talkRepository;
-  final ChatRepository chatRepository;
-  final MessageRepository messageRepository;
+  final HubMessageRepository chatRepository;
+  final DirectMessageRepository messageRepository;
   final SessionRepository sessionRepository;
   final LocationRepository locationRepository;
   final Navigator navigator;

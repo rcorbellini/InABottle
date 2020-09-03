@@ -1,24 +1,24 @@
 import 'package:in_a_bottle/_shared/archtecture/crud_bloc.dart';
 import 'package:in_a_bottle/_shared/location/location_repository.dart';
 import 'package:in_a_bottle/_shared/route/navigator.dart';
-import 'package:in_a_bottle/local_message/hub/chat.dart';
-import 'package:in_a_bottle/local_message/hub/chat_repository.dart';
-import 'package:in_a_bottle/local_message/local/local_dto.dart';
+import 'package:in_a_bottle/local_message/hub/hub_message.dart';
+import 'package:in_a_bottle/local_message/hub/hub_message_repository.dart';
+import 'package:in_a_bottle/local_message/local/local.dart';
 import 'package:in_a_bottle/local_message/tag/tag_repository.dart';
 import 'package:in_a_bottle/session/session_repository.dart';
 import 'package:meta/meta.dart';
 import 'package:fancy_stream/fancy_stream.dart';
 
-class CreateChatBloc extends CrudBloc<ChatForm, Chat> {
+class CreateHubMessageBloc extends CrudBloc<ChatForm, HubMessage> {
   static const route = "/addChat";
 
-  final ChatRepository chatRepository;
+  final HubMessageRepository chatRepository;
   final Navigator navigator;
   final SessionRepository sessionRepository;
   final LocationRepository locationRepository;
   final TagRepository tagRepository;
 
-  CreateChatBloc({
+  CreateHubMessageBloc({
     @required this.chatRepository,
     @required this.navigator,
     @required this.sessionRepository,
@@ -34,7 +34,7 @@ class CreateChatBloc extends CrudBloc<ChatForm, Chat> {
   }
 
   @override
-  Future<Chat> buildEntity() async {
+  Future<HubMessage> buildEntity() async {
     final map = valuesToMap<ChatForm>();
     final session = await sessionRepository.load();
     final isPrivateDM = map[ChatForm.boolPrivate] as bool ?? false;
@@ -42,7 +42,7 @@ class CreateChatBloc extends CrudBloc<ChatForm, Chat> {
         isPrivateDM ? map[ChatForm.textPassword]?.toString() : null;
     final currentPosition = await locationRepository.loadCurrentPosition();
 
-    return Chat(
+    return HubMessage(
         admin: [session.user],
         createdBy: session.user,
         local: Local(
@@ -54,13 +54,13 @@ class CreateChatBloc extends CrudBloc<ChatForm, Chat> {
   }
 
   @override
-  Future<void> save(Chat entity) async {
+  Future<void> save(HubMessage entity) async {
     await chatRepository.save(entity);
     navigator.pop();
   }
 
   @override
-  Future<bool> validate(Chat entity) async {
+  Future<bool> validate(HubMessage entity) async {
     final errors = <ChatError>[];
     if ((entity.title?.trim() ?? "").isEmpty) {
       errors.add(ChatError.emptyTitle);

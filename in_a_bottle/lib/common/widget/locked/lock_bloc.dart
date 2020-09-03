@@ -1,6 +1,6 @@
 import 'package:in_a_bottle/_shared/archtecture/crud_bloc.dart';
 import 'package:fancy_stream/fancy_stream.dart';
-import 'package:in_a_bottle/local_message/local/local_dto.dart';
+import 'package:in_a_bottle/local_message/local/local.dart';
 
 class LockBloc extends CrudBloc<LockForm, String> {
 

@@ -1,14 +1,14 @@
 import 'package:in_a_bottle/_shared/route/sailor_navigator.dart';
 import 'package:in_a_bottle/home/widgets/home_bloc.dart';
 import 'package:in_a_bottle/home/widgets/home_widget.dart';
-import 'package:in_a_bottle/local_message/hub/create/create_chat_bloc.dart';
-import 'package:in_a_bottle/local_message/hub/create/create_chat_widget.dart';
-import 'package:in_a_bottle/local_message/hub/interact/interact_chat_bloc.dart';
-import 'package:in_a_bottle/local_message/hub/interact/interact_chat_widget.dart';
-import 'package:in_a_bottle/local_message/message/widgets/create/direct_message_bloc.dart';
-import 'package:in_a_bottle/local_message/message/widgets/create/direct_message_widget.dart';
-import 'package:in_a_bottle/local_message/message/widgets/interact/interact_direct_message_bloc.dart';
-import 'package:in_a_bottle/local_message/message/widgets/interact/interact_direct_message_widget.dart';
+import 'package:in_a_bottle/local_message/hub/create/create_hub_message_bloc.dart';
+import 'package:in_a_bottle/local_message/hub/create/create_hub_message_widget.dart';
+import 'package:in_a_bottle/local_message/hub/interact/interact_hub_message_bloc.dart';
+import 'package:in_a_bottle/local_message/hub/interact/interact_hub_message_widget.dart';
+import 'package:in_a_bottle/local_message/direct_message/widgets/create/direct_message_bloc.dart';
+import 'package:in_a_bottle/local_message/direct_message/widgets/create/direct_message_widget.dart';
+import 'package:in_a_bottle/local_message/direct_message/widgets/interact/interact_direct_message_bloc.dart';
+import 'package:in_a_bottle/local_message/direct_message/widgets/interact/interact_direct_message_widget.dart';
 import 'package:in_a_bottle/local_message/talk/widget/create/talk_bloc.dart';
 import 'package:in_a_bottle/local_message/talk/widget/create/talk_widget.dart';
 import 'package:in_a_bottle/local_message/talk/widget/interact/interact_talk_bloc.dart';
@@ -37,9 +37,9 @@ class SailorRoutes {
       },
     ));
     sailor.addRoute(SailorRoute(
-      name: CreateChatBloc.route,
+      name: CreateHubMessageBloc.route,
       builder: (context, args, params) {
-        return CreateChatWidget();
+        return CreateHubMessageWidget();
       },
     ));
 
@@ -58,9 +58,9 @@ class SailorRoutes {
         ]));
 
     sailor.addRoute(SailorRoute(
-        name: InteractChatBloc.route,
+        name: InteractHubMessageBloc.route,
         builder: (context, args, params) {
-          return InteractChatWidget(
+          return InteractHubMessageWidget(
             selector: params.param<String>('selector'),
           );
         },

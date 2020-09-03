@@ -1,5 +1,6 @@
 import 'package:fancy_stream/fancy_stream.dart';
-import 'package:in_a_bottle/local_message/message/message_model.dart';
+import 'package:in_a_bottle/local_message/direct_message/direct_message.dart';
+import 'package:in_a_bottle/local_message/message/message.dart';
 import 'package:in_a_bottle/local_message/reaction/type_reaction.dart';
 import 'package:in_a_bottle/local_message/reaction/user_reaction.dart';
 import 'package:in_a_bottle/local_message/talk/talk.dart';

@@ -2,11 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:in_a_bottle/home/widgets/home_bloc.dart';
 import 'package:in_a_bottle/home/home_event.dart';
 import 'package:in_a_bottle/home/home_feed.dart';
-import 'package:in_a_bottle/local_message/hub/chat.dart';
-import 'package:in_a_bottle/local_message/hub/interact/interact_chat_bloc.dart';
-import 'package:in_a_bottle/local_message/message/message_model.dart';
+import 'package:in_a_bottle/local_message/direct_message/widgets/interact/interact_direct_message_bloc.dart';
+import 'package:in_a_bottle/local_message/hub/hub_message.dart';
+import 'package:in_a_bottle/local_message/hub/interact/interact_hub_message_bloc.dart';
+import 'package:in_a_bottle/local_message/direct_message/direct_message.dart';
 import 'package:fancy_stream/fancy_stream.dart';
-import 'package:in_a_bottle/local_message/message/widgets/interact/interact_direct_message_bloc.dart';
 import 'package:meta/meta.dart';
 
 class HomeFeedList extends StatelessWidget {
@@ -47,7 +47,7 @@ class HomeFeedList extends StatelessWidget {
   }
 
   Widget _buildItem(HomeFeed item) {
-    if (item is Message) {
+    if (item is DirectMessage) {
       return Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           mainAxisSize: MainAxisSize.max,
@@ -68,27 +68,29 @@ class HomeFeedList extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          item.title ?? '--',
+                          item.message.title ?? '--',
                           style: Theme.of(context).textTheme.headline6,
                         ),
                         Text(
-                          item.local.isLocked ? 'Locked' : item.text ?? '--',
+                          item.local.isLocked
+                              ? 'Locked'
+                              : item.message.text ?? '--',
                           style: Theme.of(context).textTheme.bodyText2,
                         )
                       ])),
             ),
             Container(
                 margin: const EdgeInsets.only(bottom: 8, left: 16, right: 16),
-                child: Text("@${item.owner?.name ?? '--'}"))
+                child: Text("@${item.message.createdBy?.name ?? '--'}"))
           ]);
-    } else if (item is Chat) {
+    } else if (item is HubMessage) {
       return Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           mainAxisSize: MainAxisSize.max,
           children: [
             GestureDetector(
               onTap: () => homeBloc.dispatchOn<HomeEvent>(GoToRoute(
-                  InteractChatBloc.route,
+                  InteractHubMessageBloc.route,
                   params: <String, dynamic>{"selector": item.selector})),
               child: Container(
                   margin: const EdgeInsets.only(top: 8, left: 16, right: 16),

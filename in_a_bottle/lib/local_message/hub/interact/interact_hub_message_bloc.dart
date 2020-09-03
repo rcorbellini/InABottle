@@ -1,27 +1,27 @@
 import 'package:fancy_stream/fancy_stream.dart';
-import 'package:in_a_bottle/local_message/hub/chat.dart';
-import 'package:in_a_bottle/local_message/hub/chat_message.dart';
+import 'package:in_a_bottle/local_message/hub/hub_message.dart';
+import 'package:in_a_bottle/local_message/message/message.dart';
 import 'package:in_a_bottle/local_message/reaction/type_reaction.dart';
 import 'package:in_a_bottle/local_message/reaction/user_reaction.dart';
 import 'package:in_a_bottle/session/session_repository.dart';
 import 'package:meta/meta.dart';
 
 import 'package:in_a_bottle/_shared/archtecture/base_bloc.dart';
-import 'package:in_a_bottle/local_message/hub/chat_repository.dart';
-import 'package:in_a_bottle/local_message/hub/interact/interact_chat_event.dart';
+import 'package:in_a_bottle/local_message/hub/hub_message_repository.dart';
+import 'package:in_a_bottle/local_message/hub/interact/interact_hub_message_event.dart';
 
-class InteractChatBloc extends BaseBloc<InteractChatEvent> {
+class InteractHubMessageBloc extends BaseBloc<InteractHubMessageEvent> {
   static const String route = '/interactChat';
-  final ChatRepository chatRepository;
+  final HubMessageRepository chatRepository;
   final SessionRepository sessionRepository;
 
-  InteractChatBloc(
+  InteractHubMessageBloc(
       {@required this.chatRepository, @required this.sessionRepository}) {
     listenOn<HubMessageForm>(_sendMessage);
   }
 
   @override
-  Future<void> onEvent(InteractChatEvent event) async {
+  Future<void> onEvent(InteractHubMessageEvent event) async {
     if (event is LoadChat) {
       await _loadBySelector(event.selector);
     } else if (event is SelectReaction) {
@@ -30,7 +30,7 @@ class InteractChatBloc extends BaseBloc<InteractChatEvent> {
   }
 
   Future<void> _applyReaction(
-      TypeReaction reaction, ChatMessage message) async {
+      TypeReaction reaction, Message message) async {
     final hub = await _buildEntity();
 
     final session = await sessionRepository.load();
@@ -69,12 +69,12 @@ class InteractChatBloc extends BaseBloc<InteractChatEvent> {
     await chatRepository.save(hub);
   }
 
-  Future<ChatMessage> _buildMessage() async {
+  Future<Message> _buildMessage() async {
     final map = valuesToMap<HubMessageForm>();
     final session = await sessionRepository.load();
 
-    return ChatMessage(
-      user: session.user,
+    return Message(
+      createdBy: session.user,
       createdAt: DateTime.now(),
       status: "sending",
       // ignore: prefer_const_literals_to_create_immutables
@@ -83,13 +83,13 @@ class InteractChatBloc extends BaseBloc<InteractChatEvent> {
     );
   }
 
-  Future<Chat> _buildEntity() async {
+  Future<HubMessage> _buildEntity() async {
     final map = valuesToMap<HubMessageForm>();
-    final hub = map[HubMessageForm.chat] as Chat;
+    final hub = map[HubMessageForm.chat] as HubMessage;
     return hub;
   }
 
-  void _updateHubOnScreen(Chat hub) {
+  void _updateHubOnScreen(HubMessage hub) {
     dispatchOn(hub, key: HubMessageForm.chat);
   }
 

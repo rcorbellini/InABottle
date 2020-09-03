@@ -1,7 +1,7 @@
 import 'package:in_a_bottle/_shared/location/point.dart';
 import 'package:in_a_bottle/home/home_feed.dart';
-import 'package:in_a_bottle/local_message/local/local_dto.dart';
-import 'package:in_a_bottle/local_message/message/message_model.dart';
+import 'package:in_a_bottle/local_message/local/local.dart';
+import 'package:in_a_bottle/local_message/direct_message/direct_message.dart';
 import 'package:in_a_bottle/local_message/reaction/type_reaction.dart';
 
 abstract class HomeEvent {}
@@ -30,7 +30,7 @@ class GoToRoute extends HomeEvent {
 
 class SelectReaction extends HomeEvent {
   final TypeReaction reaction;
-  final Message message;
+  final DirectMessage message;
 
   SelectReaction(this.reaction, this.message);
 }
