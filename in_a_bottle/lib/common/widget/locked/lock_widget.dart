@@ -34,7 +34,7 @@ class _LockWidgetState extends State<LockWidget> {
               return Container();
             }
             final local = snpashot.data;
-            if (local.isLocked) {
+            if (local.contentLock) {
               return _buildLock(_factory);
             }
 

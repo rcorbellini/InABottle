@@ -108,7 +108,7 @@ class HomeFeedList extends StatelessWidget {
                           style: Theme.of(context).textTheme.headline6,
                         ),
                         Text(
-                          item.local.isLocked ? 'Locked' : item.title,
+                          item.local.contentLock ? 'Locked' : item.title,
                           style: Theme.of(context).textTheme.bodyText2,
                         )
                       ])),
