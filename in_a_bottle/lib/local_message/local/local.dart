@@ -26,6 +26,7 @@ class Local extends Equatable {
 
   bool get contentLock => isPrivateDM && isLocked;
 
+
   Local copyWith({
     Point point,
     String password,
