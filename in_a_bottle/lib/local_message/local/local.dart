@@ -9,27 +9,29 @@ class Local extends Equatable {
   final Point point;
   final String password;
   final Reach reach;
-  final bool _isLocked;
+  final bool isLocked;
   final bool isPrivateDM;
   final String status;
   final List<Tag> tags;
 
   const Local({
-    bool isLocked = true,
+    this.isLocked = true,
     this.point,
     this.password,
     this.reach,
     this.isPrivateDM = false,
     this.status,
     this.tags,
-  }) : _isLocked = isLocked;
+  });
 
-  bool get isLocked => isPrivateDM && _isLocked;
+  bool get contentLock => isPrivateDM && isLocked;
+
 
   Local copyWith({
     Point point,
     String password,
     Reach reach,
+    bool isLocked,
     bool isPrivateDM,
     String status,
     List<Tag> tags,
@@ -38,6 +40,7 @@ class Local extends Equatable {
       point: point ?? this.point,
       password: password ?? this.password,
       reach: reach ?? this.reach,
+      isLocked: isLocked ?? this.isLocked,
       isPrivateDM: isPrivateDM ?? this.isPrivateDM,
       status: status ?? this.status,
       tags: tags ?? this.tags,
@@ -49,7 +52,7 @@ class Local extends Equatable {
       'point': point?.toMap(),
       'password': password,
       'reach': reach?.toMap(),
-      '_isLocked': _isLocked,
+      'isLocked': isLocked,
       'isPrivateDM': isPrivateDM,
       'status': status,
       'tags': tags?.map((x) => x?.toMap())?.toList(),
@@ -58,11 +61,12 @@ class Local extends Equatable {
 
   factory Local.fromMap(Map<String, dynamic> map) {
     if (map == null) return null;
-
+  
     return Local(
       point: Point.fromMap(map['point']),
       password: map['password'],
       reach: Reach.fromMap(map['reach']),
+      isLocked: map['isLocked'],
       isPrivateDM: map['isPrivateDM'],
       status: map['status'],
       tags: List<Tag>.from(map['tags']?.map((x) => Tag.fromMap(x))),
@@ -82,7 +86,7 @@ class Local extends Equatable {
       point,
       password,
       reach,
-      _isLocked,
+      isLocked,
       isPrivateDM,
       status,
       tags,
