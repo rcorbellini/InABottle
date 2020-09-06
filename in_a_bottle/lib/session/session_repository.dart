@@ -1,5 +1,5 @@
-import 'package:in_a_bottle/_shared/archtecture/base_repository.dart';
 import 'package:in_a_bottle/session/session_dto.dart';
+
 abstract class SessionRepository {
   Future clean();
 
@@ -8,8 +8,7 @@ abstract class SessionRepository {
   Future<Session> load();
 }
 
-class SessionDataRepository extends BaseRepository<Session, String>
-    implements SessionRepository {
+class SessionDataRepository implements SessionRepository {
   //todo mover pro datastore
   Session session;
   @override
@@ -18,32 +17,12 @@ class SessionDataRepository extends BaseRepository<Session, String>
   }
 
   @override
-  Future<List<Session>> loadAll() {
-    throw UnimplementedError("Not implemented");
-  }
-
-  @override
-  Future<Session> loadByKey(String key) {
-    throw UnimplementedError("Not implemented");
-  }
-
-  @override
-  Future save(Session entity) {
+  Future save(Session entity) async {
     session = entity;
   }
 
   @override
-  Future saveAll(Iterable<Session> entities) {
-    throw UnimplementedError("Not implemented");
-  }
-
-  @override
-  Future clean() {
+  Future clean() async {
     session = null;
-  }
-
-  @override
-  Future delete(String key) {
-    throw UnimplementedError("Not implemented");
   }
 }

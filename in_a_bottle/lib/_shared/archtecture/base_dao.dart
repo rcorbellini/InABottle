@@ -18,7 +18,7 @@ abstract class BaseDao<T extends BaseModel> {
     await _folder.record(newKey).add(await _db, toJson(entity));
   }
 
-  Future<Iterable<T>> loadAll() async {
+  Future<List<T>> loadAll() async {
     final snapshots = await _folder.find(await _db);
     return snapshots
         .map((snapshot) => fromJson(coppyWithKey(snapshot.key, snapshot.value)))
@@ -36,8 +36,8 @@ abstract class BaseDao<T extends BaseModel> {
     });
   }
 
-  Future update(T entity) async {
-    return _folder.record(entity.selector).update(await _db, toJson(entity));
+  Future update(String key, T entity) async {
+    return _folder.record(key).update(await _db, toJson(entity));
   }
 
   Map<String, dynamic> coppyWithKey(dynamic key, dynamic dbMap) {

@@ -1,20 +1,20 @@
 import 'package:in_a_bottle/_shared/archtecture/base_repository.dart';
 import 'package:in_a_bottle/_shared/location/point.dart';
 import 'package:in_a_bottle/local_message/talk/talk.dart';
-import 'package:in_a_bottle/local_message/talk/talk.dart';
 import 'package:in_a_bottle/local_message/talk/talk_storage.dart';
 
-abstract class TalkRepository extends BaseRepository<Talk, String> {
+abstract class TalkRepository
+    extends BaseRepository<Talk, String, TalkStorage> {
   Future<List<Talk>> loadAllByLocation(Point location);
 }
 
-class TalkDataRepository implements TalkRepository {
-  final TalkStorage dao;
-
-  TalkDataRepository(this.dao);
-
+class TalkDataRepository extends TalkRepository {
   @override
-  Future<List<Talk>> loadAll() => dao.loadAll();
+  final TalkStorage dao;
+  @override
+  final TalkStorage http;
+
+  TalkDataRepository(this.dao, this.http);
 
   @override
   Future<List<Talk>> loadAllByLocation(Point location) async {
@@ -30,50 +30,4 @@ class TalkDataRepository implements TalkRepository {
       return distance < allowed;
     }).toList();
   }
-
-  @override
-  Future delete(String key) => dao.delete(key);
-
-  @override
-  Future<Talk> loadByKey(String key) async {
-    final entity = await dao.loadByKey(key);
-    final openMessage = entity.openMessage.map((message) {
-      final reactions = message.reactions.map((userReaction) {
-        int amount = message.reactions
-            .where((r) => r.reaction == userReaction.reaction)
-            .length;
-        return userReaction.copyWith(
-            reaction: userReaction.reaction.copyWith(amount: amount));
-      }).toSet();
-
-      return message.copyWith(reactions: reactions);
-    }).toList();
-
-    final closeMessage = entity.closeMessage.map((message) {
-      final reactions = message.reactions.map((userReaction) {
-        int amount = message.reactions
-            .where((r) => r.reaction == userReaction.reaction)
-            .length;
-        return userReaction.copyWith(
-            reaction: userReaction.reaction.copyWith(amount: amount));
-      }).toSet();
-
-      return message.copyWith(reactions: reactions);
-    }).toList();
-
-    return entity.copyWith(
-        openMessage: openMessage, closeMessage: closeMessage);
-  }
-
-  @override
-  Future save(Talk entity) async {
-    if (entity.selector == null) {
-      return dao.insert(entity);
-    } else {
-      return dao.update(entity);
-    }
-  }
-
-  @override
-  Future saveAll(Iterable<Talk> entities) => dao.saveAll(entities);
 }

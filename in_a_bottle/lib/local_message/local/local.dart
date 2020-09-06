@@ -69,7 +69,7 @@ class Local extends Equatable {
       isLocked: map['isLocked'],
       isPrivateDM: map['isPrivateDM'],
       status: map['status'],
-      tags: List<Tag>.from(map['tags']?.map((x) => Tag.fromMap(x))),
+      tags: List<Tag>.from(map['tags']?.map((x) => Tag.fromMap(x))??[]),
     );
   }
 

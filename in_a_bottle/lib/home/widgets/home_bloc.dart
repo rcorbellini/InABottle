@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'package:async/async.dart' show StreamGroup;
 
 import 'package:fancy_stream/fancy_stream.dart';
 import 'package:in_a_bottle/_shared/location/location_repository.dart';
@@ -60,13 +61,28 @@ class HomeBloc extends Disposable {
     dispatchOn<List<Talk>>(await talkRepository.loadAllByLocation(location));
   }
 
-  Future<void> loadFeedByLocation(Point location) async {    
-    final List<HomeFeed> feedList = [];
-    final List<HomeFeed> t = [];
-    final List<HomeFeed> t2 =
-        await messageRepository.loadAllByLocation(location);
-    feedList.addAll(t);
-    feedList.addAll(t2);
-    dispatchOn<List<HomeFeed>>(feedList);
+  List<HomeFeed> lastDirectMessages = [];
+  List<HomeFeed> lastHubs = [];
+
+  Future<void> loadFeedByLocation(Point location) async {
+    //combineLatest
+    messageRepository.loadByLocation(location).listen((event) {
+      lastDirectMessages = event;
+      _dispatchLastFeedLoaded();
+    });
+    messageRepository.loadByLocation(location).listen((event) {
+      lastHubs = event;
+      _dispatchLastFeedLoaded();
+    });
+  }
+
+  void _dispatchLastFeedLoaded() {
+    final allFeed = [lastDirectMessages, lastHubs];
+    dispatchOn<List<HomeFeed>>(allFeed.expand((e) => e).toList());
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
   }
 }

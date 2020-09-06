@@ -3,20 +3,19 @@ import 'package:in_a_bottle/_shared/location/point.dart';
 import 'package:in_a_bottle/local_message/hub/hub_message.dart';
 import 'package:in_a_bottle/local_message/hub/hub_message_storage.dart';
 
-abstract class HubMessageRepository implements BaseRepository<HubMessage, String> {
+abstract class HubMessageRepository
+    extends BaseRepository<HubMessage, String, HubMessageStorage> {
   Future<List<HubMessage>> loadAllByLocation(Point location);
 }
 
-class HubMesageDataRepository implements HubMessageRepository {
+class HubMesageDataRepository extends HubMessageRepository {
+  @override
   final HubMessageStorage dao;
 
-  HubMesageDataRepository(this.dao);
-
   @override
-  Future delete(String key) => dao.delete(key);
+  final HubMessageStorage http;
 
-  @override
-  Future<List<HubMessage>> loadAll() => dao.loadAll();
+  HubMesageDataRepository(this.dao, this.http);
 
   @override
   Future<List<HubMessage>> loadAllByLocation(Point location) async {
@@ -31,37 +30,5 @@ class HubMesageDataRepository implements HubMessageRepository {
 
       return distance < allowed;
     }).toList();
-  }
-
-  @override
-  Future<HubMessage> loadByKey(String key) async {
-    final chat = await dao.loadByKey(key);
-    final messages = chat.messageChat.map((message) {
-      final reactions = message.reactions.map((userReaction) {
-        int amount = message.reactions
-            .where((r) => r.reaction == userReaction.reaction)
-            .length;
-        return userReaction.copyWith(
-            reaction: userReaction.reaction.copyWith(amount: amount));
-      }).toSet();
-
-      return message.copyWith(reactions: reactions);
-    }).toList();
-
-    return chat.copyWith(messageChat: messages);
-  }
-
-  @override
-  Future save(HubMessage entity) {
-    if (entity.selector == null) {
-      return dao.insert(entity);
-    } else {
-      return dao.update(entity);
-    }
-  }
-
-  @override
-  Future saveAll(Iterable<HubMessage> entities) {
-    return dao.saveAll(entities);
   }
 }
