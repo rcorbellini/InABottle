@@ -1,42 +1,20 @@
+# Título do Trabalho (provisório)
+In a Bottle
 
-## Welcome to GitHub Pages
 
-You can use the [editor on GitHub](https://github.com/rcorbellini/geo-chat/edit/master/README.md) to maintain and preview the content for your website in Markdown files.
+# Motivação
+A motivação do projeto que está sendo proposto vem de experiência pessoal no qual  por diversas vezes já me deparei como usuário de tecnologia em situação onde tive a intenção de comunicar com outra pessoas no qual não conheço, como vizinhos, colegas , pessoas em eventos públicos, na ideia de se comunicar de um modo geral, deixando mensagens para outras pessoas sem precisar fornecer, obter informações das pessoas ou grupo no qual as mesmas pertencem, desta forma surgiu a motivação de um aplicativo com objetivo principal de deixar mensagens e interagir com pessoas porém com uma abordagem diferente dos existente atualmente no mercado, fazendo a troca de informação baseada na localização no qual o usuário se encontra.
 
-Whenever you commit to this repository, GitHub Pages will run [Jekyll](https://jekyllrb.com/) to rebuild the pages in your site, from the content in your Markdown files.
+# Descrição do problema
+Este projeto tem como foco principal atender pessoas que querem trocar/deixar mensagens sem necessariamente direcionar a uma pessoa, desta forma podendo não ter conhecimento algum sobre a pessoa que irá ler, basta que a tenha acesso a localização aproximada do local em que a mensagem foi deixada, tendo como exemplo de contexto aplicáveis, conversas entre vizinhos, colegas de sala de aula/escola, pessoas em eventos públicos, como em casos onde o palestrantes que está em um auditório e não tem o conhecimento prévio de sua audiência e quer interagir com a mesma, pessoas que querem elaborar jogos no estilo caça ao tesouro deixando mensagens com senha em locais geo-referenciado.
 
-### Markdown
+# Objetivos Gerais
+O Projeto tem como ideia principal desenvolver um aplicativo no qual será possível espalhar e interagir com informações por locais, pontos Geo-Referenciado, semelhante a ideia de deixar uma informação em uma garrafa em algum local para que outra pessoa no futuro possa ler ou até mesmo deixar outra mensagem na mesma garrafa, estas informações por ser em formato digital podem ser em diversos formatos, com controle de privacidade, interações  e  em diversos contextos.
 
-Markdown is a lightweight and easy-to-use syntax for styling your writing. It includes conventions for
+# Objetivos Específicos
+Desenvolver um aplicativo paras plataforma Android e IOS no qual conterá as seguintes funcionalidades, controle de acesso, home com um feed de informações/mensagens baseado na posição atual do usuário, cadastro de Talks onde as Talks terão uma data no qual irá acontecer e duas timeline, uma de interação ao palestrante e outra de interação entre os presentes com cunho informal, cadastros de Hub de Mensagem onde será possível que qualquer pessoa que estiver próxima ao local deixe uma mensagem junto as mensagem já existente, cadastro de Mensagem Direta no qual tem objetivo simples de transmitir uma informação a quem estiver próximo e somente existe a interação no estilo Reactions, cadastrar uma Caça ao Tesouro  no qual será associado diversas Mensagens Diretas com ordem de acesso predefinido. Todos os cadastros poderão ser feito para de modo seu conteúdo fique público ou privado, quando privado somente quem tiver senha terá acesso ao conteúdo do que foi registrado, todo conteúdo deixado em algum lugar pode ser reportado para que seja feito um controle de conteúdos danosos, todo conteúdo deixado em algum lugar tem seu alcance pré estabelecido por quem criou.
 
-```markdown
-Syntax highlighted code block
+# Ferramentas que vai utilizar
+O aplicativo Android e IOS será desenvolvido de forma híbrida utilizando o kit de desenvolvimento Flutter, na linguagem de desenvolvimento Dart. Será utilizado a arquitetura Bloc no qual faz uso de streams para atender as interações entre telas e regras de negócio em conjunto com Repository Pattern para poder deixar cada camada com sua responsabilidade fazendo a injeção de dependências baseada em interfaces  focando em um código limpo, para auxiliar as tratativa de uso das streams e diminuir o boilerplate será desenvolvido uma biblioteca de auxílio do uso de streams, o projeto terá seu fonte, assim como da biblioteca disponibilizado de forma pública na plataforma do GitHub esta mesma plataforma será usada para fazer o controle de versão,  controle de sprints, registro de atividades para acompanhamento do andamento do trabalho, efetuar a continuous integration e continuous delivery.
 
-# Header 1
-## Header 2
-### Header 3
-
-- Bulleted
-- List
-
-1. Numbered
-2. List
-
-**Bold** and _Italic_ and `Code` text
-
-[Link](url) and ![Image](src)
-```
-
-For more details see [GitHub Flavored Markdown](https://guides.github.com/features/mastering-markdown/).
-
-### Jekyll Themes
-
-Your Pages site will use the layout and styles from the Jekyll theme you have selected in your [repository settings](https://github.com/rcorbellini/geo-chat/settings). The name of this theme is saved in the Jekyll `_config.yml` configuration file.
-
-### Support or Contact
-
-Having trouble with Pages? Check out our [documentation](https://help.github.com/categories/github-pages-basics/) or [contact support](https://github.com/contact) and we’ll help you sort it out.
-=======
-# In-A-Bottle
-Para entender melhor do que o projeto se trata, recomendo uma leitura das [Premissa do Projeto](https://github.com/rcorbellini/geo-chat/wiki/Premissas-do-Projeto)
-
+Para complementar o aplicativo será desenvolvido uma API rest que no qual será desenvolvida em Kotlin utilizando o framework java-based Spring Boot utilizando um banco não relacional para fazer o armazenamento dos dados, com a arquitetura já pré definida pelo próprio framework, sendo ela baseada em controllers, services e repository.
