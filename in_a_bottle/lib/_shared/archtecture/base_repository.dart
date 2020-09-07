@@ -6,11 +6,24 @@ abstract class BaseRepository<ENTITY extends BaseModel, KEY,
   STORAGE get dao;
   STORAGE get http;
 
-  Stream<List<ENTITY>> loadAll();
+  Stream<List<ENTITY>> asyncLoadAll() async* {
+    yield await dao?.loadAll();
+    yield await http?.loadAll();
+  }
 
-  Stream<ENTITY> loadByKey(KEY key) async* {
+  Future<List<ENTITY>> loadAll() async {
+    await http?.loadAll();
+    return dao?.loadAll();
+  }
+
+  Stream<ENTITY> asyncLoadByKey(KEY key) async* {
     yield await dao?.loadByKey(key);
     yield await http?.loadByKey(key);
+  }
+
+  Future<ENTITY> loadByKey(KEY key) async {
+    await http?.loadByKey(key);
+    return await dao?.loadByKey(key);
   }
 
   Future save(ENTITY entity) async {

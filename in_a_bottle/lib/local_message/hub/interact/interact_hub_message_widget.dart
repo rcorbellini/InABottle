@@ -1,6 +1,6 @@
+import 'package:fancy_factory/fancy_factory.dart';
 import 'package:flutter/material.dart';
 import 'package:in_a_bottle/_shared/injection/injector.dart';
-import 'package:in_a_bottle/_shared/widgets/widget_factory/form_factory.dart';
 import 'package:in_a_bottle/common/widget/locked/lock_widget.dart';
 import 'package:in_a_bottle/local_message/hub/hub_message.dart';
 import 'package:in_a_bottle/local_message/hub/interact/interact_hub_message_bloc.dart';

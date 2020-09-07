@@ -1,6 +1,6 @@
+import 'package:fancy_factory/fancy_factory.dart';
 import 'package:flutter/material.dart';
-import 'package:in_a_bottle/_shared/widgets/widget_factory/crud_widget.dart';
-import 'package:in_a_bottle/_shared/widgets/widget_factory/widget_text_field.dart';
+import 'package:in_a_bottle/common/widget/crud_widget.dart';
 import 'package:in_a_bottle/local_message/talk/widget/create/talk_bloc.dart';
 import 'package:fancy_stream/fancy_stream.dart';
 

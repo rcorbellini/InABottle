@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:in_a_bottle/_shared/injection/injector.dart';
-import 'package:in_a_bottle/_shared/localization/localization.dart';
+import 'package:chameleon_resolver/chameleon_resolver.dart';
 import 'package:in_a_bottle/_shared/route/navigator_di.dart';
 import 'package:in_a_bottle/home/home_di.dart';
 import 'package:in_a_bottle/home/widgets/home_widget.dart';
@@ -45,7 +45,7 @@ class MyApp extends StatelessWidget {
       title: 'In a Bottle',
       navigatorKey: navigator.navigatorKey,
       localizationsDelegates: [
-        AppLocalizationsDelegate(supportedLocales: supportedLocale),
+        ChamaleonLocalizationsDelegate(flavorPrefix: null,  supportedLocales: supportedLocale),
         GlobalMaterialLocalizations.delegate,
         GlobalWidgetsLocalizations.delegate,
         GlobalCupertinoLocalizations.delegate,

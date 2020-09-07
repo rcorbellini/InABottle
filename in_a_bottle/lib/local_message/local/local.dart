@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:equatable/equatable.dart';
+import 'package:fancy_factory/fancy_factory.dart';
 
 import 'package:in_a_bottle/_shared/location/point.dart';
 import 'package:in_a_bottle/local_message/tag/tag.dart';

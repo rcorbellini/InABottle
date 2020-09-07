@@ -1,6 +1,6 @@
+import 'package:chameleon_resolver/chameleon_resolver.dart';
 import 'package:flushbar/flushbar_helper.dart';
 import 'package:flutter/material.dart';
-import 'package:in_a_bottle/_shared/localization/localization.dart';
 
 abstract class MessageHandler {
   void showError({List<Object> errors, String title, BuildContext context});
@@ -15,7 +15,7 @@ class FlushMessageHandler implements MessageHandler {
       return;
     }
     final msgErro = errors
-        .map((e) => AppLocalizations.of(context).translate(e
+        .map((e) => ChamaleonLocalizations.of(context).translate(e
             .toString()
             .split(".")
             .map((e) => e[0].toLowerCase() + e.substring(1))

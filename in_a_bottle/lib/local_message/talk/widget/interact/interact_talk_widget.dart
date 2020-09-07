@@ -1,9 +1,8 @@
+import 'package:fancy_factory/fancy_factory.dart';
 import 'package:flutter/material.dart';
 import 'package:in_a_bottle/_shared/injection/injector.dart';
-import 'package:in_a_bottle/_shared/widgets/widget_factory/form_factory.dart';
 import 'package:in_a_bottle/common/widget/locked/lock_widget.dart';
 import 'package:fancy_stream/fancy_stream.dart';
-import 'package:in_a_bottle/local_message/direct_message/direct_message.dart';
 import 'package:in_a_bottle/local_message/message/message.dart';
 import 'package:in_a_bottle/local_message/reaction/reaction_widget.dart';
 import 'package:in_a_bottle/local_message/talk/talk.dart';
@@ -49,7 +48,7 @@ class _InteractTalkWidgetState extends State<InteractTalkWidget>
             stream: _bloc.streamOf(key: InteractTalkForm.talk),
             builder: (context, snpashot) {
               final talk = snpashot.data;
-              if(talk == null){
+              if (talk == null) {
                 return Container();
               }
               return LockWidget(

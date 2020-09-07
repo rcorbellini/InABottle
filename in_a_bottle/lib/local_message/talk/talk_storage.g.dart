@@ -1,13 +1,13 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'direct_message_storage.dart';
+part of 'talk_storage.dart';
 
 // **************************************************************************
 // RetrofitGenerator
 // **************************************************************************
 
-class _DirectMessageService implements DirectMessageService {
-  _DirectMessageService(this._dio, {this.baseUrl}) {
+class _TalkService implements TalkService {
+  _TalkService(this._dio, {this.baseUrl}) {
     ArgumentError.checkNotNull(_dio, '_dio');
   }
 
@@ -21,7 +21,7 @@ class _DirectMessageService implements DirectMessageService {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _data = <String, dynamic>{};
-    final Response _result = await _dio.request('/direct_message/$key',
+    final Response _result = await _dio.request('/talk/$key',
         queryParameters: queryParameters,
         options: RequestOptions(
             method: 'DELETE',
@@ -39,7 +39,7 @@ class _DirectMessageService implements DirectMessageService {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _data = <String, dynamic>{};
-    final Response _result = await _dio.request('/direct_message',
+    final Response _result = await _dio.request('/talk',
         queryParameters: queryParameters,
         options: RequestOptions(
             method: 'POST',
@@ -56,8 +56,7 @@ class _DirectMessageService implements DirectMessageService {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _data = <String, dynamic>{};
-    final Response<List<dynamic>> _result = await _dio.request(
-        '/direct_message',
+    final Response<List<dynamic>> _result = await _dio.request('/talk',
         queryParameters: queryParameters,
         options: RequestOptions(
             method: 'GET',
@@ -66,7 +65,7 @@ class _DirectMessageService implements DirectMessageService {
             baseUrl: baseUrl),
         data: _data);
     var value = _result.data
-        .map((dynamic i) => DirectMessage.fromMap(i as Map<String, dynamic>))
+        .map((dynamic i) => Talk.fromMap(i as Map<String, dynamic>))
         .toList();
     return value;
   }
@@ -78,7 +77,7 @@ class _DirectMessageService implements DirectMessageService {
     final queryParameters = <String, dynamic>{};
     final _data = <String, dynamic>{};
     final Response<Map<String, dynamic>> _result = await _dio.request(
-        '/direct_message/$key',
+        '/talk/$key',
         queryParameters: queryParameters,
         options: RequestOptions(
             method: 'GET',
@@ -86,7 +85,7 @@ class _DirectMessageService implements DirectMessageService {
             extra: _extra,
             baseUrl: baseUrl),
         data: _data);
-    final value = DirectMessage.fromMap(_result.data);
+    final value = Talk.fromMap(_result.data);
     return value;
   }
 
@@ -99,7 +98,7 @@ class _DirectMessageService implements DirectMessageService {
     final _data = <String, dynamic>{};
     _data.addAll(task?.toJson() ?? <String, dynamic>{});
     final Response<Map<String, dynamic>> _result = await _dio.request(
-        '/direct_message/$key',
+        '/talk/$key',
         queryParameters: queryParameters,
         options: RequestOptions(
             method: 'PUT',
@@ -107,7 +106,7 @@ class _DirectMessageService implements DirectMessageService {
             extra: _extra,
             baseUrl: baseUrl),
         data: _data);
-    final value = DirectMessage.fromMap(_result.data);
+    final value = Talk.fromMap(_result.data);
     return value;
   }
 }
