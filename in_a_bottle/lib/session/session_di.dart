@@ -1,3 +1,4 @@
+import 'package:dio/dio.dart';
 import 'package:in_a_bottle/_shared/injection/injector.dart';
 import 'package:in_a_bottle/_shared/injection/injector_module.dart';
 import 'package:in_a_bottle/_shared/location/location_repository.dart';
@@ -17,6 +18,9 @@ class SessionDi extends InjectorModule {
         (injector) => FlushMessageHandler());
     injector.register((injector) => LockBloc());
     injector.register<TagRepository, TagDataRepository>((i)=> TagDataRepository());
+    injector.register((injector) => Dio());
+
+    injector.register((injector) => "https://5f544f56e5de110016d5203c.mockapi.io/", key: api);
 
     //TODO o que deve ser single é o datastore, mas a camada ainda não existe.
     injector.register<SessionRepository, SessionDataRepository>(
@@ -26,3 +30,6 @@ class SessionDi extends InjectorModule {
         isSingleton: true);
   }
 }
+
+
+const String api = "API";

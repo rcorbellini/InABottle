@@ -65,10 +65,11 @@ class Message extends Equatable implements BaseModel, EntityReactable {
       text: map['text'],
       title: map['title'],
       reactions: Set<UserReaction>.from(
-          map['reactions']?.map((x) => UserReaction.fromMap(x))),
+          map['reactions']?.map((x) => UserReaction.fromMap(x)) ?? []),
       status: map['status'],
       createdBy: User.fromMap(map['createdBy']),
-      createdAt: DateTime.fromMillisecondsSinceEpoch(map['createdAt']),
+      createdAt: DateTime.fromMillisecondsSinceEpoch(
+          map['createdAt'] ?? DateTime.now().millisecondsSinceEpoch),
     );
   }
 
