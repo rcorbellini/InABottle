@@ -46,7 +46,7 @@ class DirectMessageBloc extends CrudBloc<DirectMessageForm, DirectMessage>
           createdAt: DateTime.now(),
           createdBy: session.user,
         ),
-        local: Local(
+        createdOn: Local(
             isPrivateDM: isPrivateDM,
             reach: Reach(value: map[DirectMessageForm.sliderReach] as double),
             password: password,
@@ -64,8 +64,8 @@ class DirectMessageBloc extends CrudBloc<DirectMessageForm, DirectMessage>
       errors.add(DirectMessageError.emptyContent);
     }
 
-    if ((entity.local?.isPrivateDM ?? false) &&
-        (entity.local?.password?.trim() ?? "").isEmpty) {
+    if ((entity.createdOn?.isPrivateDM ?? false) &&
+        (entity.createdOn?.password?.trim() ?? "").isEmpty) {
       errors.add(DirectMessageError.emptyPassword);
     }
 

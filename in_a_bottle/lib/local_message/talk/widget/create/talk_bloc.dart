@@ -38,7 +38,7 @@ class TalkBloc extends CrudBloc<TalkForm, Talk> {
         title: map[TalkForm.textDescription] as String,
         descrition: map[TalkForm.textDescription] as String,
         startDate: startDate,
-        local: Local(
+        createdOn: Local(
             isPrivateDM: isPrivateDM,
             reach: Reach(value: map[TalkForm.sliderReach] as double),
             password: password,
@@ -57,8 +57,8 @@ class TalkBloc extends CrudBloc<TalkForm, Talk> {
       errors.add(TalkError.emptyDescription);
     }
 
-    if ((entity.local?.isPrivateDM ?? false) &&
-        (entity.local?.password?.trim() ?? "").isEmpty) {
+    if ((entity.createdOn?.isPrivateDM ?? false) &&
+        (entity.createdOn?.password?.trim() ?? "").isEmpty) {
       errors.add(TalkError.emptyPassword);
     }
 

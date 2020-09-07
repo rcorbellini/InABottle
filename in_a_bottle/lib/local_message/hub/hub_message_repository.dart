@@ -21,12 +21,12 @@ class HubMesageDataRepository extends HubMessageRepository {
   Future<List<HubMessage>> loadAllByLocation(Point location) async {
     final all = await dao.loadAll();
     return all.where((element) {
-      if (element?.local?.point == null) {
+      if (element?.createdOn?.point == null) {
         return false;
       }
 
-      final distance = location.distanceOf(element.local.point);
-      final allowed = element.local.reach?.ditanceAllowed ?? 50;
+      final distance = location.distanceOf(element.createdOn.point);
+      final allowed = element.createdOn.reach?.ditanceAllowed ?? 50;
 
       return distance < allowed;
     }).toList();

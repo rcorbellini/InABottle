@@ -9,36 +9,52 @@ import 'package:in_a_bottle/local_message/message/message.dart';
 import 'package:in_a_bottle/user/user_dto.dart';
 
 class HubMessage extends Equatable implements BaseModel, HomeFeed {
+  //Base
+  @override
   final String selector;
-  final Local local;
+  @override
+  final User createdBy;
+  @override
+  final Local createdOn;
+  @override
+  final DateTime createdAt;
+  @override
+  final String status;
+
+  //Entity
   final List<User> admin;
   final String title;
-  final User createdBy;
   final List<Message> messageChat;
 
   HubMessage({
     this.selector,
-    this.local,
+    this.createdBy,
+    this.createdOn,
+    this.createdAt,
+    this.status,
     this.admin,
     this.title,
-    this.createdBy,
     this.messageChat,
   });
 
   HubMessage copyWith({
     String selector,
-    Local local,
+    User createdBy,
+    Local createdOn,
+    DateTime createdAt,
+    String status,
     List<User> admin,
     String title,
-    User createdBy,
     List<Message> messageChat,
   }) {
     return HubMessage(
       selector: selector ?? this.selector,
-      local: local ?? this.local,
+      createdBy: createdBy ?? this.createdBy,
+      createdOn: createdOn ?? this.createdOn,
+      createdAt: createdAt ?? this.createdAt,
+      status: status ?? this.status,
       admin: admin ?? this.admin,
       title: title ?? this.title,
-      createdBy: createdBy ?? this.createdBy,
       messageChat: messageChat ?? this.messageChat,
     );
   }
@@ -46,30 +62,36 @@ class HubMessage extends Equatable implements BaseModel, HomeFeed {
   Map<String, dynamic> toMap() {
     return {
       'selector': selector,
-      'local': local?.toMap(),
+      'createdBy': createdBy?.toMap(),
+      'createdOn': createdOn?.toMap(),
+      'createdAt': createdAt?.millisecondsSinceEpoch,
+      'status': status,
       'admin': admin?.map((x) => x?.toMap())?.toList(),
       'title': title,
-      'createdBy': createdBy?.toMap(),
       'messageChat': messageChat?.map((x) => x?.toMap())?.toList(),
     };
   }
 
   factory HubMessage.fromMap(Map<String, dynamic> map) {
     if (map == null) return null;
-  
+
     return HubMessage(
       selector: map['selector'],
-      local: Local.fromMap(map['local']),
+      createdBy: User.fromMap(map['createdBy']),
+      createdOn: Local.fromMap(map['createdOn']),
+      createdAt: DateTime.fromMillisecondsSinceEpoch(map['createdAt']),
+      status: map['status'],
       admin: List<User>.from(map['admin']?.map((x) => User.fromMap(x))),
       title: map['title'],
-      createdBy: User.fromMap(map['createdBy']),
-      messageChat: List<Message>.from(map['messageChat']?.map((x) => Message.fromMap(x))),
+      messageChat: List<Message>.from(
+          map['messageChat']?.map((x) => Message.fromMap(x))),
     );
   }
 
   String toJson() => json.encode(toMap());
 
-  factory HubMessage.fromJson(String source) => HubMessage.fromMap(json.decode(source));
+  factory HubMessage.fromJson(String source) =>
+      HubMessage.fromMap(json.decode(source));
 
   @override
   bool get stringify => true;
@@ -78,10 +100,12 @@ class HubMessage extends Equatable implements BaseModel, HomeFeed {
   List<Object> get props {
     return [
       selector,
-      local,
+      createdBy,
+      createdOn,
+      createdAt,
+      status,
       admin,
       title,
-      createdBy,
       messageChat,
     ];
   }

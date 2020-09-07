@@ -45,7 +45,7 @@ class CreateHubMessageBloc extends CrudBloc<ChatForm, HubMessage> {
     return HubMessage(
         admin: [session.user],
         createdBy: session.user,
-        local: Local(
+        createdOn: Local(
             reach: Reach(value: map[ChatForm.sliderReach] as double),
             password: password,
             isPrivateDM: isPrivateDM,
@@ -66,8 +66,8 @@ class CreateHubMessageBloc extends CrudBloc<ChatForm, HubMessage> {
       errors.add(ChatError.emptyTitle);
     }
 
-    if ((entity.local?.isPrivateDM ?? false) &&
-        (entity.local?.password?.trim() ?? "").isEmpty) {
+    if ((entity.createdOn?.isPrivateDM ?? false) &&
+        (entity.createdOn?.password?.trim() ?? "").isEmpty) {
       errors.add(ChatError.emptyPassword);
     }
 

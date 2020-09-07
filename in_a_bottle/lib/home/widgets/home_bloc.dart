@@ -1,5 +1,4 @@
 import 'dart:async';
-import 'package:async/async.dart' show StreamGroup;
 
 import 'package:fancy_stream/fancy_stream.dart';
 import 'package:in_a_bottle/_shared/location/location_repository.dart';
@@ -11,6 +10,8 @@ import 'package:in_a_bottle/local_message/hub/hub_message_repository.dart';
 import 'package:in_a_bottle/local_message/direct_message/direct_message_repository.dart';
 import 'package:in_a_bottle/local_message/talk/talk.dart';
 import 'package:in_a_bottle/local_message/talk/talk_repository.dart';
+import 'package:in_a_bottle/local_message/treasure_hunt/treasure_hunt.dart';
+import 'package:in_a_bottle/local_message/treasure_hunt/treasure_hunt_repository.dart';
 import 'package:in_a_bottle/session/session_repository.dart';
 import 'package:meta/meta.dart';
 
@@ -20,18 +21,19 @@ class HomeBloc extends Disposable {
   final TalkRepository talkRepository;
   final HubMessageRepository chatRepository;
   final DirectMessageRepository messageRepository;
+  final TreasureHuntRepository treasureHuntRepository;
   final SessionRepository sessionRepository;
   final LocationRepository locationRepository;
   final Navigator navigator;
 
-  HomeBloc({
-    @required this.talkRepository,
-    @required this.navigator,
-    @required this.chatRepository,
-    @required this.messageRepository,
-    @required this.sessionRepository,
-    @required this.locationRepository,
-  }) {
+  HomeBloc(
+      {@required this.talkRepository,
+      @required this.navigator,
+      @required this.chatRepository,
+      @required this.messageRepository,
+      @required this.sessionRepository,
+      @required this.locationRepository,
+      @required this.treasureHuntRepository}) {
     //TODO usar BaseBloc
     listenOn<HomeEvent>(_handleEvents);
     sessionRepository.load().then(dispatchOn);
@@ -57,8 +59,13 @@ class HomeBloc extends Disposable {
     loadFeedByLocation(position);
   }
 
+  Future<void> loadTreasureHuntByLocation(Point location) async {
+    dispatchOn<List<TreasureHunt>>(
+        await treasureHuntRepository.loadByLocation(location));
+  }
+
   Future<void> loadTalksByLocation(Point location) async {
-    dispatchOn<List<Talk>>(await talkRepository.loadAllByLocation(location));
+    dispatchOn<List<Talk>>(await talkRepository.loadByLocation(location));
   }
 
   List<HomeFeed> lastDirectMessages = [];

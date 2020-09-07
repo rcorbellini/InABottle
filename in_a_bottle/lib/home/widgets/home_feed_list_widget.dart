@@ -72,7 +72,7 @@ class HomeFeedList extends StatelessWidget {
                           style: Theme.of(context).textTheme.headline6,
                         ),
                         Text(
-                          item.local.isLocked
+                          item.createdOn.isLocked
                               ? 'Locked'
                               : item.message.text ?? '--',
                           style: Theme.of(context).textTheme.bodyText2,
@@ -108,7 +108,7 @@ class HomeFeedList extends StatelessWidget {
                           style: Theme.of(context).textTheme.headline6,
                         ),
                         Text(
-                          item.local.contentLock ? 'Locked' : item.title,
+                          item.createdOn.contentLock ? 'Locked' : item.title,
                           style: Theme.of(context).textTheme.bodyText2,
                         )
                       ])),

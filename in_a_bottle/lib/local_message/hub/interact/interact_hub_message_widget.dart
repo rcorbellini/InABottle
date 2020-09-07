@@ -44,7 +44,7 @@ class _InteractHubMessageWidgetState extends State<InteractHubMessageWidget> {
               builder: (context, snpashot) {
                 final hub = snpashot.data;
                 return LockWidget(
-                  local: hub?.local,
+                  local: hub?.createdOn,
                   child: _content(hub),
                 );
               })),

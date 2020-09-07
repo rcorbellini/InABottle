@@ -21,11 +21,11 @@ class DirectMessageDataRepository extends DirectMessageRepository {
   Stream<List<DirectMessage>> loadByLocation(Point location) async* {
     final entities = await dao.loadAll();
     yield entities.where((element) {
-      if (element?.local?.point == null) {
+      if (element?.createdOn?.point == null) {
         return false;
       }
-      final distance = location.distanceOf(element.local.point);
-      final allowed = element.local.reach?.ditanceAllowed ?? 50;
+      final distance = location.distanceOf(element.createdOn.point);
+      final allowed = element.createdOn.reach?.ditanceAllowed ?? 50;
 
       return distance < allowed;
     }).toList();

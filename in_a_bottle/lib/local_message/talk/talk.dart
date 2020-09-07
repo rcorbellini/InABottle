@@ -1,14 +1,28 @@
 import 'dart:convert';
 
 import 'package:equatable/equatable.dart';
+import 'package:fancy_factory/fancy_factory.dart';
 
 import 'package:in_a_bottle/_shared/archtecture/base_model.dart';
 import 'package:in_a_bottle/local_message/local/local.dart';
 import 'package:in_a_bottle/local_message/message/message.dart';
 import 'package:in_a_bottle/local_message/talk/talk_category_dto.dart';
+import 'package:in_a_bottle/user/user_dto.dart';
 
 class Talk extends Equatable implements BaseModel {
+  //Base
+  @override
   final String selector;
+  @override
+  final User createdBy;
+  @override
+  final Local createdOn;
+  @override
+  final DateTime createdAt;
+  @override
+  final String status;
+
+  //entity
   final String title;
   final String descrition;
   final DateTime startDate;
@@ -16,12 +30,15 @@ class Talk extends Equatable implements BaseModel {
   final List<Message> openMessage;
   final List<Message> closeMessage;
   final TalkCategory mainCategory;
-  final List<TalkCategory> categories;
+  final List<Tag> categories;
   final int usersCount;
-  final Local local;
 
   Talk({
     this.selector,
+    this.createdBy,
+    this.createdOn,
+    this.createdAt,
+    this.status,
     this.title,
     this.descrition,
     this.startDate,
@@ -31,13 +48,16 @@ class Talk extends Equatable implements BaseModel {
     this.mainCategory,
     this.categories,
     this.usersCount,
-    this.local,
   });
 
   @override
   List<Object> get props {
     return [
       selector,
+      createdBy,
+      createdOn,
+      createdAt,
+      status,
       title,
       descrition,
       startDate,
@@ -47,12 +67,15 @@ class Talk extends Equatable implements BaseModel {
       mainCategory,
       categories,
       usersCount,
-      local,
     ];
   }
 
   Talk copyWith({
     String selector,
+    User createdBy,
+    Local createdOn,
+    DateTime createdAt,
+    String status,
     String title,
     String descrition,
     DateTime startDate,
@@ -60,12 +83,15 @@ class Talk extends Equatable implements BaseModel {
     List<Message> openMessage,
     List<Message> closeMessage,
     TalkCategory mainCategory,
-    List<TalkCategory> categories,
+    List<Tag> categories,
     int usersCount,
-    Local local,
   }) {
     return Talk(
       selector: selector ?? this.selector,
+      createdBy: createdBy ?? this.createdBy,
+      createdOn: createdOn ?? this.createdOn,
+      createdAt: createdAt ?? this.createdAt,
+      status: status ?? this.status,
       title: title ?? this.title,
       descrition: descrition ?? this.descrition,
       startDate: startDate ?? this.startDate,
@@ -75,13 +101,16 @@ class Talk extends Equatable implements BaseModel {
       mainCategory: mainCategory ?? this.mainCategory,
       categories: categories ?? this.categories,
       usersCount: usersCount ?? this.usersCount,
-      local: local ?? this.local,
     );
   }
 
   Map<String, dynamic> toMap() {
     return {
       'selector': selector,
+      'createdBy': createdBy?.toMap(),
+      'createdOn': createdOn?.toMap(),
+      'createdAt': createdAt?.millisecondsSinceEpoch,
+      'status': status,
       'title': title,
       'descrition': descrition,
       'startDate': startDate?.millisecondsSinceEpoch,
@@ -91,7 +120,6 @@ class Talk extends Equatable implements BaseModel {
       'mainCategory': mainCategory?.toMap(),
       'categories': categories?.map((x) => x?.toMap())?.toList(),
       'usersCount': usersCount,
-      'local': local?.toMap(),
     };
   }
 
@@ -100,16 +128,19 @@ class Talk extends Equatable implements BaseModel {
   
     return Talk(
       selector: map['selector'],
+      createdBy: User.fromMap(map['createdBy']),
+      createdOn: Local.fromMap(map['createdOn']),
+      createdAt: DateTime.fromMillisecondsSinceEpoch(map['createdAt']),
+      status: map['status'],
       title: map['title'],
       descrition: map['descrition'],
       startDate: DateTime.fromMillisecondsSinceEpoch(map['startDate']),
       endDate: DateTime.fromMillisecondsSinceEpoch(map['endDate']),
-      openMessage: List<Message>.from(map['openMessage']?.map((x) => Message.fromMap(x))??[]),
-      closeMessage: List<Message>.from(map['closeMessage']?.map((x) => Message.fromMap(x))??[]),
+      openMessage: List<Message>.from(map['openMessage']?.map((x) => Message.fromMap(x))),
+      closeMessage: List<Message>.from(map['closeMessage']?.map((x) => Message.fromMap(x))),
       mainCategory: TalkCategory.fromMap(map['mainCategory']),
-      categories: List<TalkCategory>.from(map['categories']?.map((x) => TalkCategory.fromMap(x))??[]),
+      categories: List<Tag>.from(map['categories']?.map((x) => Tag.fromMap(x))),
       usersCount: map['usersCount'],
-      local: Local.fromMap(map['local']),
     );
   }
 

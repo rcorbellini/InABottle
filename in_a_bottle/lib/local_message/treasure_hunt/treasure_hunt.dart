@@ -3,12 +3,13 @@ import 'dart:convert';
 import 'package:equatable/equatable.dart';
 
 import 'package:in_a_bottle/_shared/archtecture/base_model.dart';
+import 'package:in_a_bottle/home/home_feed.dart';
+import 'package:in_a_bottle/local_message/direct_message/direct_message.dart';
 import 'package:in_a_bottle/local_message/local/local.dart';
-import 'package:in_a_bottle/local_message/reaction/user_reaction.dart';
 import 'package:in_a_bottle/user/user_dto.dart';
 
-class Message extends Equatable implements BaseModel, EntityReactable {
-   //Base
+class TreasureHunt extends Equatable implements HomeFeed, BaseModel {
+  //Base
   @override
   final String selector;
   @override
@@ -20,41 +21,46 @@ class Message extends Equatable implements BaseModel, EntityReactable {
   @override
   final String status;
   
-  //Entity
-  final String text;
-  final String title;
-  final Set<UserReaction> reactions;
 
-  Message({
+  //entity
+  final List<DirectMessage> messages;
+  final String description;
+  final String title;
+  final int extraPoints;
+
+  TreasureHunt({
     this.selector,
     this.createdBy,
     this.createdOn,
     this.createdAt,
     this.status,
-    this.text,
+    this.messages,
+    this.description,
     this.title,
-    this.reactions,
+    this.extraPoints,
   });
 
-  Message copyWith({
+  TreasureHunt copyWith({
     String selector,
     User createdBy,
     Local createdOn,
     DateTime createdAt,
     String status,
-    String text,
+    List<DirectMessage> messages,
+    String description,
     String title,
-    Set<UserReaction> reactions,
+    int extraPoints,
   }) {
-    return Message(
+    return TreasureHunt(
       selector: selector ?? this.selector,
       createdBy: createdBy ?? this.createdBy,
       createdOn: createdOn ?? this.createdOn,
       createdAt: createdAt ?? this.createdAt,
       status: status ?? this.status,
-      text: text ?? this.text,
+      messages: messages ?? this.messages,
+      description: description ?? this.description,
       title: title ?? this.title,
-      reactions: reactions ?? this.reactions,
+      extraPoints: extraPoints ?? this.extraPoints,
     );
   }
 
@@ -65,31 +71,33 @@ class Message extends Equatable implements BaseModel, EntityReactable {
       'createdOn': createdOn?.toMap(),
       'createdAt': createdAt?.millisecondsSinceEpoch,
       'status': status,
-      'text': text,
+      'messages': messages?.map((x) => x?.toMap())?.toList(),
+      'description': description,
       'title': title,
-      'reactions': reactions?.map((x) => x?.toMap())?.toList(),
+      'extraPoints': extraPoints,
     };
   }
 
-  factory Message.fromMap(Map<String, dynamic> map) {
+  factory TreasureHunt.fromMap(Map<String, dynamic> map) {
     if (map == null) return null;
   
-    return Message(
+    return TreasureHunt(
       selector: map['selector'],
       createdBy: User.fromMap(map['createdBy']),
       createdOn: Local.fromMap(map['createdOn']),
       createdAt: DateTime.fromMillisecondsSinceEpoch(map['createdAt']),
       status: map['status'],
-      text: map['text'],
+      messages: List<DirectMessage>.from(map['messages']?.map((x) => DirectMessage.fromMap(x))),
+      description: map['description'],
       title: map['title'],
-      reactions: Set<UserReaction>.from(map['reactions']?.map((x) => UserReaction.fromMap(x))),
+      extraPoints: map['extraPoints'],
     );
   }
 
   String toJson() => json.encode(toMap());
 
-  factory Message.fromJson(String source) =>
-      Message.fromMap(json.decode(source));
+  factory TreasureHunt.fromJson(String source) =>
+      TreasureHunt.fromMap(json.decode(source));
 
   @override
   bool get stringify => true;
@@ -102,9 +110,11 @@ class Message extends Equatable implements BaseModel, EntityReactable {
       createdOn,
       createdAt,
       status,
-      text,
+      messages,
+      description,
       title,
-      reactions,
+      extraPoints,
     ];
   }
+ 
 }
