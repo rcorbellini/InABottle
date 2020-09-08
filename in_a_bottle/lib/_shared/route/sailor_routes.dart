@@ -13,6 +13,10 @@ import 'package:in_a_bottle/local_message/talk/widget/create/talk_bloc.dart';
 import 'package:in_a_bottle/local_message/talk/widget/create/talk_widget.dart';
 import 'package:in_a_bottle/local_message/talk/widget/interact/interact_talk_bloc.dart';
 import 'package:in_a_bottle/local_message/talk/widget/interact/interact_talk_widget.dart';
+import 'package:in_a_bottle/local_message/treasure_hunt/widget/create/message_treasure_widget.dart';
+import 'package:in_a_bottle/local_message/treasure_hunt/widget/create/message_treasure_bloc.dart';
+import 'package:in_a_bottle/local_message/treasure_hunt/widget/create/treasure_hunt_bloc.dart';
+import 'package:in_a_bottle/local_message/treasure_hunt/widget/create/treasure_hunt_widget.dart';
 import 'package:sailor/sailor.dart';
 
 class SailorRoutes {
@@ -40,6 +44,19 @@ class SailorRoutes {
       name: CreateHubMessageBloc.route,
       builder: (context, args, params) {
         return CreateHubMessageWidget();
+      },
+    ));
+
+    sailor.addRoute(SailorRoute(
+      name: TreasureHuntBloc.route,
+      builder: (context, args, params) {
+        return TreasureHuntWidget();
+      },
+    ));
+    sailor.addRoute(SailorRoute(
+      name: MessageTreasureBloc.route,
+      builder: (context, args, params) {
+        return MessageTreasureWidget();
       },
     ));
 

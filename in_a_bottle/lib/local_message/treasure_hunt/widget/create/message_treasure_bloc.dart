@@ -7,24 +7,21 @@ import 'package:in_a_bottle/_shared/route/navigator.dart';
 import 'package:in_a_bottle/_shared/transformers/campo_obrigatorio_validator.dart';
 import 'package:in_a_bottle/local_message/local/local.dart';
 import 'package:in_a_bottle/local_message/direct_message/direct_message.dart';
-import 'package:in_a_bottle/local_message/direct_message/direct_message_repository.dart';
 import 'package:in_a_bottle/_shared/location/location_repository.dart';
 import 'package:in_a_bottle/local_message/message/message.dart';
 import 'package:in_a_bottle/session/session_repository.dart';
 import 'package:meta/meta.dart';
 
-class DirectMessageBloc extends CrudBloc<DirectMessageForm, DirectMessage>
+class MessageTreasureBloc extends CrudBloc<DirectMessageForm, DirectMessage>
     with CampoObrigatorioValidator {
-  static const String route = "/addDirectMessage";
+  static const String route = "/addMessageTreasure";
 
-  final DirectMessageRepository messageDataRepository;
   final SessionRepository sessionRepository;
   final LocationRepository locationRepository;
   final Navigator navigator;
 
-  DirectMessageBloc(
-      {@required this.messageDataRepository,
-      @required this.sessionRepository,
+  MessageTreasureBloc(
+      {@required this.sessionRepository,
       @required this.navigator,
       @required this.locationRepository}) {
     addTransformOn(validateObrigatorio, key: DirectMessageForm.textContent);
@@ -79,8 +76,7 @@ class DirectMessageBloc extends CrudBloc<DirectMessageForm, DirectMessage>
 
   @override
   Future<void> save(DirectMessage entity) async {
-    await messageDataRepository.save(entity);
-    navigator.pop();
+    navigator.pop<DirectMessage>(entity);
   }
 }
 

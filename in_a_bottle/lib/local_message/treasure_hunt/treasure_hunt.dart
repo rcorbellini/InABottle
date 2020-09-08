@@ -4,11 +4,11 @@ import 'package:equatable/equatable.dart';
 
 import 'package:in_a_bottle/_shared/archtecture/base_model.dart';
 import 'package:in_a_bottle/home/home_feed.dart';
+import 'package:in_a_bottle/local_message/direct_message/direct_message.dart';
 import 'package:in_a_bottle/local_message/local/local.dart';
-import 'package:in_a_bottle/local_message/message/message.dart';
 import 'package:in_a_bottle/user/user_dto.dart';
 
-class HubMessage extends Equatable implements BaseModel, HomeFeed {
+class TreasureHunt extends Equatable implements HomeFeed, BaseModel {
   //Base
   @override
   final String selector;
@@ -20,42 +20,55 @@ class HubMessage extends Equatable implements BaseModel, HomeFeed {
   final DateTime createdAt;
   @override
   final String status;
+  
 
-  //Entity
-  final List<User> admin;
+  //entity
+  final List<DirectMessage> messages;
+  final String description;
   final String title;
-  final List<Message> messageChat;
+  final int extraPoints;
+  final DateTime startDate;
+  final DateTime endDate;
 
-  HubMessage({
+  TreasureHunt({
     this.selector,
     this.createdBy,
     this.createdOn,
     this.createdAt,
     this.status,
-    this.admin,
+    this.messages = const [],
+    this.description,
     this.title,
-    this.messageChat,
+    this.extraPoints,
+    this.startDate,
+    this.endDate,
   });
 
-  HubMessage copyWith({
+  TreasureHunt copyWith({
     String selector,
     User createdBy,
     Local createdOn,
     DateTime createdAt,
     String status,
-    List<User> admin,
+    List<DirectMessage> messages,
+    String description,
     String title,
-    List<Message> messageChat,
+    int extraPoints,
+    DateTime startDate,
+    DateTime endDate,
   }) {
-    return HubMessage(
+    return TreasureHunt(
       selector: selector ?? this.selector,
       createdBy: createdBy ?? this.createdBy,
       createdOn: createdOn ?? this.createdOn,
       createdAt: createdAt ?? this.createdAt,
       status: status ?? this.status,
-      admin: admin ?? this.admin,
+      messages: messages ?? this.messages,
+      description: description ?? this.description,
       title: title ?? this.title,
-      messageChat: messageChat ?? this.messageChat,
+      extraPoints: extraPoints ?? this.extraPoints,
+      startDate: startDate ?? this.startDate,
+      endDate: endDate ?? this.endDate,
     );
   }
 
@@ -66,32 +79,37 @@ class HubMessage extends Equatable implements BaseModel, HomeFeed {
       'createdOn': createdOn?.toMap(),
       'createdAt': createdAt?.millisecondsSinceEpoch,
       'status': status,
-      'admin': admin?.map((x) => x?.toMap())?.toList(),
+      'messages': messages?.map((x) => x?.toMap())?.toList(),
+      'description': description,
       'title': title,
-      'messageChat': messageChat?.map((x) => x?.toMap())?.toList(),
+      'extraPoints': extraPoints,
+      'startDate': startDate?.millisecondsSinceEpoch,
+      'endDate': endDate?.millisecondsSinceEpoch,
     };
   }
 
-  factory HubMessage.fromMap(Map<String, dynamic> map) {
+  factory TreasureHunt.fromMap(Map<String, dynamic> map) {
     if (map == null) return null;
-
-    return HubMessage(
+  
+    return TreasureHunt(
       selector: map['selector'],
       createdBy: User.fromMap(map['createdBy']),
       createdOn: Local.fromMap(map['createdOn']),
       createdAt: DateTime.fromMillisecondsSinceEpoch(map['createdAt']),
       status: map['status'],
-      admin: List<User>.from(map['admin']?.map((x) => User.fromMap(x))),
+      messages: List<DirectMessage>.from(map['messages']?.map((x) => DirectMessage.fromMap(x))),
+      description: map['description'],
       title: map['title'],
-      messageChat: List<Message>.from(
-          map['messageChat']?.map((x) => Message.fromMap(x))),
+      extraPoints: map['extraPoints'],
+      startDate: DateTime.fromMillisecondsSinceEpoch(map['startDate'] ?? DateTime.now().millisecondsSinceEpoch),
+      endDate: DateTime.fromMillisecondsSinceEpoch(map['endDate']?? DateTime.now().millisecondsSinceEpoch),
     );
   }
 
   String toJson() => json.encode(toMap());
 
-  factory HubMessage.fromJson(String source) =>
-      HubMessage.fromMap(json.decode(source));
+  factory TreasureHunt.fromJson(String source) =>
+      TreasureHunt.fromMap(json.decode(source));
 
   @override
   bool get stringify => true;
@@ -104,9 +122,13 @@ class HubMessage extends Equatable implements BaseModel, HomeFeed {
       createdOn,
       createdAt,
       status,
-      admin,
+      messages,
+      description,
       title,
-      messageChat,
+      extraPoints,
+      startDate,
+      endDate,
     ];
   }
+ 
 }

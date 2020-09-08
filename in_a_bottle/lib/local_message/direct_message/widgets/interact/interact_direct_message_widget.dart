@@ -43,7 +43,7 @@ class _InteractDirectMessageWidgetState
               builder: (context, snpashot) {
                 final dm = snpashot.data;
                 return LockWidget(
-                  local: dm?.local,
+                  local: dm?.createdOn,
                   child: Column(children: [
                     Text("msg aqui"),
                     ReactionWidget(

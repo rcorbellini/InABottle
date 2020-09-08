@@ -5,7 +5,7 @@ import 'package:in_a_bottle/local_message/talk/talk_storage.dart';
 
 abstract class TalkRepository
     extends BaseRepository<Talk, String, TalkStorage> {
-  Future<List<Talk>> loadAllByLocation(Point location);
+  Future<List<Talk>> loadByLocation(Point location);
 }
 
 class TalkDataRepository extends TalkRepository {
@@ -17,15 +17,15 @@ class TalkDataRepository extends TalkRepository {
   TalkDataRepository(this.dao, this.http);
 
   @override
-  Future<List<Talk>> loadAllByLocation(Point location) async {
+  Future<List<Talk>> loadByLocation(Point location) async {
     final all = await dao.loadAll();
     return all.where((element) {
-      if (element?.local?.point == null) {
+      if (element?.createdOn?.point == null) {
         return false;
       }
 
-      final distance = location.distanceOf(element.local.point);
-      final allowed = element.local.reach?.ditanceAllowed ?? 50;
+      final distance = location.distanceOf(element.createdOn.point);
+      final allowed = element.createdOn.reach?.ditanceAllowed ?? 50;
 
       return distance < allowed;
     }).toList();

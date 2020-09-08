@@ -5,9 +5,11 @@ import 'package:in_a_bottle/home/home_event.dart';
 import 'package:in_a_bottle/home/widgets/home_feed_list_widget.dart';
 import 'package:in_a_bottle/home/widgets/home_talk_list_widget.dart';
 import 'package:fancy_stream/fancy_stream.dart';
+import 'package:in_a_bottle/home/widgets/home_treasure_hunt_list_widget.dart';
 import 'package:in_a_bottle/local_message/direct_message/widgets/create/direct_message_bloc.dart';
 import 'package:in_a_bottle/local_message/hub/create/create_hub_message_bloc.dart';
 import 'package:in_a_bottle/local_message/talk/widget/create/talk_bloc.dart';
+import 'package:in_a_bottle/local_message/treasure_hunt/widget/create/treasure_hunt_bloc.dart';
 import 'package:in_a_bottle/session/session_dto.dart';
 
 class HomeWidget extends StatefulWidget {
@@ -33,7 +35,6 @@ class _HomeWidgetState extends State<HomeWidget> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      
         body: Column(
             children: [_buildHeader(), _buildContent(), _buildFooter()]));
   }
@@ -51,7 +52,7 @@ class _HomeWidgetState extends State<HomeWidget> {
             return Text("--1212");
           }
 
-          return Text(snapshot.data?.user?.photoUrl??'-|-');
+          return Text(snapshot.data?.user?.photoUrl ?? '-|-');
         },
       ),
     );
@@ -65,6 +66,10 @@ class _HomeWidgetState extends State<HomeWidget> {
         mainAxisSize: MainAxisSize.max,
         children: <Widget>[
           HomeTalkListWidget(
+            homeBloc: _homeBloc,
+            context: context,
+          ),
+          HomeTreasureHuntListWidget(
             homeBloc: _homeBloc,
             context: context,
           ),
@@ -95,22 +100,30 @@ class _HomeWidgetState extends State<HomeWidget> {
         mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
           FlatButton(
-            child: const Text("Adicionar Talk"),
+            child: const Text("Talk"),
             onPressed: () {
               _homeBloc.dispatchOn<HomeEvent>(GoToRoute(TalkBloc.route));
             },
           ),
           FlatButton(
-            child: const Text("Adicionar Chat"),
+            child: const Text("Chat"),
             onPressed: () {
-              _homeBloc.dispatchOn<HomeEvent>(GoToRoute(CreateHubMessageBloc.route));
+              _homeBloc
+                  .dispatchOn<HomeEvent>(GoToRoute(CreateHubMessageBloc.route));
             },
           ),
           FlatButton(
-            child: const Text("Adicionar Item"),
+            child: const Text("Item"),
             onPressed: () {
               _homeBloc
                   .dispatchOn<HomeEvent>(GoToRoute(DirectMessageBloc.route));
+            },
+          ),
+          FlatButton(
+            child: const Text("Caça"),
+            onPressed: () {
+              _homeBloc
+                  .dispatchOn<HomeEvent>(GoToRoute(TreasureHuntBloc.route));
             },
           ),
         ],

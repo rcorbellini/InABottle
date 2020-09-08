@@ -52,7 +52,7 @@ class _InteractTalkWidgetState extends State<InteractTalkWidget>
                 return Container();
               }
               return LockWidget(
-                local: talk?.local,
+                local: talk?.createdOn,
                 child: Scaffold(
                   appBar: AppBar(
                     bottom: TabBar(

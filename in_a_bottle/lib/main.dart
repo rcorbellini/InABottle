@@ -9,6 +9,7 @@ import 'package:in_a_bottle/_shared/route/navigator.dart'
 import 'package:in_a_bottle/local_message/hub/hub_message_di.dart';
 import 'package:in_a_bottle/local_message/direct_message/direct_message_di.dart';
 import 'package:in_a_bottle/local_message/talk/talk_di.dart';
+import 'package:in_a_bottle/local_message/treasure_hunt/treasure_hunt_di.dart';
 import 'package:in_a_bottle/session/session_bloc.dart';
 import 'package:in_a_bottle/session/session_di.dart';
 import 'package:in_a_bottle/session/session_event.dart';
@@ -23,6 +24,7 @@ void main() {
     HubMessageDI(),
     NavigatorDI(),
     TalkDi(),
+    TreasureHuntDi(),
     UserDi(),
     DirectMessageDi(),
     HomeDi(),

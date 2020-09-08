@@ -21,6 +21,7 @@ class TalkDi extends InjectorModule {
     injector.register(
       (i) => TalkBloc(
         talkRepository: i.get(),
+        sessionRepository: i.get(),
         navigator: i.get(),
         locationRepository: i.get(),
       ),

@@ -6,44 +6,71 @@ import 'package:in_a_bottle/_shared/archtecture/base_model.dart';
 import 'package:in_a_bottle/home/home_feed.dart';
 import 'package:in_a_bottle/local_message/local/local.dart';
 import 'package:in_a_bottle/local_message/message/message.dart';
+import 'package:in_a_bottle/user/user_dto.dart';
 
 class DirectMessage extends Equatable implements HomeFeed, BaseModel {
-  final Local local;
-  final Message message;
+  //Base
+  @override
   final String selector;
+  @override
+  final User createdBy;
+  @override
+  final Local createdOn;
+  @override
+  final DateTime createdAt;
+  @override
+  final String status;
+  
+  //Entity
+  final Message message;
   DirectMessage({
-    this.local,
-    this.message,
     this.selector,
+    this.createdBy,
+    this.createdOn,
+    this.createdAt,
+    this.status,
+    this.message,
   });
 
   DirectMessage copyWith({
-    Local local,
-    Message message,
     String selector,
+    User createdBy,
+    Local createdOn,
+    DateTime createdAt,
+    String status,
+    Message message,
   }) {
     return DirectMessage(
-      local: local ?? this.local,
-      message: message ?? this.message,
       selector: selector ?? this.selector,
+      createdBy: createdBy ?? this.createdBy,
+      createdOn: createdOn ?? this.createdOn,
+      createdAt: createdAt ?? this.createdAt,
+      status: status ?? this.status,
+      message: message ?? this.message,
     );
   }
 
   Map<String, dynamic> toMap() {
     return {
-      'local': local?.toMap(),
-      'message': message?.toMap(),
       'selector': selector,
+      'createdBy': createdBy?.toMap(),
+      'createdOn': createdOn?.toMap(),
+      'createdAt': createdAt?.millisecondsSinceEpoch,
+      'status': status,
+      'message': message?.toMap(),
     };
   }
 
   factory DirectMessage.fromMap(Map<String, dynamic> map) {
     if (map == null) return null;
-
+  
     return DirectMessage(
-      local: Local.fromMap(map['local']),
-      message: Message.fromMap(map['message']),
       selector: map['selector'],
+      createdBy: User.fromMap(map['createdBy']),
+      createdOn: Local.fromMap(map['createdOn']),
+      createdAt: DateTime.fromMillisecondsSinceEpoch(map['createdAt']),
+      status: map['status'],
+      message: Message.fromMap(map['message']),
     );
   }
 
@@ -56,5 +83,14 @@ class DirectMessage extends Equatable implements HomeFeed, BaseModel {
   bool get stringify => true;
 
   @override
-  List<Object> get props => [local, message, selector];
+  List<Object> get props {
+    return [
+      selector,
+      createdBy,
+      createdOn,
+      createdAt,
+      status,
+      message,
+    ];
+  }
 }

@@ -3,73 +3,86 @@ import 'dart:convert';
 import 'package:equatable/equatable.dart';
 
 import 'package:in_a_bottle/_shared/archtecture/base_model.dart';
+import 'package:in_a_bottle/local_message/local/local.dart';
 import 'package:in_a_bottle/local_message/reaction/user_reaction.dart';
 import 'package:in_a_bottle/user/user_dto.dart';
 
 class Message extends Equatable implements BaseModel, EntityReactable {
+   //Base
+  @override
   final String selector;
+  @override
+  final User createdBy;
+  @override
+  final Local createdOn;
+  @override
+  final DateTime createdAt;
+  @override
+  final String status;
+  
+  //Entity
   final String text;
   final String title;
   final Set<UserReaction> reactions;
-  final String status;
 
-  final User createdBy;
-  final DateTime createdAt;
   Message({
     this.selector,
+    this.createdBy,
+    this.createdOn,
+    this.createdAt,
+    this.status,
     this.text,
     this.title,
     this.reactions,
-    this.status,
-    this.createdBy,
-    this.createdAt,
   });
 
   Message copyWith({
     String selector,
+    User createdBy,
+    Local createdOn,
+    DateTime createdAt,
+    String status,
     String text,
     String title,
     Set<UserReaction> reactions,
-    String status,
-    User createdBy,
-    DateTime createdAt,
   }) {
     return Message(
       selector: selector ?? this.selector,
+      createdBy: createdBy ?? this.createdBy,
+      createdOn: createdOn ?? this.createdOn,
+      createdAt: createdAt ?? this.createdAt,
+      status: status ?? this.status,
       text: text ?? this.text,
       title: title ?? this.title,
       reactions: reactions ?? this.reactions,
-      status: status ?? this.status,
-      createdBy: createdBy ?? this.createdBy,
-      createdAt: createdAt ?? this.createdAt,
     );
   }
 
   Map<String, dynamic> toMap() {
     return {
       'selector': selector,
+      'createdBy': createdBy?.toMap(),
+      'createdOn': createdOn?.toMap(),
+      'createdAt': createdAt?.millisecondsSinceEpoch,
+      'status': status,
       'text': text,
       'title': title,
       'reactions': reactions?.map((x) => x?.toMap())?.toList(),
-      'status': status,
-      'createdBy': createdBy?.toMap(),
-      'createdAt': createdAt?.millisecondsSinceEpoch,
     };
   }
 
   factory Message.fromMap(Map<String, dynamic> map) {
     if (map == null) return null;
-
+  
     return Message(
       selector: map['selector'],
+      createdBy: User.fromMap(map['createdBy']),
+      createdOn: Local.fromMap(map['createdOn']),
+      createdAt: DateTime.fromMillisecondsSinceEpoch(map['createdAt']),
+      status: map['status'],
       text: map['text'],
       title: map['title'],
-      reactions: Set<UserReaction>.from(
-          map['reactions']?.map((x) => UserReaction.fromMap(x)) ?? []),
-      status: map['status'],
-      createdBy: User.fromMap(map['createdBy']),
-      createdAt: DateTime.fromMillisecondsSinceEpoch(
-          map['createdAt'] ?? DateTime.now().millisecondsSinceEpoch),
+      reactions: Set<UserReaction>.from(map['reactions']?.map((x) => UserReaction.fromMap(x))??{}),
     );
   }
 
@@ -85,12 +98,13 @@ class Message extends Equatable implements BaseModel, EntityReactable {
   List<Object> get props {
     return [
       selector,
+      createdBy,
+      createdOn,
+      createdAt,
+      status,
       text,
       title,
       reactions,
-      status,
-      createdBy,
-      createdAt,
     ];
   }
 }
