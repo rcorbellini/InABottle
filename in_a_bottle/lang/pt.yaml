@@ -62,6 +62,7 @@ treasureHuntForm:
     v2: "Padrão"
     v3: "Distante"
   save: "Salvar"
+  addMessage: "+"
 
 treasureHuntError:
   title: "Atenção"

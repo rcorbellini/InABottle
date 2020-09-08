@@ -27,6 +27,8 @@ class TreasureHunt extends Equatable implements HomeFeed, BaseModel {
   final String description;
   final String title;
   final int extraPoints;
+  final DateTime startDate;
+  final DateTime endDate;
 
   TreasureHunt({
     this.selector,
@@ -34,10 +36,12 @@ class TreasureHunt extends Equatable implements HomeFeed, BaseModel {
     this.createdOn,
     this.createdAt,
     this.status,
-    this.messages,
+    this.messages = const [],
     this.description,
     this.title,
     this.extraPoints,
+    this.startDate,
+    this.endDate,
   });
 
   TreasureHunt copyWith({
@@ -50,6 +54,8 @@ class TreasureHunt extends Equatable implements HomeFeed, BaseModel {
     String description,
     String title,
     int extraPoints,
+    DateTime startDate,
+    DateTime endDate,
   }) {
     return TreasureHunt(
       selector: selector ?? this.selector,
@@ -61,6 +67,8 @@ class TreasureHunt extends Equatable implements HomeFeed, BaseModel {
       description: description ?? this.description,
       title: title ?? this.title,
       extraPoints: extraPoints ?? this.extraPoints,
+      startDate: startDate ?? this.startDate,
+      endDate: endDate ?? this.endDate,
     );
   }
 
@@ -75,6 +83,8 @@ class TreasureHunt extends Equatable implements HomeFeed, BaseModel {
       'description': description,
       'title': title,
       'extraPoints': extraPoints,
+      'startDate': startDate?.millisecondsSinceEpoch,
+      'endDate': endDate?.millisecondsSinceEpoch,
     };
   }
 
@@ -91,6 +101,8 @@ class TreasureHunt extends Equatable implements HomeFeed, BaseModel {
       description: map['description'],
       title: map['title'],
       extraPoints: map['extraPoints'],
+      startDate: DateTime.fromMillisecondsSinceEpoch(map['startDate'] ?? DateTime.now().millisecondsSinceEpoch),
+      endDate: DateTime.fromMillisecondsSinceEpoch(map['endDate']?? DateTime.now().millisecondsSinceEpoch),
     );
   }
 
@@ -114,6 +126,8 @@ class TreasureHunt extends Equatable implements HomeFeed, BaseModel {
       description,
       title,
       extraPoints,
+      startDate,
+      endDate,
     ];
   }
  

@@ -136,10 +136,10 @@ class Talk extends Equatable implements BaseModel {
       descrition: map['descrition'],
       startDate: DateTime.fromMillisecondsSinceEpoch(map['startDate']),
       endDate: DateTime.fromMillisecondsSinceEpoch(map['endDate']),
-      openMessage: List<Message>.from(map['openMessage']?.map((x) => Message.fromMap(x))),
-      closeMessage: List<Message>.from(map['closeMessage']?.map((x) => Message.fromMap(x))),
+      openMessage: List<Message>.from(map['openMessage']?.map((x) => Message.fromMap(x))??[]),
+      closeMessage: List<Message>.from(map['closeMessage']?.map((x) => Message.fromMap(x))??[]),
       mainCategory: TalkCategory.fromMap(map['mainCategory']),
-      categories: List<Tag>.from(map['categories']?.map((x) => Tag.fromMap(x))),
+      categories: List<Tag>.from(map['categories']?.map((x) => Tag.fromMap(x))??[]),
       usersCount: map['usersCount'],
     );
   }

@@ -12,8 +12,8 @@ class SailorNavigator extends interface_navigator.Navigator {
   }
 
   @override
-  void pop() {
-    sailor.navigatorKey.currentState.pop();
+  void pop<T>([T result]) {
+    sailor.navigatorKey.currentState.pop<T>(result);
   }
 
   @override

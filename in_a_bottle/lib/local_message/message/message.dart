@@ -82,7 +82,7 @@ class Message extends Equatable implements BaseModel, EntityReactable {
       status: map['status'],
       text: map['text'],
       title: map['title'],
-      reactions: Set<UserReaction>.from(map['reactions']?.map((x) => UserReaction.fromMap(x))),
+      reactions: Set<UserReaction>.from(map['reactions']?.map((x) => UserReaction.fromMap(x))??{}),
     );
   }
 

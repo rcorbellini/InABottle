@@ -32,7 +32,7 @@ abstract class DirectMessageService implements DirectMessageStorage {
 
   @POST("/direct_message")
   @override
-  Future insert(DirectMessage entity);
+  Future<String> insert(DirectMessage entity);
 
   @GET("/direct_message")
   @override

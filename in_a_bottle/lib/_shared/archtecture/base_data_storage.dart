@@ -5,7 +5,7 @@ abstract class BaseDataStorage<E, K>{
 
   Future update(String key, E entity);
 
-  Future insert(E entity);
+  Future<String> insert(E entity);
 
   //Future saveAll(Iterable<E> entities);
 

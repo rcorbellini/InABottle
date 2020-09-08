@@ -1,6 +1,7 @@
 import 'package:fancy_factory/fancy_factory.dart';
 import 'package:flutter/material.dart';
 import 'package:in_a_bottle/common/widget/crud_widget.dart';
+import 'package:in_a_bottle/local_message/direct_message/direct_message.dart';
 import 'package:in_a_bottle/local_message/treasure_hunt/widget/create/treasure_hunt_bloc.dart';
 import 'package:fancy_stream/fancy_stream.dart';
 
@@ -19,10 +20,11 @@ class _TreasureHuntWidgetState extends State<TreasureHuntWidget> {
                 child: Column(children: [
           _factory.build(TreasureHuntForm.textTitle),
           _factory.build(TreasureHuntForm.textDescription),
+          _factory.build(TreasureHuntForm.dateRangeDuration),
           _factory.build(TreasureHuntForm.boolPrivate),
           StreamBuilder<bool>(
               stream: _bloc.streamOf(key: TreasureHuntForm.boolPrivate),
-              builder: (date, snapshot) {
+              builder: (context, snapshot) {
                 final _switcherState = snapshot.data ?? false;
 
                 return Visibility(
@@ -33,6 +35,14 @@ class _TreasureHuntWidgetState extends State<TreasureHuntWidget> {
                         }));
               }),
           _factory.build(TreasureHuntForm.sliderReach),
+          _factory.build(TreasureHuntForm.actionAddMessage),
+          StreamBuilder<List<DirectMessage>>(
+            stream: _bloc.streamOf(key: TreasureHuntForm.messages),
+            builder: (context, snapshot) {
+              final messages = snapshot.data ?? [];
+              return Text(messages.toString());
+            },
+          ),
           _factory.build(TreasureHuntForm.actionSave),
         ])));
       },

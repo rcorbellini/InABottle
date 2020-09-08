@@ -8,3 +8,8 @@ abstract class BaseModel {
   DateTime get createdAt;
   String get status;
 }
+
+
+
+const String statusPendente = 'pendente';
+const String statusProcessado = 'processado';

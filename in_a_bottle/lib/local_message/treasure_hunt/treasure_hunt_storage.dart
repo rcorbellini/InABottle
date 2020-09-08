@@ -32,7 +32,7 @@ abstract class TreasureHuntService implements TreasureHuntStorage {
 
   @POST("/treasure_hunt")
   @override
-  Future insert(TreasureHunt entity);
+  Future<String> insert(TreasureHunt entity);
 
   @GET("/treasure_hunt")
   @override

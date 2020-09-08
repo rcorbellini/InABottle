@@ -31,7 +31,7 @@ abstract class HubMessageService implements HubMessageStorage {
 
   @POST("/hub_message")
   @override
-  Future insert(HubMessage entity);
+  Future<String> insert(HubMessage entity);
 
   @GET("/hub_message")
   @override

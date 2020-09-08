@@ -2,6 +2,7 @@ import 'package:in_a_bottle/_shared/injection/injector.dart';
 import 'package:in_a_bottle/_shared/injection/injector_module.dart';
 import 'package:in_a_bottle/local_message/treasure_hunt/treasure_hunt_repository.dart';
 import 'package:in_a_bottle/local_message/treasure_hunt/treasure_hunt_storage.dart';
+import 'package:in_a_bottle/local_message/treasure_hunt/widget/create/message_treasure_bloc.dart';
 import 'package:in_a_bottle/local_message/treasure_hunt/widget/create/treasure_hunt_bloc.dart';
 import 'package:in_a_bottle/session/session_di.dart';
 
@@ -25,6 +26,15 @@ class TreasureHuntDi extends InjectorModule {
         navigator: i.get(),
         locationRepository: i.get(),
         treasureHuntRepository: i.get(),
+        sessionRepository: i.get(),
+      ),
+    );
+
+    injector.register(
+      (i) => MessageTreasureBloc(
+        navigator: i.get(),
+        locationRepository: i.get(),
+        sessionRepository: i.get(),
       ),
     );
 

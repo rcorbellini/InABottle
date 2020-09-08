@@ -32,7 +32,7 @@ abstract class TalkService implements TalkStorage {
 
   @POST("/talk")
   @override
-  Future insert(Talk entity);
+  Future<String> insert(Talk entity);
 
   @GET("/talk")
   @override

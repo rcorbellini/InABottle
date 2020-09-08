@@ -14,8 +14,8 @@ abstract class BaseDao<T extends BaseModel> {
     _folder.record(key).delete(await _db);
   }
 
-  Future insert(T entity) async {
-    await _folder.record(newKey).add(await _db, toJson(entity));
+  Future<String> insert(T entity) async {
+    return await _folder.record(newKey).add(await _db, toJson(entity));
   }
 
   Future<List<T>> loadAll() async {
