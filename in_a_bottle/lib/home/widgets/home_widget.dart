@@ -100,27 +100,27 @@ class _HomeWidgetState extends State<HomeWidget> {
         mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
           FlatButton(
-            child: const Text("Adicionar Talk"),
+            child: const Text("Talk"),
             onPressed: () {
               _homeBloc.dispatchOn<HomeEvent>(GoToRoute(TalkBloc.route));
             },
           ),
           FlatButton(
-            child: const Text("Adicionar Chat"),
+            child: const Text("Chat"),
             onPressed: () {
               _homeBloc
                   .dispatchOn<HomeEvent>(GoToRoute(CreateHubMessageBloc.route));
             },
           ),
           FlatButton(
-            child: const Text("Adicionar Item"),
+            child: const Text("Item"),
             onPressed: () {
               _homeBloc
                   .dispatchOn<HomeEvent>(GoToRoute(DirectMessageBloc.route));
             },
           ),
           FlatButton(
-            child: const Text("Caça ao Tesouro"),
+            child: const Text("Caça"),
             onPressed: () {
               _homeBloc
                   .dispatchOn<HomeEvent>(GoToRoute(TreasureHuntBloc.route));

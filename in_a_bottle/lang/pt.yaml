@@ -52,6 +52,24 @@ hubMessageForm:
   message: "Digite sua mensagem"
 
 
+treasureHuntForm:
+  description: "Fale um pouco sobre a caçada."
+  title: "Título da sua caçada."
+  password: "Informe a Senha"
+  duration: "selecione uma data"
+  reach:
+    v1: "Perto"
+    v2: "Padrão"
+    v3: "Distante"
+  save: "Salvar"
+
+treasureHuntError:
+  title: "Atenção"
+  emptyTitle: "O 'Título' não pode ficar em branco."
+  emptyDescription: "A 'Descrição' não pode ficar em branco."
+  emptyPassword: "É preciso definir uma 'Senha'."
+
+
 lockForm:
   password: "Informe a Senha, para ter acesso a esse Chat."
   save: "Validar"    

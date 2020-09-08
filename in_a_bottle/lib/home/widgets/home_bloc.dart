@@ -57,6 +57,7 @@ class HomeBloc extends Disposable {
   void loadHomeByPosition(Point position) {
     loadTalksByLocation(position);
     loadFeedByLocation(position);
+    loadTreasureHuntByLocation(position);
   }
 
   Future<void> loadTreasureHuntByLocation(Point location) async {
