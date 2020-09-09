@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
-import 'package:in_a_bottle/user/user_dto.dart';
+import 'package:in_a_bottle/user/user.dart';
 
 GoogleSignIn _googleSignIn = GoogleSignIn(
   scopes: ['email'],

@@ -5,7 +5,7 @@ import 'package:equatable/equatable.dart';
 import 'package:in_a_bottle/_shared/archtecture/base_model.dart';
 import 'package:in_a_bottle/local_message/local/local.dart';
 import 'package:in_a_bottle/local_message/reaction/user_reaction.dart';
-import 'package:in_a_bottle/user/user_dto.dart';
+import 'package:in_a_bottle/user/user.dart';
 
 class Message extends Equatable implements BaseModel, EntityReactable {
    //Base

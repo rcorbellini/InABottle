@@ -7,7 +7,7 @@ import 'package:in_a_bottle/_shared/archtecture/base_model.dart';
 import 'package:in_a_bottle/local_message/local/local.dart';
 import 'package:in_a_bottle/local_message/message/message.dart';
 import 'package:in_a_bottle/local_message/talk/talk_category_dto.dart';
-import 'package:in_a_bottle/user/user_dto.dart';
+import 'package:in_a_bottle/user/user.dart';
 
 class Talk extends Equatable implements BaseModel {
   //Base

@@ -1,5 +1,5 @@
 import 'package:in_a_bottle/_shared/location/point.dart';
-import 'package:in_a_bottle/user/user_dto.dart';
+import 'package:in_a_bottle/user/user.dart';
 
 class PlaceNamed{
   final String description;

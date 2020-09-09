@@ -3,7 +3,7 @@ import 'dart:convert';
 import 'package:equatable/equatable.dart';
 
 import 'package:in_a_bottle/local_message/reaction/type_reaction.dart';
-import 'package:in_a_bottle/user/user_dto.dart';
+import 'package:in_a_bottle/user/user.dart';
 
 class UserReaction extends Equatable {
   final User createdBy;

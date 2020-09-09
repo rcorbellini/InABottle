@@ -22,7 +22,7 @@ class HomeTalkListWidget extends StatelessWidget {
           children: <Widget>[
             Text(
               "Talks",
-              style: Theme.of(context).textTheme.display1,
+              style: Theme.of(context).textTheme.headline3,
             ),
             Expanded(
                 child: StreamBuilder<List<Talk>>(

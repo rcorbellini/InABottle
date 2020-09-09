@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:in_a_bottle/_shared/injection/injector.dart';
+import 'package:in_a_bottle/home/home_feed.dart';
 import 'package:in_a_bottle/home/widgets/home_bloc.dart';
 import 'package:in_a_bottle/home/home_event.dart';
 import 'package:in_a_bottle/home/widgets/home_feed_list_widget.dart';
@@ -34,6 +35,49 @@ class _HomeWidgetState extends State<HomeWidget> {
 
   @override
   Widget build(BuildContext context) {
+    return Scaffold(
+      body: Container(
+        decoration: BoxDecoration(
+            gradient: LinearGradient(
+                begin: Alignment.topRight,
+                end: Alignment.bottomLeft,
+                colors: [Color(0x102BC0E4), Color(0x33EAECC6)])),
+        child: CustomScrollView(
+          slivers: <Widget>[
+            SliverAppBar(
+              backgroundColor: Color(0x052BC0E4),
+              expandedHeight: 100.0,
+              floating: true,
+              pinned: false,
+              flexibleSpace: FlexibleSpaceBar(background: Text("InABottle")),
+            ),
+            SliverList(
+                delegate: SliverChildListDelegate([
+              HomeTalkListWidget(
+                homeBloc: _homeBloc,
+                context: context,
+              ),
+              HomeTreasureHuntListWidget(
+                homeBloc: _homeBloc,
+                context: context,
+              ),
+              Padding(
+                padding: EdgeInsets.all(8),
+                child: Text(
+                  "Feed",
+                  style: Theme.of(context).textTheme.headline3,
+                ),
+              )
+            ])),
+            HomeFeedList(
+              homeBloc: _homeBloc,
+              context: context,
+            )
+          ],
+        ),
+      ),
+      bottomNavigationBar: _buildFooter(),
+    );
     return Scaffold(
         body: Column(
             children: [_buildHeader(), _buildContent(), _buildFooter()]));
