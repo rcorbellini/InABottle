@@ -37,134 +37,132 @@ class _HomeWidgetState extends State<HomeWidget> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Container(
-        decoration: BoxDecoration(
-            gradient: LinearGradient(
-                begin: Alignment.topRight,
-                end: Alignment.bottomLeft,
-                colors: [Color(0x102BC0E4), Color(0x33EAECC6)])),
-        child: CustomScrollView(
-          slivers: <Widget>[
-            SliverAppBar(
-              backgroundColor: Color(0x052BC0E4),
-              expandedHeight: 100.0,
-              floating: true,
-              pinned: false,
-              flexibleSpace: FlexibleSpaceBar(background: Text("InABottle")),
+          decoration: BoxDecoration(
+              gradient: LinearGradient(
+                  begin: Alignment.topRight,
+                  end: Alignment.bottomLeft,
+                  colors: [Color(0x102BC0E4), Color(0x50EAECC6)])),
+          child: SafeArea(
+            child: NestedScrollView(
+              headerSliverBuilder:
+                  (BuildContext context, bool innerBoxIsScrolled) {
+                return [
+                  SliverAppBar(
+                    backgroundColor: Color(0x052BC0E4),
+                    expandedHeight: 100.0,
+                    floating: true,
+                    pinned: false,
+                    flexibleSpace:
+                        FlexibleSpaceBar(background: Text("InABottle")),
+                  )
+                ];
+              },
+              body: CustomScrollView(
+                slivers: <Widget>[
+                  SliverList(
+                      delegate: SliverChildListDelegate([
+                    HomeTalkListWidget(
+                      homeBloc: _homeBloc,
+                      context: context,
+                    ),
+                    HomeTreasureHuntListWidget(
+                      homeBloc: _homeBloc,
+                      context: context,
+                    ),
+                    Padding(
+                      padding: EdgeInsets.all(8),
+                      child: Text(
+                        "Feed",
+                        style: Theme.of(context).textTheme.headline3,
+                      ),
+                    )
+                  ])),
+                  HomeFeedList(
+                    homeBloc: _homeBloc,
+                    context: context,
+                  )
+                ],
+              ),
             ),
-            SliverList(
-                delegate: SliverChildListDelegate([
-              HomeTalkListWidget(
-                homeBloc: _homeBloc,
-                context: context,
-              ),
-              HomeTreasureHuntListWidget(
-                homeBloc: _homeBloc,
-                context: context,
-              ),
-              Padding(
-                padding: EdgeInsets.all(8),
-                child: Text(
-                  "Feed",
-                  style: Theme.of(context).textTheme.headline3,
-                ),
-              )
-            ])),
-            HomeFeedList(
-              homeBloc: _homeBloc,
-              context: context,
-            )
-          ],
-        ),
-      ),
+          )),
       bottomNavigationBar: _buildFooter(),
-    );
-    return Scaffold(
-        body: Column(
-            children: [_buildHeader(), _buildContent(), _buildFooter()]));
-  }
-
-  //Footer
-  //TODO fazer
-  Widget _buildHeader() {
-    return Container(
-      height: 58,
-      color: Colors.grey,
-      child: StreamBuilder<Session>(
-        stream: _homeBloc.streamOf(),
-        builder: (context, snapshot) {
-          if (!snapshot.hasData) {
-            return Text("--1212");
-          }
-
-          return Text(snapshot.data?.user?.photoUrl ?? '-|-');
-        },
-      ),
-    );
-  }
-
-  Widget _buildContent() {
-    return Expanded(
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.start,
-        crossAxisAlignment: CrossAxisAlignment.start,
-        mainAxisSize: MainAxisSize.max,
-        children: <Widget>[
-          HomeTalkListWidget(
-            homeBloc: _homeBloc,
-            context: context,
-          ),
-          HomeTreasureHuntListWidget(
-            homeBloc: _homeBloc,
-            context: context,
-          ),
-          Expanded(
-              child: Stack(
-                  alignment: AlignmentDirectional.bottomCenter,
-                  children: [
-                HomeFeedList(
-                  homeBloc: _homeBloc,
-                  context: context,
-                ),
-                RaisedButton(
-                  child: const Text("Mapa"),
-                  onPressed: () {
-                    _homeBloc.dispatchOn<HomeEvent>(GoToRoute("/map"));
-                  },
-                ),
-              ]))
-        ],
-      ),
     );
   }
 
   Widget _buildFooter() {
     return Container(
+      color: Colors.white,
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.center,
         mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
           FlatButton(
-            child: const Text("Talk"),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              mainAxisSize: MainAxisSize.min,
+              children: <Widget>[
+                Icon(Icons.people),
+                Text(
+                  "Talk",
+                  style: Theme.of(context).textTheme.overline,
+                )
+              ],
+            ),
             onPressed: () {
               _homeBloc.dispatchOn<HomeEvent>(GoToRoute(TalkBloc.route));
             },
           ),
           FlatButton(
-            child: const Text("Chat"),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              mainAxisSize: MainAxisSize.min,
+              children: <Widget>[
+                Icon(Icons.chat),
+                Text(
+                  "Chat",
+                  style: Theme.of(context).textTheme.overline,
+                )
+              ],
+            ),
             onPressed: () {
               _homeBloc
                   .dispatchOn<HomeEvent>(GoToRoute(CreateHubMessageBloc.route));
             },
           ),
           FlatButton(
-            child: const Text("Item"),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              mainAxisSize: MainAxisSize.min,
+              children: <Widget>[
+                Icon(Icons.textsms),
+                Text(
+                  "Message",
+                  style: Theme.of(context).textTheme.overline,
+                )
+              ],
+            ),
             onPressed: () {
               _homeBloc
                   .dispatchOn<HomeEvent>(GoToRoute(DirectMessageBloc.route));
             },
           ),
           FlatButton(
-            child: const Text("Caça"),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              mainAxisSize: MainAxisSize.min,
+              children: <Widget>[
+                Icon(Icons.map),
+                Text(
+                  "Caçada",
+                  overflow: TextOverflow.ellipsis,
+                  style: Theme.of(context).textTheme.overline,
+                )
+              ],
+            ),
             onPressed: () {
               _homeBloc
                   .dispatchOn<HomeEvent>(GoToRoute(TreasureHuntBloc.route));

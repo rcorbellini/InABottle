@@ -36,7 +36,7 @@ class _InteractDirectMessageWidgetState
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Container(
+      body: SafeArea(child:Container(
           child: StreamBuilder<DirectMessage>(
               stream:
                   _bloc.streamOf<DirectMessage>(key: DirectMessageForm.directMessage),
@@ -54,7 +54,7 @@ class _InteractDirectMessageWidgetState
                     )
                   ]),
                 );
-              })),
+              })) ) ,
     );
   }
 }

@@ -37,6 +37,8 @@ class HomeTalkListWidget extends StatelessWidget {
     if (snapshot.hasData) {
       final talks = snapshot.data;
       return ListView(
+        physics: PageScrollPhysics(),
+        shrinkWrap: true,
         scrollDirection: Axis.horizontal,
         children: talks.map(_buildTalkItem).toList(),
       );
@@ -47,11 +49,12 @@ class HomeTalkListWidget extends StatelessWidget {
 
   Widget _buildTalkItem(Talk talk) {
     return GestureDetector(
-      onTap: () => homeBloc.dispatchOn<HomeEvent>(
-          GoToRoute(InteractTalkBloc.route, params: {"selector": talk.selector})),
+      onTap: () => homeBloc.dispatchOn<HomeEvent>(GoToRoute(
+          InteractTalkBloc.route,
+          params: {"selector": talk.selector})),
       child: Container(
-          margin: const EdgeInsets.all(16),
-          width: MediaQuery.of(context).size.height * 0.30,
+          margin: const EdgeInsets.all(8),
+          width: MediaQuery.of(context).size.width * 0.85,
           decoration: BoxDecoration(
               color: Colors.black12,
               borderRadius: const BorderRadius.all(Radius.circular(16.0))),
