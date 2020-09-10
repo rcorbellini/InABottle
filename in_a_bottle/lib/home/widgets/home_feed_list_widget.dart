@@ -204,7 +204,7 @@ class HomeFeedList extends StatelessWidget {
           color: Colors.white,
         ),
          Text(
-              "1/10",
+              "1/2",
               style: Theme.of(context)
                   .textTheme
                   .overline

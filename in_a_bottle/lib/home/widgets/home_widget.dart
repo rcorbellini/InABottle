@@ -61,19 +61,36 @@ class _HomeWidgetState extends State<HomeWidget> {
                 slivers: <Widget>[
                   SliverList(
                       delegate: SliverChildListDelegate([
+
+                    Padding(
+                      padding: EdgeInsets.all(8),
+                      child: Text(
+                        "Talks",
+                        style: Theme.of(context).textTheme.headline3,
+                      ),
+                    ),
                     HomeTalkListWidget(
                       homeBloc: _homeBloc,
                       context: context,
+                    ),
+
+                    Padding(
+                      padding: EdgeInsets.all(8),
+                      child: Text(
+                        "Caçadas",
+                        style: Theme.of(context).textTheme.headline3,
+                      ),
                     ),
                     HomeTreasureHuntListWidget(
                       homeBloc: _homeBloc,
                       context: context,
                     ),
+
                     Padding(
                       padding: EdgeInsets.all(8),
                       child: Text(
-                        "Feed",
-                        style: Theme.of(context).textTheme.headline3,
+                        "Por Perto",
+                        style: Theme.of(context).textTheme.headline4,
                       ),
                     )
                   ])),

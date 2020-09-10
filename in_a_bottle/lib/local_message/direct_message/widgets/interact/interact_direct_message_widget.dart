@@ -36,25 +36,26 @@ class _InteractDirectMessageWidgetState
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: SafeArea(child:Container(
-          child: StreamBuilder<DirectMessage>(
-              stream:
-                  _bloc.streamOf<DirectMessage>(key: DirectMessageForm.directMessage),
-              builder: (context, snpashot) {
-                final dm = snpashot.data;
-                return LockWidget(
-                  local: dm?.createdOn,
-                  child: Column(children: [
-                    Text("msg aqui"),
-                    ReactionWidget(
-                      onReactionChange: (r) =>
-                          _bloc.dispatchOn<InteractDirectMessageEvent>(
-                              SelectReaction(r, dm)),
-                      userReactions: dm?.message?.reactions,
-                    )
-                  ]),
-                );
-              })) ) ,
+      body: SafeArea(
+          child: Container(
+              child: StreamBuilder<DirectMessage>(
+                  stream: _bloc.streamOf<DirectMessage>(
+                      key: DirectMessageForm.directMessage),
+                  builder: (context, snpashot) {
+                    final dm = snpashot.data;
+                    return LockWidget(
+                      local: dm?.createdOn,
+                      child: Column(children: [
+                        Text("msg aqui"),
+                        ReactionWidget(
+                          onReactionChange: (r) =>
+                              _bloc.dispatchOn<InteractDirectMessageEvent>(
+                                  SelectReaction(r, dm)),
+                          userReactions: dm?.message?.reactions,
+                        )
+                      ]),
+                    );
+                  }))),
     );
   }
 }

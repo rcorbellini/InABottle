@@ -17,19 +17,8 @@ class HomeTalkListWidget extends StatelessWidget {
     return Container(
         padding: const EdgeInsets.only(left: 10.0),
         height: MediaQuery.of(context).size.height * 0.30,
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: <Widget>[
-            Text(
-              "Talks",
-              style: Theme.of(context).textTheme.headline3,
-            ),
-            Expanded(
-                child: StreamBuilder<List<Talk>>(
-                    stream: homeBloc.streamOf<List<Talk>>(),
-                    builder: _builTalksList))
-          ],
-        ));
+        child: StreamBuilder<List<Talk>>(
+            stream: homeBloc.streamOf<List<Talk>>(), builder: _builTalksList));
   }
 
   Widget _builTalksList(
@@ -53,8 +42,8 @@ class HomeTalkListWidget extends StatelessWidget {
           InteractTalkBloc.route,
           params: {"selector": talk.selector})),
       child: Container(
-          margin: const EdgeInsets.all(8),
           width: MediaQuery.of(context).size.width * 0.85,
+          margin: const EdgeInsets.all(8),
           decoration: BoxDecoration(
               color: Colors.black12,
               borderRadius: const BorderRadius.all(Radius.circular(16.0))),
