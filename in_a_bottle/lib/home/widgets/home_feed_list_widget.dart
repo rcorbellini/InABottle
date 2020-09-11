@@ -1,15 +1,18 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:in_a_bottle/_shared/archtecture/base_model.dart';
 import 'package:in_a_bottle/home/widgets/home_bloc.dart';
 import 'package:in_a_bottle/home/home_event.dart';
 import 'package:in_a_bottle/home/home_feed.dart';
+import 'package:in_a_bottle/home/widgets/home_widget_helpers.dart';
 import 'package:in_a_bottle/local_message/direct_message/widgets/interact/interact_direct_message_bloc.dart';
 import 'package:in_a_bottle/local_message/hub/hub_message.dart';
 import 'package:in_a_bottle/local_message/hub/interact/interact_hub_message_bloc.dart';
 import 'package:in_a_bottle/local_message/direct_message/direct_message.dart';
 import 'package:fancy_stream/fancy_stream.dart';
 import 'package:in_a_bottle/local_message/reaction/user_reaction.dart';
+import 'package:in_a_bottle/user/user.dart';
 import 'package:meta/meta.dart';
+import 'package:in_a_bottle/_shared/extesions/datetime_ext.dart';
 
 class HomeFeedList extends StatelessWidget {
   final HomeBloc homeBloc;
@@ -38,116 +41,11 @@ class HomeFeedList extends StatelessWidget {
 
   Widget _buildItem(HomeFeed item) {
     if (item is DirectMessage) {
-      return Stack(
-        children: [
-          Positioned(
-            top: 0.0,
-            bottom: 0.0,
-            left: 40.0,
-            child: Container(
-              height: double.infinity,
-              width: 1.0,
-              color: Colors.grey.shade300,
-            ),
-          ),
-          Positioned(
-            top: 45.0,
-            left: 30,
-            right: 20,
-            child: Container(
-              height: 1.0,
-              width: double.infinity,
-              color: Colors.grey.shade300,
-            ),
-          ),
-          Positioned(
-              top: 20.0,
-              left: 8.0,
-              child: Column(
-                children: [
-                  Container(
-                    decoration: BoxDecoration(
-                      shape: BoxShape.circle,
-                      color: Colors.white,
-                    ),
-                    child: Container(
-                      margin: EdgeInsets.all(5.0),
-                      height: 60.0,
-                      width: 60.0,
-                      child: buildAvatar(item),
-                    ),
-                  ),
-                  Padding(
-                      padding: EdgeInsets.only(top: 4),
-                      child: Text(
-                        getDifferenceBetweenDates(item.createdAt),
-                        style: Theme.of(context).textTheme.subtitle1,
-                      ))
-                ],
-              )),
-          Padding(
-              padding: EdgeInsets.fromLTRB(80, 4, 8, 4),
-              child: Stack(
-                children: [
-                  Card(
-                    shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(8.0)),
-                    elevation: 0.5,
-                    child: GestureDetector(
-                      onTap: () => homeBloc.dispatchOn<HomeEvent>(GoToRoute(
-                          InteractDirectMessageBloc.route,
-                          params: <String, dynamic>{
-                            "selector": item.selector
-                          })),
-                      child: Container(
-                        height: 120,
-                        padding: EdgeInsets.all(16),
-                        width: double.infinity,
-                        child: Column(
-                          mainAxisSize: MainAxisSize.max,
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          crossAxisAlignment: CrossAxisAlignment.stretch,
-                          children: [
-                            Text(
-                              item.message.title,
-                              style: Theme.of(context).textTheme.headline6,
-                            ),
-                            Expanded(
-                                child: item.createdOn.isLocked &&
-                                        item.createdOn.isPrivateDM
-                                    ? Container()
-                                    : Text(
-                                        item.message.text,
-                                        style: Theme.of(context)
-                                            .textTheme
-                                            .bodyText2,
-                                      )),
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.start,
-                              mainAxisSize: MainAxisSize.max,
-                              children: [
-                                Text(
-                                  "Pessoas Reagiram (${item?.message?.reactions?.length ?? 0})",
-                                  style: Theme.of(context).textTheme.overline,
-                                ),
-                                buildAvatarsReactions(
-                                    item?.message?.reactions?.toList() ?? [])
-                              ],
-                            )
-                          ],
-                        ),
-                      ),
-                    ),
-                  ),
-                  item.createdOn.isLocked && item.createdOn.isPrivateDM
-                      ? buildLockFlag()
-                      : Container(),
-                  item.message.reactions.isNotEmpty
-                      ? buildHuntFlag()
-                      : Container()
-                ],
-              )),
-        ],
+      return CardFeedDirectMessage(
+        directMessage: item,
+        onTap: () => homeBloc.dispatchOn<HomeEvent>(GoToRoute(
+            InteractDirectMessageBloc.route,
+            params: <String, dynamic>{"selector": item.selector})),
       );
     } else if (item is HubMessage) {
       return Column(
@@ -186,34 +84,140 @@ class HomeFeedList extends StatelessWidget {
     }
     return Container();
   }
+}
 
-  Widget buildLockFlag() {
-    return buildFlag(
-        Icon(
+class CardFeedDirectMessage extends StatelessWidget {
+  final DirectMessage directMessage;
+  final GestureTapCallback onTap;
+
+  const CardFeedDirectMessage({Key key, this.directMessage, this.onTap})
+      : super(key: key);
+  @override
+  Widget build(BuildContext context) {
+    return Stack(
+      children: [
+        Positioned(
+          top: 0.0,
+          bottom: 0.0,
+          left: 40.0,
+          child: Container(
+            height: double.infinity,
+            width: 1.2,
+            color: Colors.grey.shade300,
+          ),
+        ),
+        Positioned(
+          top: 45.0,
+          left: 30,
+          right: 20,
+          child: Container(
+            height: 1.2,
+            width: double.infinity,
+            color: Colors.grey.shade300,
+          ),
+        ),
+        Positioned(
+            top: 20.0,
+            left: 8.0,
+            child: Column(
+              children: [
+                AvatarTimeLine(user: directMessage.createdBy),
+                Padding(
+                    padding: EdgeInsets.only(top: 4),
+                    child: Text(
+                      directMessage.createdAt.toTimeAgo(),
+                      style: Theme.of(context).textTheme.subtitle1,
+                    ))
+              ],
+            )),
+        Padding(
+            padding: EdgeInsets.fromLTRB(80, 4, 8, 4),
+            child: Stack(
+              children: [
+                Cards.timeLine(
+                  onTap: onTap,
+                  child: Column(
+                    mainAxisSize: MainAxisSize.max,
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    crossAxisAlignment: CrossAxisAlignment.stretch,
+                    children: [
+                      Text(
+                        directMessage.message.title,
+                        style: Theme.of(context).textTheme.headline6,
+                      ),
+                      Expanded(
+                          child: directMessage.createdOn.isLocked &&
+                                  directMessage.createdOn.isPrivateDM
+                              ? Container()
+                              : Text(
+                                  directMessage.message.text,
+                                  style: Theme.of(context).textTheme.bodyText2,
+                                )),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        mainAxisSize: MainAxisSize.max,
+                        children: [
+                          Text(
+                            "Pessoas Reagiram (${directMessage?.message?.reactions?.length ?? 0})",
+                            style: Theme.of(context).textTheme.overline,
+                          ),
+                          AvatarsReactions(
+                              reactions:
+                                  directMessage?.message?.reactions?.toList())
+                        ],
+                      )
+                    ],
+                  ),
+                ),
+                directMessage.createdOn.isLocked &&
+                        directMessage.createdOn.isPrivateDM
+                    ? FlagsOverflow.lock()
+                    : Container(),
+                directMessage.message.reactions.isNotEmpty
+                    ? FlagsOverflow.treasureHunt(context, "1/2")
+                    : Container()
+              ],
+            )),
+      ],
+    );
+  }
+}
+
+///build deixar dinamico
+///os parametros de posicao
+class FlagsOverflow extends StatelessWidget {
+  final Widget iconflag;
+  final Widget contentFlag;
+  final Color background;
+
+  const FlagsOverflow(
+      {Key key, this.iconflag, this.contentFlag, this.background})
+      : super(key: key);
+
+  FlagsOverflow.lock()
+      : iconflag = Icon(
           Icons.lock,
           color: Colors.white,
         ),
-        Container(),
-        Colors.grey[800]);
-  }
+        contentFlag = Container(),
+        background = Colors.grey[800];
 
-  Widget buildHuntFlag() {
-    return buildFlag(
-        Icon(
+  FlagsOverflow.treasureHunt(BuildContext context, String content)
+      : iconflag = Icon(
           Icons.map,
           color: Colors.white,
         ),
-         Text(
-              "1/2",
-              style: Theme.of(context)
-                  .textTheme
-                  .overline
-                  .copyWith(color: Colors.white, fontWeight: FontWeight.bold),
-            ),
-        Colors.brown[700]);
-  }
+        contentFlag = Text(
+          content,
+          style: Theme.of(context)
+              .textTheme
+              .overline
+              .copyWith(color: Colors.white, fontWeight: FontWeight.bold),
+        ),
+        background = Colors.brown[800];
 
-  Widget buildFlag(Widget iconflag, Widget contentFlag, Color background) {
+  @override
+  Widget build(BuildContext context) {
     return Positioned(
       right: 20,
       child: Stack(
@@ -224,8 +228,7 @@ class HomeFeedList extends StatelessWidget {
             height: 90.0,
             color: background,
             padding: EdgeInsets.only(bottom: 10),
-            child: Center(
-                child: contentFlag),
+            child: Center(child: contentFlag),
           ),
           Positioned(bottom: 20, left: 3, child: iconflag),
           Positioned(
@@ -243,9 +246,16 @@ class HomeFeedList extends StatelessWidget {
       ),
     );
   }
+}
 
-  Widget buildAvatarsReactions(List<UserReaction> reacao) {
-    if (reacao.isEmpty) {
+class AvatarsReactions extends StatelessWidget {
+  final List<UserReaction> reactions;
+
+  const AvatarsReactions({Key key, this.reactions}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    if (reactions?.isEmpty ?? true) {
       return Container(width: 60);
     }
     return Container(
@@ -253,84 +263,68 @@ class HomeFeedList extends StatelessWidget {
         padding: EdgeInsets.only(left: 8),
         child: Stack(
             overflow: Overflow.clip,
-            children: reacao
+            children: reactions
                 .asMap()
                 .map((key, value) => MapEntry(
                     key,
                     key == 0
-                        ? buildAvatarReaction(value)
+                        ? Avatars.small(value.createdBy?.photoUrl)
                         : Positioned(
                             left: key * 10.0,
-                            child: buildAvatarReaction(value))))
+                            child: Avatars.small(value.createdBy?.photoUrl))))
                 .values
                 .toList()));
   }
+}
 
-  Widget buildAvatarReaction(UserReaction reacao) {
-    return CircleAvatar(
-      radius: 10,
-      backgroundImage: NetworkImage(reacao.createdBy?.photoUrl ??
-          "https://lh3.googleusercontent.com/a-/AOh14GjcZr7Td-GC9joDcnbnimnc41KvfAgQ9oVrBFYj=s96-c-rg-br100"),
-    );
-  }
+class AvatarTimeLine extends StatelessWidget {
+  final User user;
+  const AvatarTimeLine({Key key, this.user}) : super(key: key);
 
-  Widget buildAvatar(BaseModel item) {
-    return Stack(
-      overflow: Overflow.visible,
-      children: [
-        CircleAvatar(
-          radius: 90,
-          backgroundImage: NetworkImage(
-              "https://lh3.googleusercontent.com/a-/AOh14GjcZr7Td-GC9joDcnbnimnc41KvfAgQ9oVrBFYj=s96-c-rg-br100"),
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+        decoration: BoxDecoration(
+          shape: BoxShape.circle,
+          color: Colors.white,
         ),
-        Positioned(
-          bottom: -10,
-          right: -5,
-          child: Container(
-            width: 33.0,
-            height: 33.0,
-            child: Center(
-              child: Text(
-                item.createdBy?.points?.toString() ?? "100",
-                style: Theme.of(context).textTheme.overline,
-              ),
-            ),
-            decoration: new BoxDecoration(
-                shape: BoxShape.circle,
-                color: Colors.amber.withOpacity(0.95),
-                border: Border.all(color: Colors.white, width: 3)),
-          ),
-        )
-      ],
-    );
+        child: Container(
+            margin: EdgeInsets.all(3.0),
+            height: 60.0,
+            width: 60.0,
+            child: Stack(
+              overflow: Overflow.visible,
+              children: [
+                Avatars.big(user?.photoUrl),
+                Positioned(
+                  bottom: -10,
+                  right: -5,
+                  child: Coin(points: user?.points),
+                )
+              ],
+            )));
   }
 }
 
-String getDifferenceBetweenDates(DateTime date) {
-  if (date == null) {
-    return "";
-  }
-  var duration = DateTime.now().toLocal().difference(date.toLocal());
+class Coin extends StatelessWidget {
+  final int points;
 
-  var days = duration.inDays;
-  if (days > 0) {
-    return "${days}d";
+  const Coin({Key key, this.points}) : super(key: key);
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      width: 33.0,
+      height: 33.0,
+      child: Center(
+        child: Text(
+          points?.toString() ?? "100",
+          style: Theme.of(context).textTheme.overline,
+        ),
+      ),
+      decoration: BoxDecoration(
+          shape: BoxShape.circle,
+          color: Colors.amber.withOpacity(0.95),
+          border: Border.all(color: Colors.white, width: 3)),
+    );
   }
-
-  var hours = duration.inHours.remainder(24);
-  if (hours > 0) {
-    return "${hours}h";
-  }
-
-  var minutes = duration.inMinutes.remainder(60);
-  if (minutes > 0) {
-    return "${minutes}m";
-  }
-
-  var seconds = duration.inSeconds.remainder(60);
-  if (seconds > 0) {
-    return "${seconds}s";
-  }
-
-  return "";
 }

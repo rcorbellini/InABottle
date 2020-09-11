@@ -6,9 +6,10 @@ import 'package:in_a_bottle/_shared/archtecture/base_model.dart';
 import 'package:in_a_bottle/home/home_feed.dart';
 import 'package:in_a_bottle/local_message/direct_message/direct_message.dart';
 import 'package:in_a_bottle/local_message/local/local.dart';
+import 'package:in_a_bottle/local_message/reaction/user_reaction.dart';
 import 'package:in_a_bottle/user/user.dart';
 
-class TreasureHunt extends Equatable implements HomeFeed, BaseModel {
+class TreasureHunt extends Equatable implements HomeFeed, BaseModel, EntityReactable {
   //Base
   @override
   final String selector;
@@ -20,13 +21,16 @@ class TreasureHunt extends Equatable implements HomeFeed, BaseModel {
   final DateTime createdAt;
   @override
   final String status;
-  
+  @override
+  final Set<UserReaction> reactions;
 
   //entity
   final List<DirectMessage> messages;
   final String description;
   final String title;
   final int extraPoints;
+  final int points;
+  final String rewards;
   final DateTime startDate;
   final DateTime endDate;
 
@@ -36,10 +40,13 @@ class TreasureHunt extends Equatable implements HomeFeed, BaseModel {
     this.createdOn,
     this.createdAt,
     this.status,
+    this.reactions = const {},
     this.messages = const [],
     this.description,
     this.title,
     this.extraPoints,
+    this.points,
+    this.rewards,
     this.startDate,
     this.endDate,
   });
@@ -50,10 +57,13 @@ class TreasureHunt extends Equatable implements HomeFeed, BaseModel {
     Local createdOn,
     DateTime createdAt,
     String status,
+    Set<UserReaction> reactions,
     List<DirectMessage> messages,
     String description,
     String title,
     int extraPoints,
+    int points,
+    String rewards,
     DateTime startDate,
     DateTime endDate,
   }) {
@@ -63,10 +73,13 @@ class TreasureHunt extends Equatable implements HomeFeed, BaseModel {
       createdOn: createdOn ?? this.createdOn,
       createdAt: createdAt ?? this.createdAt,
       status: status ?? this.status,
+      reactions: reactions ?? this.reactions,
       messages: messages ?? this.messages,
       description: description ?? this.description,
       title: title ?? this.title,
       extraPoints: extraPoints ?? this.extraPoints,
+      points: points ?? this.points,
+      rewards: rewards ?? this.rewards,
       startDate: startDate ?? this.startDate,
       endDate: endDate ?? this.endDate,
     );
@@ -79,10 +92,13 @@ class TreasureHunt extends Equatable implements HomeFeed, BaseModel {
       'createdOn': createdOn?.toMap(),
       'createdAt': createdAt?.millisecondsSinceEpoch,
       'status': status,
+      'reactions': reactions?.map((x) => x?.toMap())?.toList(),
       'messages': messages?.map((x) => x?.toMap())?.toList(),
       'description': description,
       'title': title,
       'extraPoints': extraPoints,
+      'points': points,
+      'rewards': rewards,
       'startDate': startDate?.millisecondsSinceEpoch,
       'endDate': endDate?.millisecondsSinceEpoch,
     };
@@ -97,12 +113,17 @@ class TreasureHunt extends Equatable implements HomeFeed, BaseModel {
       createdOn: Local.fromMap(map['createdOn']),
       createdAt: DateTime.fromMillisecondsSinceEpoch(map['createdAt']),
       status: map['status'],
+      reactions: Set<UserReaction>.from(map['reactions']?.map((x) => UserReaction.fromMap(x))),
       messages: List<DirectMessage>.from(map['messages']?.map((x) => DirectMessage.fromMap(x))),
       description: map['description'],
       title: map['title'],
       extraPoints: map['extraPoints'],
-      startDate: DateTime.fromMillisecondsSinceEpoch(map['startDate'] ?? DateTime.now().millisecondsSinceEpoch),
-      endDate: DateTime.fromMillisecondsSinceEpoch(map['endDate']?? DateTime.now().millisecondsSinceEpoch),
+      points: map['points'],
+      rewards: map['rewards'],
+      startDate: DateTime.fromMillisecondsSinceEpoch(
+          map['startDate'] ?? DateTime.now().millisecondsSinceEpoch),
+      endDate: DateTime.fromMillisecondsSinceEpoch(
+          map['endDate'] ?? DateTime.now().millisecondsSinceEpoch),
     );
   }
 
@@ -122,13 +143,15 @@ class TreasureHunt extends Equatable implements HomeFeed, BaseModel {
       createdOn,
       createdAt,
       status,
+      reactions,
       messages,
       description,
       title,
       extraPoints,
+      points,
+      rewards,
       startDate,
       endDate,
     ];
   }
- 
 }

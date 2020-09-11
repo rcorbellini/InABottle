@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:in_a_bottle/home/widgets/home_bloc.dart';
 import 'package:in_a_bottle/home/home_event.dart';
+import 'package:in_a_bottle/home/widgets/home_widget_helpers.dart';
 import 'package:in_a_bottle/local_message/talk/talk.dart';
 import 'package:fancy_stream/fancy_stream.dart';
 import 'package:in_a_bottle/local_message/talk/widget/interact/interact_talk_bloc.dart';
@@ -37,21 +38,15 @@ class HomeTalkListWidget extends StatelessWidget {
   }
 
   Widget _buildTalkItem(Talk talk) {
-    return GestureDetector(
+    return Cards.talks(
       onTap: () => homeBloc.dispatchOn<HomeEvent>(GoToRoute(
           InteractTalkBloc.route,
           params: {"selector": talk.selector})),
-      child: Container(
-          width: MediaQuery.of(context).size.width * 0.85,
-          margin: const EdgeInsets.all(8),
-          decoration: BoxDecoration(
-              color: Colors.black12,
-              borderRadius: const BorderRadius.all(Radius.circular(16.0))),
-          padding: const EdgeInsets.all(16),
-          child: Text(
-            talk.title,
-            style: Theme.of(context).textTheme.subhead,
-          )),
+      child: Text(
+        talk.title,
+        style: Theme.of(context).textTheme.headline4,
+      ),
+      width: MediaQuery.of(context).size.width * 0.85,
     );
   }
 }

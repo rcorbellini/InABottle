@@ -1,7 +1,11 @@
+import 'dart:ui';
+
 import 'package:flutter/material.dart';
 import 'package:in_a_bottle/home/home_event.dart';
 import 'package:in_a_bottle/home/widgets/home_bloc.dart';
 import 'package:fancy_stream/fancy_stream.dart';
+import 'package:in_a_bottle/home/widgets/home_feed_list_widget.dart';
+import 'package:in_a_bottle/home/widgets/home_widget_helpers.dart';
 import 'package:in_a_bottle/local_message/treasure_hunt/treasure_hunt.dart';
 import 'package:meta/meta.dart';
 
@@ -37,21 +41,71 @@ class HomeTreasureHuntListWidget extends StatelessWidget {
     return const CircularProgressIndicator();
   }
 
+//corta tudo
+//cliprect
   Widget _buildTreasureHuntItem(TreasureHunt treasureHunt) {
-    return GestureDetector(
+    return 
+    Padding(
+      padding: EdgeInsets.all(8),
+      child:  Cards.treasureHunt(
+      width: MediaQuery.of(context).size.width * 0.85,
       onTap: () => homeBloc.dispatchOn<HomeEvent>(
           GoToRoute("", params: {"selector": treasureHunt.selector})),
       child: Container(
           width: MediaQuery.of(context).size.width * 0.85,
-          margin: const EdgeInsets.all(8),
-          decoration: BoxDecoration(
-              color: Colors.black12,
-              borderRadius: const BorderRadius.all(Radius.circular(16.0))),
-          padding: const EdgeInsets.all(16),
-          child: Text(
-            treasureHunt.title,
-            style: Theme.of(context).textTheme.subhead,
+          child: Stack(
+            overflow: Overflow.visible,
+            children: [
+              Image.asset(
+                "assets/images/staticmap.png",
+                fit: BoxFit.fill,
+              ),
+
+              Positioned(
+                top: 0,
+                bottom: 0,
+                right: 0,
+                child:
+              Container(
+                  padding: EdgeInsets.all(16),
+                  width: 180,
+                  color: Colors.white,
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        treasureHunt.title,
+                        style: Theme.of(context).textTheme.headline6,
+                      ),
+                      Text(
+                        treasureHunt.description,
+                        style: Theme.of(context).textTheme.subtitle1,
+                      ),
+                      Text(
+                        "Steps : (${treasureHunt?.messages?.length?.toString() ?? "0"})",
+                        style: Theme.of(context).textTheme.subtitle1,
+                      ),
+                      Text(
+                        "Pontos : (${treasureHunt?.points ?? "10"})",
+                        style: Theme.of(context).textTheme.subtitle1,
+                      ),
+                      Text(
+                        "Pontos extra: (${treasureHunt?.extraPoints ?? "10"})",
+                        style: Theme.of(context).textTheme.subtitle1,
+                      ),
+                      AvatarsReactions(reactions: treasureHunt.reactions?.toList())
+                    ],
+                  ))),
+              Positioned(
+                top: -12,
+                left: -12,
+                child: AvatarTimeLine(),
+              ),
+            ],
           )),
+    )
+ ,
     );
-  }
+    }
 }
