@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:in_a_bottle/_shared/injection/injector.dart';
 import 'package:chameleon_resolver/chameleon_resolver.dart';
 import 'package:in_a_bottle/_shared/route/navigator_di.dart';
+import 'package:in_a_bottle/_shared/route/sailor_routes.dart';
 import 'package:in_a_bottle/home/home_di.dart';
 import 'package:in_a_bottle/home/widgets/home_widget.dart';
 import 'package:in_a_bottle/_shared/route/navigator.dart'
@@ -17,6 +18,7 @@ import 'package:fancy_stream/fancy_stream.dart';
 import 'package:in_a_bottle/user/user_di.dart';
 import 'package:in_a_bottle/user/widget/login_widget.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:heimdall/heimdall.dart';
 
 void main() {
   Injector().initialiseAll([
@@ -42,32 +44,31 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final supportedLocale = <Locale>[const Locale('pt', 'BR')];
-    final navigator = Injector().get<interface_navigator.Navigator>();
     return MaterialApp(
       title: 'In a Bottle',
-      navigatorKey: navigator.navigatorKey,
+      navigatorKey: DispatchRouter().navigatorKey,
       localizationsDelegates: [
-        ChamaleonLocalizationsDelegate(flavorPrefix: null,  supportedLocales: supportedLocale),
+        ChamaleonLocalizationsDelegate(
+            flavorPrefix: null, supportedLocales: supportedLocale),
         GlobalMaterialLocalizations.delegate,
         GlobalWidgetsLocalizations.delegate,
         GlobalCupertinoLocalizations.delegate,
       ],
       supportedLocales: supportedLocale,
       localeResolutionCallback: localeResolutionCallback,
-      onGenerateRoute: navigator.buildRouteFactory(),
+      onGenerateRoute: generateRoute,
       theme: ThemeData(
-        // This is the theme of your application.
-        //
-        // Try running your application with "flutter run". You'll see the
-        // application has a blue toolbar. Then, without quitting the app, try
-        // changing the primarySwatch below to Colors.green and then invoke
-        // "hot reload" (press "r" in the console where you ran "flutter run",
-        // or simply save your changes to "hot reload" in a Flutter IDE).
-        // Notice that the counter didn't reset back to zero; the application
-        // is not restarted.
-        primarySwatch: Colors.lightGreen,
-        primaryColor: Color(0xffEAECC6)
-      ),
+          // This is the theme of your application.
+          //
+          // Try running your application with "flutter run". You'll see the
+          // application has a blue toolbar. Then, without quitting the app, try
+          // changing the primarySwatch below to Colors.green and then invoke
+          // "hot reload" (press "r" in the console where you ran "flutter run",
+          // or simply save your changes to "hot reload" in a Flutter IDE).
+          // Notice that the counter didn't reset back to zero; the application
+          // is not restarted.
+          primarySwatch: Colors.lightGreen,
+          primaryColor: Color(0xffEAECC6)),
       home: StreamBuilder<SessionEvent>(
           stream: sessionBloc.streamOf<SessionEvent>(),
           builder: (context, snapshot) {

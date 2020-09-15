@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:in_a_bottle/_shared/widgets/loading_indicator.dart';
 import 'package:in_a_bottle/home/widgets/home_bloc.dart';
 import 'package:in_a_bottle/home/home_event.dart';
 import 'package:in_a_bottle/home/widgets/home_widget_helpers.dart';
@@ -34,19 +35,32 @@ class HomeTalkListWidget extends StatelessWidget {
       );
     }
 
-    return const CircularProgressIndicator();
+    return const LoadingIndicator();
   }
 
   Widget _buildTalkItem(Talk talk) {
-    return Cards.talks(
-      onTap: () => homeBloc.dispatchOn<HomeEvent>(GoToRoute(
-          InteractTalkBloc.route,
-          params: {"selector": talk.selector})),
-      child: Text(
-        talk.title,
-        style: Theme.of(context).textTheme.headline4,
-      ),
-      width: MediaQuery.of(context).size.width * 0.85,
-    );
+    return Padding(
+        padding: EdgeInsets.symmetric(horizontal: 8),
+        child: Cards.talks(
+          padding: EdgeInsets.all(0),
+          onTap: () => homeBloc.dispatchOn<HomeEvent>(GoToRoute(
+              InteractTalkBloc.route,
+              params: {"selector": talk.selector})),
+          child: Column(
+            children: [
+              Expanded(
+                child: Image.asset(
+                  "assets/images/youtube.webp",
+                  fit: BoxFit.fill,
+                ),
+              ),
+              Text(
+                talk.title,
+                style: Theme.of(context).textTheme.headline4,
+              )
+            ],
+          ),
+          width: MediaQuery.of(context).size.width * 0.85,
+        ));
   }
 }

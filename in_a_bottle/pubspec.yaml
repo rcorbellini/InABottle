@@ -45,6 +45,10 @@ dependencies:
   reflectable: ^2.2.4
   chameleon_resolver: ^0.0.1+1
   fancy_factory: 0.0.2+2
+  heimdall: ^0.0.4+4
+  modal_bottom_sheet: ^0.2.0+1
+  flutter_auth_buttons: ^0.10.0
+  shimmer: ^1.1.1
 
 
 

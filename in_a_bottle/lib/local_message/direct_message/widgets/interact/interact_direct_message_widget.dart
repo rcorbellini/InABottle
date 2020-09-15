@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:in_a_bottle/_shared/injection/injector.dart';
 import 'package:in_a_bottle/common/widget/locked/lock_widget.dart';
@@ -35,9 +36,11 @@ class _InteractDirectMessageWidgetState
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: SafeArea(
+    return SafeArea(
+      child: Material(
+          color: Colors.transparent,
           child: Container(
+              padding: EdgeInsets.only(left: 16, right: 16, top: 8),
               child: StreamBuilder<DirectMessage>(
                   stream: _bloc.streamOf<DirectMessage>(
                       key: DirectMessageForm.directMessage),

@@ -15,6 +15,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "1011585668218-m64qk2b4liho8fvekb3031p4p8cvvjlg.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "br.com.inabottle",
+            "certificate_hash": "9ce010956a6dac62c7ffc877c4d86cb1665dd827"
+          }
+        },
+        {
           "client_id": "1011585668218-9l3a195t9fhmtgaur7hpsdl45711hc6o.apps.googleusercontent.com",
           "client_type": 3
         }

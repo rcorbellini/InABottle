@@ -21,7 +21,7 @@ class SailorNavigator extends interface_navigator.Navigator {
 
   @override
   RouteFactory buildRouteFactory() {
-    SailorRoutes.createRoutes();
+    //SailorRoutes.createRoutes();
     return sailor.generator();
   }
 }

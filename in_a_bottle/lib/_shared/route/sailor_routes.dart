@@ -1,6 +1,8 @@
+import 'package:flutter/material.dart';
 import 'package:in_a_bottle/_shared/route/sailor_navigator.dart';
 import 'package:in_a_bottle/home/widgets/home_bloc.dart';
 import 'package:in_a_bottle/home/widgets/home_widget.dart';
+import 'package:in_a_bottle/local_message/direct_message/direct_message.dart';
 import 'package:in_a_bottle/local_message/hub/create/create_hub_message_bloc.dart';
 import 'package:in_a_bottle/local_message/hub/create/create_hub_message_widget.dart';
 import 'package:in_a_bottle/local_message/hub/interact/interact_hub_message_bloc.dart';
@@ -17,89 +19,53 @@ import 'package:in_a_bottle/local_message/treasure_hunt/widget/create/message_tr
 import 'package:in_a_bottle/local_message/treasure_hunt/widget/create/message_treasure_bloc.dart';
 import 'package:in_a_bottle/local_message/treasure_hunt/widget/create/treasure_hunt_bloc.dart';
 import 'package:in_a_bottle/local_message/treasure_hunt/widget/create/treasure_hunt_widget.dart';
-import 'package:sailor/sailor.dart';
+import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 
-class SailorRoutes {
-  static void createRoutes() {
-    sailor.addRoute(SailorRoute(
-      name: HomeBloc.route,
-      builder: (context, args, params) {
-        return HomeWidget();
-      },
-    ));
-    sailor.addRoute(SailorRoute(
-      name: DirectMessageBloc.route,
-      builder: (context, args, params) {
-        return DirectMessageWidget();
-      },
-    ));
+class SailorRoutes {}
 
-    sailor.addRoute(SailorRoute(
-      name: TalkBloc.route,
-      builder: (context, args, params) {
-        return TalkWidget();
-      },
-    ));
-    sailor.addRoute(SailorRoute(
-      name: CreateHubMessageBloc.route,
-      builder: (context, args, params) {
-        return CreateHubMessageWidget();
-      },
-    ));
+Route<dynamic> generateRoute(RouteSettings settings) {
+  switch (settings.name) {
+    case HomeBloc.route:
+      return MaterialPageRoute(builder: (context) => HomeWidget());
+    case DirectMessageBloc.route:
+      return MaterialPageRoute(builder: (context) => DirectMessageWidget());
+    case TalkBloc.route:
+      return MaterialPageRoute(builder: (context) => TalkWidget());
 
-    sailor.addRoute(SailorRoute(
-      name: TreasureHuntBloc.route,
-      builder: (context, args, params) {
-        return TreasureHuntWidget();
-      },
-    ));
-    sailor.addRoute(SailorRoute(
-      name: MessageTreasureBloc.route,
-      builder: (context, args, params) {
-        return MessageTreasureWidget();
-      },
-    ));
+    case CreateHubMessageBloc.route:
+      return MaterialPageRoute(builder: (context) => CreateHubMessageWidget());
 
-    sailor.addRoute(SailorRoute(
-        name: InteractDirectMessageBloc.route,
-        builder: (context, args, params) {
-          return InteractDirectMessageWidget(
-            selector: params.param<String>('selector'),
-          );
-        },
-        params: [
-          SailorParam<String>(
-            name: 'selector',
-            defaultValue: null,
-          ),
-        ]));
+    case TreasureHuntBloc.route:
+      return MaterialPageRoute(builder: (context) => TreasureHuntWidget());
 
-    sailor.addRoute(SailorRoute(
-        name: InteractHubMessageBloc.route,
-        builder: (context, args, params) {
-          return InteractHubMessageWidget(
-            selector: params.param<String>('selector'),
-          );
-        },
-        params: [
-          SailorParam<String>(
-            name: 'selector',
-            defaultValue: null,
-          ),
-        ]));
+    case MessageTreasureBloc.route:
+      return MaterialPageRoute(builder: (context) => MessageTreasureWidget());
 
-    sailor.addRoute(SailorRoute(
-        name: InteractTalkBloc.route,
-        builder: (context, args, params) {
-          return InteractTalkWidget(
-            selector: params.param<String>('selector'),
-          );
-        },
-        params: [
-          SailorParam<String>(
-            name: 'selector',
-            defaultValue: null,
-          ),
-        ]));
+    case InteractDirectMessageBloc.route:
+      return CupertinoModalBottomSheetRoute(
+          settings: settings,
+          expanded: true, 
+          builder: (context,scrollController) => InteractDirectMessageWidget(
+              selector:
+                  (settings.arguments as Map<String, dynamic>)["selector"]));
+
+    case InteractHubMessageBloc.route:
+      return CupertinoModalBottomSheetRoute(
+          settings: settings,
+          expanded: true,
+          builder: (context, scrollController) => InteractHubMessageWidget(
+              selector:
+                  (settings.arguments as Map<String, dynamic>)["selector"]));
+
+    case InteractTalkBloc.route:
+      return CupertinoModalBottomSheetRoute(
+          expanded: true,
+        settings: settings,
+        builder: (context, scrollController) => InteractTalkWidget(
+            selector: (settings.arguments as Map<String, dynamic>)["selector"]),
+      );
+
+    default:
+      return null;
   }
 }

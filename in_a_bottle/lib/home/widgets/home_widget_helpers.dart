@@ -71,7 +71,8 @@ extension Cards on Card {
     @required Widget child,
     @required GestureTapCallback onTap,
     @required double width,
+    EdgeInsetsGeometry padding
   }) {
-    return base(child: child, onTap: onTap, height: 400, width: width);
+    return base(child: child, onTap: onTap, height: 400, width: width,  padding:padding);
   }
 }

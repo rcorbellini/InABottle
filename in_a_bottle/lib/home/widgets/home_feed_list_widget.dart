@@ -1,5 +1,6 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:in_a_bottle/_shared/widgets/loading_indicator.dart';
 import 'package:in_a_bottle/home/widgets/home_bloc.dart';
 import 'package:in_a_bottle/home/home_event.dart';
 import 'package:in_a_bottle/home/home_feed.dart';
@@ -28,15 +29,20 @@ class HomeFeedList extends StatelessWidget {
 
   Widget _builFeedList(
       BuildContext context, AsyncSnapshot<List<HomeFeed>> snapshot) {
+    if (snapshot.hasData) {
     final feed = snapshot.data;
-    return SliverList(
-      delegate: SliverChildBuilderDelegate(
-        (BuildContext context, int index) {
-          return _buildItem(feed[index]);
-        },
-        childCount: snapshot.hasData ? feed.length : 0,
-      ),
-    );
+      return SliverList(
+        delegate: SliverChildBuilderDelegate(
+          (BuildContext context, int index) {
+            return _buildItem(feed[index]);
+          },
+          childCount: snapshot.hasData ? feed.length : 0,
+        ),
+      );
+    }
+
+    return   SliverList(
+                  delegate: SliverChildListDelegate([LoadingIndicator()]));
   }
 
   Widget _buildItem(HomeFeed item) {
@@ -308,18 +314,35 @@ class AvatarTimeLine extends StatelessWidget {
 
 class Coin extends StatelessWidget {
   final int points;
+  final double height;
+  final double width;
 
-  const Coin({Key key, this.points}) : super(key: key);
+  const Coin({Key key, this.points, this.width = 35, this.height = 35})
+      : super(key: key);
+
+  Coin.small(int points)
+      : this.points = points,
+        this.width = 25,
+        this.height = 25;
+
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: 33.0,
-      height: 33.0,
+      width: width,
+      height: height,
       child: Center(
-        child: Text(
-          points?.toString() ?? "100",
-          style: Theme.of(context).textTheme.overline,
-        ),
+        child: Stack(alignment: Alignment.center, children: [
+          Image.asset(
+            "assets/images/coin.png",
+          ),
+          Text(
+            points?.toString() ?? "1k",
+            style: Theme.of(context)
+                .textTheme
+                .overline
+                .copyWith(fontWeight: FontWeight.bold),
+          )
+        ]),
       ),
       decoration: BoxDecoration(
           shape: BoxShape.circle,

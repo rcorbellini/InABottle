@@ -14,6 +14,8 @@ import 'package:in_a_bottle/local_message/direct_message/widgets/create/direct_m
 import 'package:in_a_bottle/local_message/hub/create/create_hub_message_bloc.dart';
 import 'package:in_a_bottle/local_message/talk/widget/create/talk_bloc.dart';
 import 'package:in_a_bottle/local_message/treasure_hunt/widget/create/treasure_hunt_bloc.dart';
+import 'package:in_a_bottle/session/session_dto.dart';
+import 'package:fancy_stream/fancy_stream.dart';
 
 class HomeWidget extends StatefulWidget {
   @override
@@ -49,26 +51,40 @@ class _HomeWidgetState extends State<HomeWidget> {
           headerSliverBuilder: (BuildContext context, bool innerBoxIsScrolled) {
             return [
               SliverAppBar(
-                backgroundColor: Colors.black.withOpacity(0),
+                backgroundColor: Colors.white,
+                centerTitle: true,
+                leading: Padding(
+                  padding: EdgeInsets.all(6),
+                  child: Image.asset(
+                    "assets/images/bottle.png",
+                  ),
+                ),
                 elevation: 1,
+                forceElevated: true,
                 floating: false,
                 pinned: false,
                 title: Text(
                   "In A Bottle",
-                  style: Theme.of(context)
-                      .textTheme
-                      .headline4,
+                  style: Theme.of(context).textTheme.headline5,
                 ),
                 actions: [
                   Padding(
                       padding: EdgeInsets.all(6),
-                      child: AvatarTimeLine(user: null))
+                      child: StreamBuilder<Session>(
+                        stream: _homeBloc.streamOf(),
+                        builder: (context, snapshot) {
+                          if (!snapshot.hasData) {
+                            return Container();
+                          }
+                          return AvatarTimeLine(user: snapshot.data.user);
+                        },
+                      ))
                 ],
               ),
-
             ];
           },
           body: CustomScrollView(
+            physics: BouncingScrollPhysics(),
             slivers: <Widget>[
               SliverList(
                   delegate: SliverChildListDelegate([
@@ -76,7 +92,7 @@ class _HomeWidgetState extends State<HomeWidget> {
                   padding: EdgeInsets.all(8),
                   child: Text(
                     "Talks",
-                    style: Theme.of(context).textTheme.headline3,
+                    style: Theme.of(context).textTheme.headline5,
                   ),
                 ),
                 HomeTalkListWidget(
@@ -87,7 +103,7 @@ class _HomeWidgetState extends State<HomeWidget> {
                   padding: EdgeInsets.all(8),
                   child: Text(
                     "Caçadas",
-                    style: Theme.of(context).textTheme.headline3,
+                    style: Theme.of(context).textTheme.headline5,
                   ),
                 ),
                 HomeTreasureHuntListWidget(
@@ -98,7 +114,7 @@ class _HomeWidgetState extends State<HomeWidget> {
                   padding: EdgeInsets.all(8),
                   child: Text(
                     "Por Perto",
-                    style: Theme.of(context).textTheme.headline4,
+                    style: Theme.of(context).textTheme.headline5,
                   ),
                 )
               ])),
