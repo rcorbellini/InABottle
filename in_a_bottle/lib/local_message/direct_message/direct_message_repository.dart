@@ -6,7 +6,7 @@ import 'package:in_a_bottle/_shared/location/point.dart';
 
 abstract class DirectMessageRepository
     extends BaseRepository<DirectMessage, String, DirectMessageStorage> {
-  Stream<List<DirectMessage>> loadByLocation(Point location);
+  Future<List<DirectMessage>> loadByLocation(Point location);
 }
 
 class DirectMessageDataRepository extends DirectMessageRepository {
@@ -18,9 +18,9 @@ class DirectMessageDataRepository extends DirectMessageRepository {
   DirectMessageDataRepository(this.dao, this.http);
 
   @override
-  Stream<List<DirectMessage>> loadByLocation(Point location) async* {
+  Future<List<DirectMessage>> loadByLocation(Point location) async{
     final entities = await dao.loadAll();
-    yield entities.where((element) {
+    return entities.where((element) {
       if (element?.createdOn?.point == null) {
         return false;
       }

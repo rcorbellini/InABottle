@@ -5,7 +5,7 @@ import 'package:in_a_bottle/local_message/hub/hub_message_storage.dart';
 
 abstract class HubMessageRepository
     extends BaseRepository<HubMessage, String, HubMessageStorage> {
-  Future<List<HubMessage>> loadAllByLocation(Point location);
+  Future<List<HubMessage>> loadByLocation(Point location);
 }
 
 class HubMesageDataRepository extends HubMessageRepository {
@@ -18,7 +18,7 @@ class HubMesageDataRepository extends HubMessageRepository {
   HubMesageDataRepository(this.dao, this.http);
 
   @override
-  Future<List<HubMessage>> loadAllByLocation(Point location) async {
+  Future<List<HubMessage>> loadByLocation(Point location) async {
     final all = await dao.loadAll();
     return all.where((element) {
       if (element?.createdOn?.point == null) {

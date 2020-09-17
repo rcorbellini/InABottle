@@ -8,7 +8,7 @@ class HomeDi implements InjectorModule {
     injector.register((i) => HomeBloc(
         locationRepository: i.get(),
         talkRepository: i.get(), 
-        chatRepository: i.get(),
+        hubRepository: i.get(),
         messageRepository: i.get(),
         sessionRepository: i.get(),
         treasureHuntRepository: i.get(),

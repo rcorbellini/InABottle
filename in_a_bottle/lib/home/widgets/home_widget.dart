@@ -91,17 +91,6 @@ class _HomeWidgetState extends State<HomeWidget> {
                 Padding(
                   padding: EdgeInsets.all(8),
                   child: Text(
-                    "Talks",
-                    style: Theme.of(context).textTheme.headline5,
-                  ),
-                ),
-                HomeTalkListWidget(
-                  homeBloc: _homeBloc,
-                  context: context,
-                ),
-                Padding(
-                  padding: EdgeInsets.all(8),
-                  child: Text(
                     "Caçadas",
                     style: Theme.of(context).textTheme.headline5,
                   ),

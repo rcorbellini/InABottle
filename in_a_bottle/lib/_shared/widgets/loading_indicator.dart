@@ -1,5 +1,8 @@
 import 'dart:math' as math show sin, pi;
 import 'package:flutter/material.dart';
+import 'package:in_a_bottle/home/widgets/home_feed_list_widget.dart';
+import 'package:in_a_bottle/home/widgets/home_widget_helpers.dart';
+import 'package:shimmer/shimmer.dart';
 
 ///Classe responsável por mostrar um loading
 class LoadingIndicator extends StatefulWidget {
@@ -54,6 +57,67 @@ class _LoadingIndicatorState extends State<LoadingIndicator>
 
   @override
   Widget build(BuildContext context) {
+    return Shimmer.fromColors(
+        baseColor: Colors.grey[300],
+        highlightColor: Colors.grey[100],
+        enabled: true,
+        child: Container(
+            width: 400,
+            height: 200,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Row(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Container(
+                      width: 100,
+                      height: 110,
+                      color: Colors.black,
+                    ),
+                    Expanded(
+                      child: Padding(
+                          padding: EdgeInsets.symmetric(horizontal: 8),
+                          child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                              mainAxisSize: MainAxisSize.max,
+                              children: [
+                                Padding(
+                                    padding: EdgeInsets.only(bottom: 16),
+                                    child: Container(
+                                      width: double.infinity,
+                                      height: 24,
+                                      color: Colors.black,
+                                    )),
+                                Padding(
+                                    padding: EdgeInsets.only(bottom: 16),
+                                    child: Container(
+                                      width: double.infinity,
+                                      height: 24,
+                                      color: Colors.black,
+                                    )),
+                                Container(
+                                  width: double.infinity,
+                                  height: 24,
+                                  color: Colors.black,
+                                ),
+                              ])),
+                    ),
+                  ],
+                ),
+                Padding(
+                    padding: EdgeInsets.only(top: 16),
+                    child: Container(
+                      width: double.infinity,
+                      height: 24,
+                      color: Colors.black,
+                    ))
+              ],
+            )));
+
     return Center(
         child: SizedBox.fromSize(
             size: Size.square(size),

@@ -38,25 +38,31 @@ class _LoginWigdetState extends State<LoginWigdet> {
       children: [
         Positioned(
           bottom: 0,
+          left: 0,
+          right: 0,
           child: Image.asset(
             "assets/images/waves_bg.png",
-            fit: BoxFit.fitWidth,
+            fit: BoxFit.fill,
             height: 120,
           ),
         ),
         Positioned(
           bottom: 0,
+          left: 0,
+          right: 0,
           child: Image.asset(
             "assets/images/waves_bg.png",
-            fit: BoxFit.fitWidth,
+            fit: BoxFit.fill,
             height: 105,
           ),
         ),
         Positioned(
           bottom: 0,
+          left: 0,
+          right: 0,
           child: Image.asset(
             "assets/images/waves_bg.png",
-            fit: BoxFit.fitWidth,
+            fit: BoxFit.fill,
             height: 95,
           ),
         ),

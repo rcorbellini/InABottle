@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:in_a_bottle/_shared/route/navigator.dart' as interface_navigator;
-import 'package:in_a_bottle/_shared/route/sailor_routes.dart';
 import 'package:sailor/sailor.dart';
 
 final Sailor sailor = Sailor();

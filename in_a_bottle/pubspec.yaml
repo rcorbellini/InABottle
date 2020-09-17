@@ -49,6 +49,8 @@ dependencies:
   modal_bottom_sheet: ^0.2.0+1
   flutter_auth_buttons: ^0.10.0
   shimmer: ^1.1.1
+  bubble: ^1.1.9+1
+  flutter_emoji: ^2.2.1+1
 
 
 

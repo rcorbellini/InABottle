@@ -19,7 +19,7 @@ class HomeBloc extends Disposable {
   static const String route = '/home';
 
   final TalkRepository talkRepository;
-  final HubMessageRepository chatRepository;
+  final HubMessageRepository hubRepository;
   final DirectMessageRepository messageRepository;
   final TreasureHuntRepository treasureHuntRepository;
   final SessionRepository sessionRepository;
@@ -29,7 +29,7 @@ class HomeBloc extends Disposable {
   HomeBloc(
       {@required this.talkRepository,
       @required this.navigator,
-      @required this.chatRepository,
+      @required this.hubRepository,
       @required this.messageRepository,
       @required this.sessionRepository,
       @required this.locationRepository,
@@ -73,15 +73,22 @@ class HomeBloc extends Disposable {
   List<HomeFeed> lastHubs = [];
 
   Future<void> loadFeedByLocation(Point location) async {
+    final homeFeed = <HomeFeed>[];
+
+    homeFeed.addAll(await messageRepository.loadByLocation(location));
+    homeFeed.addAll(await hubRepository.loadByLocation(location));
+    homeFeed.addAll(await talkRepository.loadByLocation(location));
+
+    dispatchOn<List<HomeFeed>>(homeFeed);
     //combineLatest
-    messageRepository.loadByLocation(location).listen((event) {
-      lastDirectMessages = event;
-      _dispatchLastFeedLoaded();
-    });
-    messageRepository.loadByLocation(location).listen((event) {
-      lastHubs = event;
-      _dispatchLastFeedLoaded();
-    });
+    //messageRepository.loadByLocation(location).listen((event) {
+    //  lastDirectMessages = event;
+    //  _dispatchLastFeedLoaded();
+    //});
+    // messageRepository.loadByLocation(location).listen((event) {
+    //   lastHubs = event;
+    //   _dispatchLastFeedLoaded();
+    // });
   }
 
   void _dispatchLastFeedLoaded() {

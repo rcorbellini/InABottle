@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:in_a_bottle/_shared/injection/injector.dart';
 import 'package:chameleon_resolver/chameleon_resolver.dart';
 import 'package:in_a_bottle/_shared/route/navigator_di.dart';
-import 'package:in_a_bottle/_shared/route/sailor_routes.dart';
+import 'package:in_a_bottle/_shared/route/app_routes.dart';
 import 'package:in_a_bottle/home/home_di.dart';
 import 'package:in_a_bottle/home/widgets/home_widget.dart';
 import 'package:in_a_bottle/_shared/route/navigator.dart'
@@ -68,6 +68,10 @@ class MyApp extends StatelessWidget {
           // Notice that the counter didn't reset back to zero; the application
           // is not restarted.
           primarySwatch: Colors.lightGreen,
+          backgroundColor: Colors.white,
+          cardColor: Colors.white,
+          dialogBackgroundColor: Colors.white,
+          scaffoldBackgroundColor: Colors.white,
           primaryColor: Color(0xffEAECC6)),
       home: StreamBuilder<SessionEvent>(
           stream: sessionBloc.streamOf<SessionEvent>(),

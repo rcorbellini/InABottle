@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:in_a_bottle/_shared/route/sailor_navigator.dart';
 import 'package:in_a_bottle/home/widgets/home_bloc.dart';
 import 'package:in_a_bottle/home/widgets/home_widget.dart';
-import 'package:in_a_bottle/local_message/direct_message/direct_message.dart';
 import 'package:in_a_bottle/local_message/hub/create/create_hub_message_bloc.dart';
 import 'package:in_a_bottle/local_message/hub/create/create_hub_message_widget.dart';
 import 'package:in_a_bottle/local_message/hub/interact/interact_hub_message_bloc.dart';
@@ -20,8 +18,6 @@ import 'package:in_a_bottle/local_message/treasure_hunt/widget/create/message_tr
 import 'package:in_a_bottle/local_message/treasure_hunt/widget/create/treasure_hunt_bloc.dart';
 import 'package:in_a_bottle/local_message/treasure_hunt/widget/create/treasure_hunt_widget.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
-
-class SailorRoutes {}
 
 Route<dynamic> generateRoute(RouteSettings settings) {
   switch (settings.name) {
@@ -44,7 +40,7 @@ Route<dynamic> generateRoute(RouteSettings settings) {
     case InteractDirectMessageBloc.route:
       return CupertinoModalBottomSheetRoute(
           settings: settings,
-          expanded: true, 
+          expanded: false, 
           builder: (context,scrollController) => InteractDirectMessageWidget(
               selector:
                   (settings.arguments as Map<String, dynamic>)["selector"]));

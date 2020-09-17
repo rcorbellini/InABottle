@@ -21,7 +21,7 @@ class HomeTreasureHuntListWidget extends StatelessWidget {
   Widget build(BuildContext _) {
     return Container(
         padding: const EdgeInsets.only(left: 10.0),
-        height: 170,
+        height: 300,
         child: StreamBuilder<List<TreasureHunt>>(
             stream: homeBloc.streamOf<List<TreasureHunt>>(),
             builder: _builTreasureHuntsList));
@@ -38,7 +38,6 @@ class HomeTreasureHuntListWidget extends StatelessWidget {
         children: treasureHunts.map(_buildTreasureHuntItem).toList(),
       );
     }
-
     return const LoadingIndicator();
   }
 
@@ -117,22 +116,27 @@ class HomeTreasureHuntListWidget extends StatelessWidget {
                       Positioned(
                         top: -12,
                         left: -12,
-                        child: AvatarTimeLine(user: treasureHunt.createdBy,),
+                        child: AvatarTimeLine(
+                          user: treasureHunt.createdBy,
+                        ),
                       ),
                     ],
                   )),
-            ), FlagsOverflow(
-                  contentFlag: Text(
-                    treasureHunt?.messages?.length?.toString() ?? "0",
-                    style: Theme.of(context).textTheme.overline.copyWith(
-                        color: Colors.white, fontWeight: FontWeight.bold),
-                  ),
-                  iconflag: Icon(
-                    Icons.map,
-                    color: Colors.white,
-                  ),
-                  background: Colors.black,
-                )
+            ),
+            FlagsOverflow(
+              contentFlag: Text(
+                treasureHunt?.messages?.length?.toString() ?? "0",
+                style: Theme.of(context)
+                    .textTheme
+                    .overline
+                    .copyWith(color: Colors.white, fontWeight: FontWeight.bold),
+              ),
+              iconflag: Icon(
+                Icons.map,
+                color: Colors.white,
+              ),
+              background: Colors.black,
+            )
           ],
         ));
   }

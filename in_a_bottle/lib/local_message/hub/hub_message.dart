@@ -81,10 +81,10 @@ class HubMessage extends Equatable implements BaseModel, HomeFeed {
       createdOn: Local.fromMap(map['createdOn']),
       createdAt: DateTime.fromMillisecondsSinceEpoch(map['createdAt']),
       status: map['status'],
-      admin: List<User>.from(map['admin']?.map((x) => User.fromMap(x))),
+      admin: List<User>.from(map['admin']?.map((x) => User.fromMap(x))??[]),
       title: map['title'],
       messageChat: List<Message>.from(
-          map['messageChat']?.map((x) => Message.fromMap(x))),
+          map['messageChat']?.map((x) => Message.fromMap(x))??[]),
     );
   }
 
