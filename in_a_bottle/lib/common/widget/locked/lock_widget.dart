@@ -4,6 +4,8 @@ import 'package:in_a_bottle/common/widget/crud_widget.dart';
 import 'package:in_a_bottle/common/widget/locked/lock_bloc.dart';
 import 'package:in_a_bottle/local_message/local/local.dart';
 import 'package:fancy_stream/fancy_stream.dart';
+//import 'package:otp_text_field/otp_field.dart';
+//import 'package:otp_text_field/style.dart';
 
 class LockWidget extends StatefulWidget {
   final Local local;
@@ -52,6 +54,9 @@ class _LockWidgetState extends State<LockWidget> {
               parameters: <TextFieldParameter, dynamic>{
                 TextFieldParameter.obscureText: true
               }),
+  
+
+
           formFactory.build(LockForm.actionSave)
         ],
       ),

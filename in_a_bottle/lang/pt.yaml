@@ -72,7 +72,7 @@ treasureHuntError:
 
 
 lockForm:
-  password: "Informe a Senha, para ter acesso a esse Chat."
+  password: "Informe a Senha, para ter acesso ao conteúdo."
   save: "Validar"    
 lockErro:
   emptyPassword: "É preciso informar uma 'Senha'."
