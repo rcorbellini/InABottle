@@ -36,20 +36,11 @@ class _TreasureHuntService implements TreasureHuntService {
   @override
   insert(entity) async {
     ArgumentError.checkNotNull(entity, 'entity');
-    const _extra = <String, dynamic>{};
-    final queryParameters = <String, dynamic>{};
-    final _data = <String, dynamic>{};
-    final Response _result = await _dio.request('/treasure_hunt',
-        queryParameters: queryParameters,
-        options: RequestOptions(
-            method: 'POST',
-            headers: <String, dynamic>{},
-            extra: _extra,
-            baseUrl: baseUrl),
-        data: _data);
-    final value = _result.data;
-    return value;
+    final  d.Response _result = await _dio.post("/treasure", data:entity.toMap() ?? <String, dynamic>{}, 
+         options:  d.RequestOptions(contentType: d.Headers.jsonContentType, baseUrl: baseUrl ));
+    return _result.data.toString();
   }
+
 
   @override
   loadAll() async {

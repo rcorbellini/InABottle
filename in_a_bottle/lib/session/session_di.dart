@@ -20,7 +20,7 @@ class SessionDi extends InjectorModule {
     injector.register<TagRepository, TagDataRepository>((i)=> TagDataRepository());
     injector.register((injector) => Dio());
 
-    injector.register((injector) => "https://5f544f56e5de110016d5203c.mockapi.io/", key: api);
+    injector.register((injector) => "http://2fce1cafea8e.ngrok.io", key: api);
 
     //TODO o que deve ser single é o datastore, mas a camada ainda não existe.
     injector.register<SessionRepository, SessionDataRepository>(

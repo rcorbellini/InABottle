@@ -3,10 +3,13 @@ import 'dart:convert';
 import 'package:equatable/equatable.dart';
 
 import 'package:in_a_bottle/_shared/archtecture/base_model.dart';
+import 'package:in_a_bottle/_shared/location/point.dart';
 import 'package:in_a_bottle/home/home_feed.dart';
 import 'package:in_a_bottle/local_message/local/local.dart';
 import 'package:in_a_bottle/local_message/message/message.dart';
+import 'package:in_a_bottle/local_message/reaction/user_reaction.dart';
 import 'package:in_a_bottle/user/user.dart';
+import 'package:uuid/uuid.dart';
 
 class DirectMessage extends Equatable implements HomeFeed, BaseModel {
   //Base
@@ -20,7 +23,7 @@ class DirectMessage extends Equatable implements HomeFeed, BaseModel {
   final DateTime createdAt;
   @override
   final String status;
-  
+
   //Entity
   final Message message;
   DirectMessage({
@@ -53,24 +56,28 @@ class DirectMessage extends Equatable implements HomeFeed, BaseModel {
   Map<String, dynamic> toMap() {
     return {
       'selector': selector,
-      'createdBy': createdBy?.toMap(),
-      'createdOn': createdOn?.toMap(),
+      'createdBy': createdBy?.email,
+      'latitude': createdOn?.point?.latitude,
+      'longitude': createdOn?.point?.longitude,
+      'reach': createdOn?.reach?.value,
+      'password': createdOn?.password,
       'createdAt': createdAt?.millisecondsSinceEpoch,
       'status': status,
-      'message': message?.toMap(),
+      'text': message?.text,
+      'title': message?.title,
     };
   }
 
   factory DirectMessage.fromMap(Map<String, dynamic> map) {
     if (map == null) return null;
-  
+
     return DirectMessage(
       selector: map['selector'],
-      createdBy: User.fromMap(map['createdBy']),
-      createdOn: Local.fromMap(map['createdOn']),
+      createdBy: User(email: map['createdBy']),
+      createdOn: Local(point: Point(latitude: map['latitude'], longitude :  map['longitude']), password:  map['password']),
       createdAt: DateTime.fromMillisecondsSinceEpoch(map['createdAt']),
       status: map['status'],
-      message: Message.fromMap(map['message']),
+      message: Message(title: map['title'], text: map['text'], reactions: map['reactions']??<UserReaction>{} ),
     );
   }
 

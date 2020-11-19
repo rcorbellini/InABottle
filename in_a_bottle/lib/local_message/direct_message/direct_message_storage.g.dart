@@ -11,7 +11,7 @@ class _DirectMessageService implements DirectMessageService {
     ArgumentError.checkNotNull(_dio, '_dio');
   }
 
-  final Dio _dio;
+  final  d.Dio _dio;
 
   String baseUrl;
 
@@ -21,9 +21,9 @@ class _DirectMessageService implements DirectMessageService {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _data = <String, dynamic>{};
-    final Response _result = await _dio.request('/direct_message/$key',
+    final d.Response _result = await _dio.request('/direct/$key',
         queryParameters: queryParameters,
-        options: RequestOptions(
+        options:  d.RequestOptions(
             method: 'DELETE',
             headers: <String, dynamic>{},
             extra: _extra,
@@ -36,19 +36,9 @@ class _DirectMessageService implements DirectMessageService {
   @override
   insert(entity) async {
     ArgumentError.checkNotNull(entity, 'entity');
-    const _extra = <String, dynamic>{};
-    final queryParameters = <String, dynamic>{};
-    final _data = <String, dynamic>{};
-    final Response _result = await _dio.request('/direct_message',
-        queryParameters: queryParameters,
-        options: RequestOptions(
-            method: 'POST',
-            headers: <String, dynamic>{},
-            extra: _extra,
-            baseUrl: baseUrl),
-        data: _data);
-    final value = _result.data;
-    return value;
+    final  d.Response _result = await _dio.post("/direct", data:entity.toMap() ?? <String, dynamic>{}, 
+         options:  d.RequestOptions(contentType: d.Headers.jsonContentType, baseUrl: baseUrl ));
+    return _result.data.toString();
   }
 
   @override
@@ -56,10 +46,10 @@ class _DirectMessageService implements DirectMessageService {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _data = <String, dynamic>{};
-    final Response<List<dynamic>> _result = await _dio.request(
-        '/direct_message',
+    final  d.Response<List<dynamic>> _result = await _dio.request(
+        '/direct',
         queryParameters: queryParameters,
-        options: RequestOptions(
+        options:  d.RequestOptions(
             method: 'GET',
             headers: <String, dynamic>{},
             extra: _extra,
@@ -77,10 +67,10 @@ class _DirectMessageService implements DirectMessageService {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _data = <String, dynamic>{};
-    final Response<Map<String, dynamic>> _result = await _dio.request(
-        '/direct_message/$key',
+    final  d.Response<Map<String, dynamic>> _result = await _dio.request(
+        '/direct/$key',
         queryParameters: queryParameters,
-        options: RequestOptions(
+        options:  d.RequestOptions(
             method: 'GET',
             headers: <String, dynamic>{},
             extra: _extra,
@@ -98,10 +88,10 @@ class _DirectMessageService implements DirectMessageService {
     final queryParameters = <String, dynamic>{};
     final _data = <String, dynamic>{};
     _data.addAll(task?.toJson() ?? <String, dynamic>{});
-    final Response<Map<String, dynamic>> _result = await _dio.request(
-        '/direct_message/$key',
+    final  d.Response<Map<String, dynamic>> _result = await _dio.request(
+        '/direct/$key',
         queryParameters: queryParameters,
-        options: RequestOptions(
+        options:  d.RequestOptions(
             method: 'PUT',
             headers: <String, dynamic>{},
             extra: _extra,

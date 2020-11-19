@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:equatable/equatable.dart';
 
 import 'package:in_a_bottle/_shared/archtecture/base_model.dart';
+import 'package:in_a_bottle/_shared/location/point.dart';
 import 'package:in_a_bottle/local_message/local/local.dart';
 import 'package:in_a_bottle/local_message/reaction/user_reaction.dart';
 import 'package:in_a_bottle/user/user.dart';
@@ -61,8 +62,11 @@ class Message extends Equatable implements BaseModel, EntityReactable {
   Map<String, dynamic> toMap() {
     return {
       'selector': selector,
-      'createdBy': createdBy?.toMap(),
-      'createdOn': createdOn?.toMap(),
+      'createdBy': createdBy?.email,
+      'latitude': createdOn?.point?.latitude,
+      'longitude': createdOn?.point?.longitude,
+      'reach': createdOn?.reach?.value,
+      'password': createdOn?.password,
       'createdAt': createdAt?.millisecondsSinceEpoch,
       'status': status,
       'text': text,
@@ -76,8 +80,8 @@ class Message extends Equatable implements BaseModel, EntityReactable {
   
     return Message(
       selector: map['selector'],
-      createdBy: User.fromMap(map['createdBy']),
-      createdOn: Local.fromMap(map['createdOn']),
+      createdBy: User(email: map['createdBy']),
+      createdOn: Local(point: Point(latitude: map['latitude'], longitude :  map['longitude']), password:  map['password']),
       createdAt: DateTime.fromMillisecondsSinceEpoch(map['createdAt']?? DateTime.now().millisecondsSinceEpoch),
       status: map['status'],
       text: map['text'],

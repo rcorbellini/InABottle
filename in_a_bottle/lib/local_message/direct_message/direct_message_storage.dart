@@ -1,4 +1,4 @@
-import 'package:dio/dio.dart';
+import 'package:dio/dio.dart' as d;
 import 'package:in_a_bottle/_shared/archtecture/base_dao.dart';
 import 'package:in_a_bottle/_shared/archtecture/base_data_storage.dart';
 import 'package:in_a_bottle/local_message/direct_message/direct_message.dart';
@@ -23,7 +23,7 @@ class DirectMessageDao extends BaseDao<DirectMessage>
 
 @RestApi()
 abstract class DirectMessageService implements DirectMessageStorage {
-  factory DirectMessageService(Dio dio, {String baseUrl}) =
+  factory DirectMessageService(d.Dio dio, {String baseUrl}) =
       _DirectMessageService;
 
   @DELETE("/direct_message/{key}")

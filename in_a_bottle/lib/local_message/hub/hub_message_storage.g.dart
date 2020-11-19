@@ -21,7 +21,7 @@ class _HubMessageService implements HubMessageService {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _data = <String, dynamic>{};
-    final Response _result = await _dio.request('/hub_message/$key',
+    final Response _result = await _dio.request('/hub/$key',
         queryParameters: queryParameters,
         options: RequestOptions(
             method: 'DELETE',
@@ -36,19 +36,11 @@ class _HubMessageService implements HubMessageService {
   @override
   insert(entity) async {
     ArgumentError.checkNotNull(entity, 'entity');
-    const _extra = <String, dynamic>{};
-    final queryParameters = <String, dynamic>{};
-    final _data = <String, dynamic>{};
-    final Response _result = await _dio.request('/hub_message',
-        queryParameters: queryParameters,
-        options: RequestOptions(
-            method: 'POST',
-            headers: <String, dynamic>{},
-            extra: _extra,
-            baseUrl: baseUrl),
-        data: _data);
-    final value = _result.data;
-    return value;
+    final d.Response _result = await _dio.post("/hub",
+        data: entity.toMap() ?? <String, dynamic>{},
+        options: d.RequestOptions(
+            contentType: d.Headers.jsonContentType, baseUrl: baseUrl));
+    return _result.data.toString();
   }
 
   @override
@@ -56,7 +48,7 @@ class _HubMessageService implements HubMessageService {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _data = <String, dynamic>{};
-    final Response<List<dynamic>> _result = await _dio.request('/hub_message',
+    final Response<List<dynamic>> _result = await _dio.request('/hub',
         queryParameters: queryParameters,
         options: RequestOptions(
             method: 'GET',
@@ -77,11 +69,11 @@ class _HubMessageService implements HubMessageService {
     final queryParameters = <String, dynamic>{};
     final _data = <String, dynamic>{};
     final Response<Map<String, dynamic>> _result = await _dio.request(
-        '/hub_message/$key',
+        '/hub/$key',
         queryParameters: queryParameters,
         options: RequestOptions(
             method: 'GET',
-            headers: <String, dynamic>{},
+            headers: <String, dynamic>{'Keep-Alive': true},
             extra: _extra,
             baseUrl: baseUrl),
         data: _data);
@@ -90,23 +82,45 @@ class _HubMessageService implements HubMessageService {
   }
 
   @override
-  update(key, task) async {
-    ArgumentError.checkNotNull(key, 'key');
-    ArgumentError.checkNotNull(task, 'task');
-    const _extra = <String, dynamic>{};
-    final queryParameters = <String, dynamic>{};
-    final _data = <String, dynamic>{};
-    _data.addAll(task?.toJson() ?? <String, dynamic>{});
-    final Response<Map<String, dynamic>> _result = await _dio.request(
-        '/hub_message/$key',
-        queryParameters: queryParameters,
-        options: RequestOptions(
-            method: 'PUT',
-            headers: <String, dynamic>{},
-            extra: _extra,
-            baseUrl: baseUrl),
-        data: _data);
-    final value = HubMessage.fromMap(_result.data);
-    return value;
+  update(key, entity) async {
+    throw Exception("Nao implementado");
+  }
+
+
+  addMessage(key, entity)async {
+    ArgumentError.checkNotNull(entity, 'entity');
+    final entityMessage = entity.toMap();
+    final d.Response _result = await _dio.post("/hub/$key/addMessage",
+        data: entityMessage ?? <String, dynamic>{},
+        options: d.RequestOptions(
+            headers: <String, dynamic>{'Keep-Alive': true},
+            contentType: d.Headers.jsonContentType,
+            baseUrl: baseUrl));
+    return _result.data.toString();
+  }
+
+  
+  addReaction(String hubKey, String messageKey, UserReaction entity) async{
+        ArgumentError.checkNotNull(entity, 'entity');
+    final entityMessage = entity.toMap();
+    final d.Response _result = await _dio.post("/hub/$hubKey/message/$messageKey/addReaction",
+        data: entityMessage ?? <String, dynamic>{},
+        options: d.RequestOptions(
+            headers: <String, dynamic>{'Keep-Alive': true},
+            contentType: d.Headers.jsonContentType,
+            baseUrl: baseUrl));
+    return _result.data.toString();
+  }
+
+   removeReaction(String hubKey, String messageKey, UserReaction entity) async{
+        ArgumentError.checkNotNull(entity, 'entity');
+    final entityMessage = entity.toMap();
+    final d.Response _result = await _dio.delete("/hub/$hubKey/message/$messageKey/removeReaction",
+        data: entityMessage ?? <String, dynamic>{},
+        options: d.RequestOptions(
+            headers: <String, dynamic>{'Keep-Alive': true},
+            contentType: d.Headers.jsonContentType,
+            baseUrl: baseUrl));
+    return _result.data.toString();
   }
 }

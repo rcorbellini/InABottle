@@ -27,7 +27,7 @@ class UserReaction extends Equatable {
 
   Map<String, dynamic> toMap() {
     return <String, dynamic>{
-      'createdBy': createdBy?.toMap(),
+      'createdBy': createdBy?.email,
       'reaction': reaction?.toMap(),
     };
   }
@@ -36,7 +36,7 @@ class UserReaction extends Equatable {
     if (map == null) return null;
 
     return UserReaction(
-      createdBy: User.fromMap(map['createdBy'] as Map<String, dynamic>),
+      createdBy: User(email: map['createdBy']),
       reaction: TypeReaction.fromMap(map['reaction'] as Map<String, dynamic>),
     );
   }

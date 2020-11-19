@@ -12,6 +12,7 @@ import 'package:in_a_bottle/_shared/location/location_repository.dart';
 import 'package:in_a_bottle/local_message/message/message.dart';
 import 'package:in_a_bottle/session/session_repository.dart';
 import 'package:meta/meta.dart';
+import 'package:uuid/uuid.dart';
 
 class DirectMessageBloc extends CrudBloc<DirectMessageForm, DirectMessage>
     with CampoObrigatorioValidator {

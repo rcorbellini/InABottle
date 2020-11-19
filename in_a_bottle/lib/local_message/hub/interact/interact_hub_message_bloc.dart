@@ -9,6 +9,7 @@ import 'package:meta/meta.dart';
 import 'package:in_a_bottle/_shared/archtecture/base_bloc.dart';
 import 'package:in_a_bottle/local_message/hub/hub_message_repository.dart';
 import 'package:in_a_bottle/local_message/hub/interact/interact_hub_message_event.dart';
+import 'package:uuid/uuid.dart';
 
 class InteractHubMessageBloc extends BaseBloc<InteractHubMessageEvent> {
   static const String route = '/interactChat';
@@ -29,25 +30,30 @@ class InteractHubMessageBloc extends BaseBloc<InteractHubMessageEvent> {
     }
   }
 
-  Future<void> _applyReaction(
-      TypeReaction reaction, Message message) async {
+  Future<void> _applyReaction(TypeReaction reaction, Message message) async {
     final hub = await _buildEntity();
 
     final session = await sessionRepository.load();
     final reactionOfUser =
         UserReaction(createdBy: session.user, reaction: reaction);
 
-    bool exist = message.reactions.contains(reactionOfUser);
+    bool exist = message.reactions.any((ru) =>
+        ru.createdBy.email == session.user.email &&
+        ru.reaction.selector == reaction.selector);
 
     if (exist) {
+      await chatRepository.removeReaction(
+          hub.selector, message.selector, reactionOfUser);
       message.reactions.remove(reactionOfUser);
     } else {
+      await chatRepository.addReaction(
+          hub.selector, message.selector, reactionOfUser);
       message.reactions.add(reactionOfUser);
     }
 
-    await chatRepository.save(hub);
+    //await chatRepository.save(hub);
 
-    final hubReactionsCounted = await chatRepository.loadByKey("key");
+    final hubReactionsCounted = await chatRepository.loadByKey(hub.selector);
 
     _updateHubOnScreen(hubReactionsCounted);
   }
@@ -66,7 +72,7 @@ class InteractHubMessageBloc extends BaseBloc<InteractHubMessageEvent> {
     _updateHubOnScreen(hub);
     _cleanTextMessage();
 
-    await chatRepository.save(hub);
+    await chatRepository.addMessage(hub.selector, message);
   }
 
   Future<Message> _buildMessage() async {
@@ -77,6 +83,7 @@ class InteractHubMessageBloc extends BaseBloc<InteractHubMessageEvent> {
       createdBy: session.user,
       createdAt: DateTime.now(),
       status: "sending",
+      selector: Uuid().v4(),
       // ignore: prefer_const_literals_to_create_immutables
       reactions: <UserReaction>{},
       text: map[HubMessageForm.textMessage] as String,

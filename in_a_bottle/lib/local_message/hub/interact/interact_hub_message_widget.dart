@@ -152,7 +152,7 @@ class _InteractHubMessageWidgetState extends State<InteractHubMessageWidget> {
 
   Widget buildItem(Message message) {
     return ItemHubMessage(
-      message: message,
+      message: message??"--",
       bloc: _bloc,
     );
   }

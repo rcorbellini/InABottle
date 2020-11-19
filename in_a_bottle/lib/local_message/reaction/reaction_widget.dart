@@ -14,17 +14,17 @@ class ReactionWidget extends StatelessWidget {
   //TODO remover daqui e fazer descente
   static final List<TypeReaction> allTypeReactions = [
     const TypeReaction(
-      selector: 'corbellini-1',
+      selector: 'heart',
       url: ':heart:',
       urlPreview: ':heart:',
     ),
     const TypeReaction(
-      selector: 'corbellini-2',
+      selector: 'thumbs',
       url: ':+1:',
       urlPreview: ':+1:',
     ),
     const TypeReaction(
-      selector: 'corbellini-3',
+      selector: 'olhos',
       url: ':eyes:',
       urlPreview: ':eyes:',
     )

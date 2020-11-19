@@ -113,7 +113,7 @@ class Reach extends Equatable {
 
   Map<String, dynamic> toMap() {
     return <String, dynamic>{
-      'descricao': descricao,
+      //'descricao': descricao,
       'value': value,
     };
   }

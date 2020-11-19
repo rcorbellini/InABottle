@@ -39,12 +39,12 @@ class User extends Equatable {
 
   Map<String, dynamic> toMap() {
     return {
-      'name': name,
-      'password': password,
+      //'name': name,
+      //'password': password,
       'email': email,
-      'cellphone': cellphone,
-      'photoUrl': photoUrl,
-      'points': points,
+      //'cellphone': cellphone,
+      //'photoUrl': photoUrl,
+      //'points': points,
     };
   }
 

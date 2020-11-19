@@ -2,7 +2,6 @@ import 'package:in_a_bottle/_shared/archtecture/base_model.dart';
 import 'package:in_a_bottle/_shared/archtecture/crud_bloc.dart';
 import 'package:in_a_bottle/_shared/location/location_repository.dart';
 import 'package:in_a_bottle/_shared/route/navigator.dart';
-import 'package:in_a_bottle/local_message/direct_message/direct_message.dart';
 import 'package:in_a_bottle/local_message/hub/hub_message.dart';
 import 'package:in_a_bottle/local_message/hub/hub_message_repository.dart';
 import 'package:in_a_bottle/local_message/local/local.dart';

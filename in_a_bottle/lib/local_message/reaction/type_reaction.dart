@@ -17,7 +17,7 @@ class TypeReaction extends Equatable {
   });
 
   @override
-  List<Object> get props => [selector, url, urlPreview];
+  List<Object> get props => [selector];
 
   TypeReaction copyWith({
     String selector,

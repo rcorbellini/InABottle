@@ -7,9 +7,11 @@ abstract class BaseModel {
   Local get createdOn;
   DateTime get createdAt;
   String get status;
+
+  copyWith({
+    String selector,
+  });
 }
-
-
 
 const String statusPendente = 'pendente';
 const String statusProcessado = 'processado';
