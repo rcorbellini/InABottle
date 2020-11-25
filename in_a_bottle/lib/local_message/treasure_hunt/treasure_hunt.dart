@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:equatable/equatable.dart';
 
 import 'package:in_a_bottle/_shared/archtecture/base_model.dart';
+import 'package:in_a_bottle/_shared/location/point.dart';
 import 'package:in_a_bottle/home/home_feed.dart';
 import 'package:in_a_bottle/local_message/direct_message/direct_message.dart';
 import 'package:in_a_bottle/local_message/local/local.dart';
@@ -87,11 +88,13 @@ class TreasureHunt extends Equatable implements HomeFeed, BaseModel, EntityReact
 
   Map<String, dynamic> toMap() {
     return {
-      'selector': selector,
-      'createdBy': createdBy?.toMap(),
-      'createdOn': createdOn?.toMap(),
+      'selector': selector,    
+      'createdBy': createdBy?.email,
+      'latitude': createdOn?.point?.latitude,
+      'longitude': createdOn?.point?.longitude,
+      'reach': createdOn?.reach?.value,
+      'password': createdOn?.password,
       'createdAt': createdAt?.millisecondsSinceEpoch,
-      'status': status,
       'reactions': reactions?.map((x) => x?.toMap())?.toList(),
       'messages': messages?.map((x) => x?.toMap())?.toList(),
       'description': description,
@@ -109,12 +112,12 @@ class TreasureHunt extends Equatable implements HomeFeed, BaseModel, EntityReact
   
     return TreasureHunt(
       selector: map['selector'],
-      createdBy: User.fromMap(map['createdBy']),
-      createdOn: Local.fromMap(map['createdOn']),
+      createdBy: User(email: map['createdBy']),
+      createdOn: Local(point: Point(latitude: map['latitude'], longitude :  map['longitude']), password:  map['password']),
       createdAt: DateTime.fromMillisecondsSinceEpoch(map['createdAt']),
       status: map['status'],
-      reactions: Set<UserReaction>.from(map['reactions']?.map((x) => UserReaction.fromMap(x))),
-      messages: List<DirectMessage>.from(map['messages']?.map((x) => DirectMessage.fromMap(x))),
+      reactions: Set<UserReaction>.from(map['reactions']?.map((x) => UserReaction.fromMap(x)) ?? {}),
+      messages: List<DirectMessage>.from(map['messages']?.map((x) => DirectMessage.fromMap(x)) ?? []),
       description: map['description'],
       title: map['title'],
       extraPoints: map['extraPoints'],

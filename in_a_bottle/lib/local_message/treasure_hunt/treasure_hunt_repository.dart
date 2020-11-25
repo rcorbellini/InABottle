@@ -18,7 +18,7 @@ class TreasureHuntDataRepository extends TreasureHuntRepository {
 
   @override
   Future<List<TreasureHunt>> loadByLocation(Point location) async {
-    final entities = await dao.loadAll();
+    final entities = await http.loadAll();
     return entities.where((element) {
       if (element?.createdOn?.point == null) {
         return false;

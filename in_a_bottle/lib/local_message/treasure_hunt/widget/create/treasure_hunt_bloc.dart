@@ -63,6 +63,7 @@ class TreasureHuntBloc extends CrudBloc<TreasureHuntForm, TreasureHunt> {
     final startDate = dateRange?.start;
     final endDate = dateRange?.end;
     final session = await sessionRepository.load();
+    final messages = map[TreasureHuntForm.messages];
 
     return TreasureHunt(
       title: map[TreasureHuntForm.textDescription] as String,
@@ -72,6 +73,7 @@ class TreasureHuntBloc extends CrudBloc<TreasureHuntForm, TreasureHunt> {
       createdAt: DateTime.now(),
       startDate: startDate,
       endDate: endDate,
+      messages: messages,
       createdOn: Local(
           isPrivateDM: isPrivateDM,
           reach: Reach(value: map[TreasureHuntForm.sliderReach] as double),

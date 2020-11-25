@@ -36,6 +36,7 @@ class _TreasureHuntService implements TreasureHuntService {
   @override
   insert(entity) async {
     ArgumentError.checkNotNull(entity, 'entity');
+    //print(json.encode(entity.toMap()));
     final  d.Response _result = await _dio.post("/treasure", data:entity.toMap() ?? <String, dynamic>{}, 
          options:  d.RequestOptions(contentType: d.Headers.jsonContentType, baseUrl: baseUrl ));
     return _result.data.toString();
@@ -47,7 +48,7 @@ class _TreasureHuntService implements TreasureHuntService {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _data = <String, dynamic>{};
-    final Response<List<dynamic>> _result = await _dio.request('/treasure_hunt',
+    final Response<List<dynamic>> _result = await _dio.request('/treasure',
         queryParameters: queryParameters,
         options: RequestOptions(
             method: 'GET',

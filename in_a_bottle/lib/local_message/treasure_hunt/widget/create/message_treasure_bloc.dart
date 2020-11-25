@@ -11,6 +11,7 @@ import 'package:in_a_bottle/_shared/location/location_repository.dart';
 import 'package:in_a_bottle/local_message/message/message.dart';
 import 'package:in_a_bottle/session/session_repository.dart';
 import 'package:meta/meta.dart';
+import 'package:uuid/uuid.dart';
 
 class MessageTreasureBloc extends CrudBloc<DirectMessageForm, DirectMessage>
     with CampoObrigatorioValidator {
@@ -38,7 +39,9 @@ class MessageTreasureBloc extends CrudBloc<DirectMessageForm, DirectMessage>
     final currentPosition = await locationRepository.loadCurrentPosition();
 
     return DirectMessage(
+        selector: Uuid().v4(),
         message: Message(
+          selector: Uuid().v4(),
           text: map[DirectMessageForm.textContent] as String,
           title: map[DirectMessageForm.textTitle] as String,
           createdAt: DateTime.now(),
