@@ -3,13 +3,16 @@ import 'package:in_a_bottle/session/session_dto.dart';
 import 'package:in_a_bottle/session/session_event.dart';
 import 'package:in_a_bottle/session/session_repository.dart';
 import 'package:in_a_bottle/user/user.dart';
+import 'package:in_a_bottle/user/user_repository.dart';
 import 'package:meta/meta.dart';
 import 'package:fancy_stream/fancy_stream.dart';
 
 class SessionBloc extends BaseBloc<SessionEvent> {
   final SessionRepository sessionRepository;
+  final UserRepository userRepository;
 
-  SessionBloc({@required this.sessionRepository}) {
+  SessionBloc(
+      {@required this.sessionRepository, @required this.userRepository}) {
     dispatchOn<SessionEvent>(Unauthenticated());
   }
 
@@ -22,8 +25,9 @@ class SessionBloc extends BaseBloc<SessionEvent> {
     }
   }
 
-  void _loggedin(User user) {
-    sessionRepository.save(Session(user: user));
+  Future<void> _loggedin(User user) async{
+    final token =  await userRepository.login(user);
+    await sessionRepository.save(Session(user: user, token: token));
   }
 
   void _loggedOut() {
