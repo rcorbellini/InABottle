@@ -11,7 +11,7 @@ class TreasureHuntDi extends InjectorModule {
   @override
   void initialise(Injector injector) {
     injector.register<TreasureHuntStorage, TreasureHuntService>(
-        (i) => TreasureHuntService(i.get(), baseUrl: i.get(key: api)),
+        (i) => TreasureHuntService(),
         key: "TreasureHuntService");
 
     injector.register<TreasureHuntStorage, TreasureHuntDao>(

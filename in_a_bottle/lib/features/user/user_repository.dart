@@ -1,3 +1,6 @@
+import 'dart:convert';
+import 'dart:io';
+
 import 'package:dio/dio.dart';
 import 'package:in_a_bottle/features/user/user.dart';
 import 'package:http/http.dart' as http;
@@ -10,15 +13,39 @@ abstract class UserRepository {
 }
 
 class UserDataRepository implements UserRepository {
-  final Dio _dio;
+  final http.Client client;
 
   String baseUrl;
 
-  UserDataRepository(this._dio, {this.baseUrl});
+  UserDataRepository(this.client, {required this.baseUrl});
 
   @override
   Future<String> login(User entity) async {
     ArgumentError.checkNotNull(entity, 'entity');
+
+    var url =
+    Uri.http(baseUrl, "/auth/google" );
+    var request =http.Request("post", url);
+    request.headers["Accept"] = "text/event-stream";
+    request.headers["Cache-Control"] = "no-cache";
+    var response =  client.send(request);
+
+    response.then((streamedResponse) => streamedResponse.stream.listen((value) {
+      final parsedData = utf8.decode(value);
+      print(parsedData);
+
+      //event:heartbeat
+      //data:{"type":"heartbeat"}
+
+      final eventType = parsedData.split("\n")[0].split(":")[1];
+      print(eventType);
+      //heartbeat
+      final realParsedData = json.decode(parsedData.split("data:")[1]) as Map<String, dynamic>;
+      if (realParsedData != null) {
+        // do something
+      }
+    }, onDone: () => print("The streamresponse is ended"),),);
+
 
     final Response _result = await _dio.post("/auth/google",
         data: entity.token ,

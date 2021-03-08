@@ -14,15 +14,7 @@ class TreasureHuntRepositoryImp extends TreasureHuntRepository {
   @override
   Future<List<TreasureHunt>> loadByLocation(Point location) async {
     final entities = await http.loadAll();
-    return entities.where((element) {
-      if (element?.createdOn?.point == null) {
-        return false;
-      }
-      final distance = location.distanceOf(element.createdOn.point);
-      final allowed = element.createdOn.reach?.ditanceAllowed ?? 50;
-
-      return distance < allowed;
-    }).toList();
+    return entities.toList();
 
     //yield await http.loadAll();
   }

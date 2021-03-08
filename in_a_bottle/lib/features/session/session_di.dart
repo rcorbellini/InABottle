@@ -5,7 +5,6 @@ import 'package:in_a_bottle/adapters/injection/injector.dart';
 import 'package:in_a_bottle/adapters/injection/injector_module.dart';
 import 'package:in_a_bottle/adapters/location/location_repository.dart';
 import 'package:in_a_bottle/adapters/widgets/message_handler.dart';
-import 'package:in_a_bottle/common/widget/locked/lock_bloc.dart';
 import 'package:in_a_bottle/features/session/data/repositories/session_repository_imp.dart';
 import 'package:in_a_bottle/features/session/domain/repositories/session_repository.dart';
 import 'package:in_a_bottle/features/session/domain/use_cases/get_session_use_case.dart';
@@ -20,7 +19,6 @@ class SessionDi extends InjectorModule {
         (i) => LocationDataRepository());
     injector.register<MessageHandler, FlushMessageHandler>(
         (injector) => FlushMessageHandler());
-    injector.register((injector) => LockBloc());
     injector.register((injector) => Dio());
 
     injector.register((injector) => "http://04c02d1cabed.ngrok.io", key: api);
