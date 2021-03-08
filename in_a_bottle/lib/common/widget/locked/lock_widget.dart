@@ -8,10 +8,10 @@ import 'package:fancy_stream/fancy_stream.dart';
 //import 'package:otp_text_field/style.dart';
 
 class LockWidget extends StatefulWidget {
-  final Local local;
-  final Widget child;
+  final Local? local;
+  final Widget? child;
 
-  const LockWidget({Key key, this.local, this.child}) : super(key: key);
+  const LockWidget({Key? key, this.local, this.child}) : super(key: key);
 
   @override
   _LockWidgetState createState() => _LockWidgetState();
@@ -34,12 +34,12 @@ class _LockWidgetState extends State<LockWidget> {
             if (!snpashot.hasData) {
               return Container();
             }
-            final local = snpashot.data;
+            Local local = snpashot.data!;
             if (local.contentLock) {
               return _buildLock(_factory);
             }
 
-            return widget.child;
+            return widget.child!;
           },
         );
       },

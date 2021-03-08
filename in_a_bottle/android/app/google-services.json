@@ -23,6 +23,14 @@
           }
         },
         {
+          "client_id": "1011585668218-ml27hn7vsqtcegejtgl441lk8bi979qm.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "br.com.inabottle",
+            "certificate_hash": "dfde27268201287540ead88add0e41a20c3dc71f"
+          }
+        },
+        {
           "client_id": "1011585668218-9l3a195t9fhmtgaur7hpsdl45711hc6o.apps.googleusercontent.com",
           "client_type": 3
         }

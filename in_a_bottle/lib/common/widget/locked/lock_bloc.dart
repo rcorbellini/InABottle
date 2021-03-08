@@ -1,4 +1,4 @@
-import 'package:in_a_bottle/_shared/archtecture/crud_bloc.dart';
+import 'package:in_a_bottle/adapters//archtecture/crud_bloc.dart';
 import 'package:fancy_stream/fancy_stream.dart';
 import 'package:in_a_bottle/local_message/local/local.dart';
 
