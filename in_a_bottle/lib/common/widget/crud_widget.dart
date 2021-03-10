@@ -6,7 +6,7 @@ import 'package:in_a_bottle/adapters//archtecture/base_bloc.dart';
 import 'package:in_a_bottle/adapters//injection/injector.dart';
 import 'package:in_a_bottle/adapters//widgets/message_handler.dart';
 
-class CrudWidget<FORM, ERROR extends Object, BLOC extends BaseBloc<FORM>>
+class CrudWidget<FORM extends Object, ERROR extends Object, BLOC extends BaseBloc<FORM>>
     extends StatefulWidget {
   final CrudBuilder builder;
   final Initilizer? initlizer;
@@ -17,7 +17,7 @@ class CrudWidget<FORM, ERROR extends Object, BLOC extends BaseBloc<FORM>>
   _CrudWidgetState<FORM, ERROR, BLOC> createState() => _CrudWidgetState();
 }
 
-class _CrudWidgetState<FORM, ERROR, BLOC extends BaseBloc<FORM>>
+class _CrudWidgetState<FORM extends Object, ERROR, BLOC extends BaseBloc<FORM>>
     extends State<CrudWidget> {
   late BLOC _bloc;
   late FormFactory _factory;

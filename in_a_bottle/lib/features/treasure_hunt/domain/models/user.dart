@@ -3,13 +3,13 @@ import 'dart:convert';
 import 'package:equatable/equatable.dart';
 
 class User extends Equatable {
-  final String name;
-  final String password;
-  final String email;
-  final String cellphone;
-  final String photoUrl;
-  final int points;
-  final String token;
+  final String? name;
+  final String? password;
+  final String? email;
+  final String? cellphone;
+  final String? photoUrl;
+  final int? points;
+  final String? token;
 
   const User({
     this.token,

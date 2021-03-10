@@ -3,14 +3,10 @@ import 'dart:convert';
 import 'package:equatable/equatable.dart';
 import 'package:in_a_bottle/adapters/archtecture/base_model.dart';
 import 'package:in_a_bottle/features/treasure_hunt/presentation/home/home_feed.dart';
-import 'package:in_a_bottle/features/user/user.dart';
-import 'package:in_a_bottle/local_message/direct_message/direct_message.dart';
-import 'package:in_a_bottle/local_message/local/local.dart';
-import 'package:in_a_bottle/local_message/reaction/user_reaction.dart';
-import 'package:in_a_bottle/user/user.dart';
+import 'package:in_a_bottle/features/treasure_hunt/domain/models/user.dart';
 
 class TreasureHunt extends Equatable
-    implements HomeFeed, BaseModel, EntityReactable {
+    implements HomeFeed, BaseModel {
   //Base
   @override
   final String selector;
@@ -22,11 +18,9 @@ class TreasureHunt extends Equatable
   final DateTime createdAt;
   @override
   final String status;
-  @override
-  final Set<UserReaction> reactions;
 
   //entity
-  final List<DirectMessage> messages;
+  final List<Step> messages;
   final String description;
   final String title;
   final int extraPoints;

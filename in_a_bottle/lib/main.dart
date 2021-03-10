@@ -1,34 +1,27 @@
 import 'package:flutter/material.dart';
-import 'package:in_a_bottle/_shared/injection/injector.dart';
 import 'package:chameleon_resolver/chameleon_resolver.dart';
-import 'package:in_a_bottle/_shared/route/navigator_di.dart';
-import 'package:in_a_bottle/_shared/route/app_routes.dart';
+import 'package:in_a_bottle/adapters/injection/injector.dart';
 import 'package:in_a_bottle/di/home_di.dart';
-import 'package:in_a_bottle/home/widgets/home_widget.dart';
-import 'package:in_a_bottle/_shared/route/navigator.dart'
-    as interface_navigator;
-import 'package:in_a_bottle/local_message/hub/hub_message_di.dart';
-import 'package:in_a_bottle/local_message/direct_message/direct_message_di.dart';
-import 'package:in_a_bottle/local_message/talk/talk_di.dart';
+import 'package:in_a_bottle/features/session/presentation/bloc/session_bloc.dart';
 import 'package:in_a_bottle/di/treasure_hunt_di.dart';
-import 'package:in_a_bottle/session/session_bloc.dart';
-import 'package:in_a_bottle/features/session/session_di.dart';
-import 'package:in_a_bottle/session/session_event.dart';
-import 'package:fancy_stream/fancy_stream.dart';
-import 'package:in_a_bottle/user/user_di.dart';
-import 'package:in_a_bottle/user/widget/login_widget.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:heimdall/heimdall.dart';
+import 'package:in_a_bottle/features/session/presentation/bloc/session_event.dart';
+import 'package:in_a_bottle/features/session/session_di.dart';
+import 'package:in_a_bottle/features/treasure_hunt/presentation/home/pages/widgets/home_widget.dart';
+import 'package:in_a_bottle/features/treasure_hunt/presentation/login/pages/login_widget.dart';
+
+import 'adapters/route/app_routes.dart';
 
 void main() {
   Injector().initialiseAll([
     SessionDi(),
-    HubMessageDI(),
-    NavigatorDI(),
-    TalkDi(),
+    //HubMessageDI(),
+    //NavigatorDI(),
+    //TalkDi(),
     TreasureHuntDi(),
-    UserDi(),
-    DirectMessageDi(),
+    //UserDi(),
+    //DirectMessageDi(),
     HomeDi(),
   ]);
   return runApp(MyApp(
@@ -39,7 +32,7 @@ void main() {
 class MyApp extends StatelessWidget {
   final SessionBloc sessionBloc;
 
-  const MyApp({Key key, this.sessionBloc}) : super(key: key);
+  const MyApp({Key? key, required this.sessionBloc}) : super(key: key);
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {

@@ -9,7 +9,7 @@ class LocationDataRepository implements LocationRepository {
 
   @override
   Future<Point> loadCurrentPosition() async {
-    Position position = await getCurrentPosition(desiredAccuracy: LocationAccuracy.high);
+    Position position = await Geolocator.getCurrentPosition(desiredAccuracy: LocationAccuracy.high);
     return Point(latitude: position.latitude, longitude: position.longitude);
   }
 }

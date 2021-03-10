@@ -1,4 +1,4 @@
-import 'package:in_a_bottle/features/user/user.dart';
+import 'package:in_a_bottle/features/treasure_hunt/domain/models/user.dart';
 
 abstract class BaseModel {
   String get selector;

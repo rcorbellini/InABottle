@@ -1,5 +1,5 @@
 import 'package:in_a_bottle/_shared/archtecture/base_bloc.dart';
-import 'package:in_a_bottle/session/session_bloc.dart';
+import 'package:in_a_bottle/session/session_bloc.dart.dart';
 import 'package:in_a_bottle/session/session_event.dart';
 import 'package:in_a_bottle/user/login_event.dart';
 import 'package:meta/meta.dart';

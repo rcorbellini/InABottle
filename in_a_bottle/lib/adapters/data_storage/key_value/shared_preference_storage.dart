@@ -7,12 +7,12 @@ class SharedPreferenceStorage extends KeyValueStorage {
   final Future<SharedPreferences> _futPrefs = SharedPreferences.getInstance();
 
   @override
-  Future<void> setValue<T>(String key, T value) async {
+  Future<void> setValue<T>(String key, T? value) async {
     final pref = await _futPrefs;
 
     //Tratando null
     if (value == null) {
-      await pref.setString(key, null);
+      await pref.remove(key);
       return;
     }
 
