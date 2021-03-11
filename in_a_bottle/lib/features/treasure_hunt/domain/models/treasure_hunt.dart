@@ -1,158 +1,304 @@
-import 'dart:convert';
+import 'package:in_a_bottle/features/treasure_hunt/domain/models/locked_feature.dart';
+import 'package:in_a_bottle/features/treasure_hunt/domain/models/position.dart';
 
-import 'package:equatable/equatable.dart';
-import 'package:in_a_bottle/adapters/archtecture/base_model.dart';
-import 'package:in_a_bottle/features/treasure_hunt/presentation/home/home_feed.dart';
-import 'package:in_a_bottle/features/treasure_hunt/domain/models/user.dart';
-
-class TreasureHunt extends Equatable
-    implements HomeFeed, BaseModel {
-  //Base
-  @override
-  final String selector;
-  @override
-  final User createdBy;
-  //@override
-  //final Local createdOn;
-  @override
-  final DateTime createdAt;
-  @override
-  final String status;
-
-  //entity
-  final List<Step> messages;
-  final String description;
+class TreasureHunt {
+  final String id;
   final String title;
-  final int extraPoints;
-  final int points;
-  final String rewards;
+  final String description;
+  final Position startPoint;
+  final List<TreasureHuntStep> steps;
+  final String tipToFirstStep;
+  final int maxWinners;
   final DateTime startDate;
   final DateTime endDate;
+  final String userCreateId;
+  final String state;
+  final int? amountOfPoints;
+  final List<ConfigReward>? especificRewards;
+  final List<String>? commonRewardsId;
+  final LockedFeature? lockedFeature;
 
-  TreasureHunt({
-    this.selector,
-    this.createdBy,
-    this.createdOn,
-    this.createdAt,
-    this.status,
-    this.reactions = const {},
-    this.messages = const [],
-    this.description,
-    this.title,
-    this.extraPoints,
-    this.points,
-    this.rewards,
-    this.startDate,
-    this.endDate,
+//<editor-fold desc="Data Methods" defaultstate="collapsed">
+  const TreasureHunt({
+    required this.id,
+    required this.title,
+    required this.description,
+    required this.startPoint,
+    required this.steps,
+    required this.tipToFirstStep,
+    required this.maxWinners,
+    required this.startDate,
+    required this.endDate,
+    required this.userCreateId,
+    required this.state,
+    this.amountOfPoints,
+    this.especificRewards,
+    this.commonRewardsId,
+    this.lockedFeature,
   });
 
   TreasureHunt copyWith({
-    String selector,
-    User createdBy,
-    Local createdOn,
-    DateTime createdAt,
-    String status,
-    Set<UserReaction> reactions,
-    List<DirectMessage> messages,
-    String description,
-    String title,
-    int extraPoints,
-    int points,
-    String rewards,
-    DateTime startDate,
-    DateTime endDate,
+    String? id,
+    String? title,
+    String? description,
+    Position? startPoint,
+    List<TreasureHuntStep>? steps,
+    String? tipToFirstStep,
+    int? maxWinners,
+    DateTime? startDate,
+    DateTime? endDate,
+    String? userCreateId,
+    String? state,
+    int? amountOfPoints,
+    List<ConfigReward>? especificRewards,
+    List<String>? commonRewardsId,
+    LockedFeature? lockedFeature,
   }) {
-    return TreasureHunt(
-      selector: selector ?? this.selector,
-      createdBy: createdBy ?? this.createdBy,
-      createdOn: createdOn ?? this.createdOn,
-      createdAt: createdAt ?? this.createdAt,
-      status: status ?? this.status,
-      reactions: reactions ?? this.reactions,
-      messages: messages ?? this.messages,
-      description: description ?? this.description,
+    return new TreasureHunt(
+      id: id ?? this.id,
       title: title ?? this.title,
-      extraPoints: extraPoints ?? this.extraPoints,
-      points: points ?? this.points,
-      rewards: rewards ?? this.rewards,
+      description: description ?? this.description,
+      startPoint: startPoint ?? this.startPoint,
+      steps: steps ?? this.steps,
+      tipToFirstStep: tipToFirstStep ?? this.tipToFirstStep,
+      maxWinners: maxWinners ?? this.maxWinners,
       startDate: startDate ?? this.startDate,
       endDate: endDate ?? this.endDate,
+      userCreateId: userCreateId ?? this.userCreateId,
+      state: state ?? this.state,
+      amountOfPoints: amountOfPoints ?? this.amountOfPoints,
+      especificRewards: especificRewards ?? this.especificRewards,
+      commonRewardsId: commonRewardsId ?? this.commonRewardsId,
+      lockedFeature: lockedFeature ?? this.lockedFeature,
+    );
+  }
+
+  @override
+  String toString() {
+    return 'TreasureHunt{id: $id, title: $title, description: $description, '
+        'startPoint: $startPoint, steps: $steps, tipToFirstStep: $tipToFirstStep,'
+        ' maxWinners: $maxWinners, startDate: $startDate, endDate: $endDate, '
+        'userCreateId: $userCreateId, state: $state, amountOfPoints: $amountOfPoints,'
+        ' especificRewards: $especificRewards, commonRewardsId: $commonRewardsId, '
+        'lockedFeature: $lockedFeature}';
+  }
+
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      (other is TreasureHunt &&
+          runtimeType == other.runtimeType &&
+          id == other.id &&
+          title == other.title &&
+          description == other.description &&
+          startPoint == other.startPoint &&
+          steps == other.steps &&
+          tipToFirstStep == other.tipToFirstStep &&
+          maxWinners == other.maxWinners &&
+          startDate == other.startDate &&
+          endDate == other.endDate &&
+          userCreateId == other.userCreateId &&
+          state == other.state &&
+          amountOfPoints == other.amountOfPoints &&
+          especificRewards == other.especificRewards &&
+          commonRewardsId == other.commonRewardsId &&
+          lockedFeature == other.lockedFeature);
+
+  @override
+  int get hashCode =>
+      id.hashCode ^
+      title.hashCode ^
+      description.hashCode ^
+      startPoint.hashCode ^
+      steps.hashCode ^
+      tipToFirstStep.hashCode ^
+      maxWinners.hashCode ^
+      startDate.hashCode ^
+      endDate.hashCode ^
+      userCreateId.hashCode ^
+      state.hashCode ^
+      amountOfPoints.hashCode ^
+      especificRewards.hashCode ^
+      commonRewardsId.hashCode ^
+      lockedFeature.hashCode;
+
+  factory TreasureHunt.fromMap(Map<String, dynamic> map) {
+    return new TreasureHunt(
+      id: map['id'] as String,
+      title: map['title'] as String,
+      description: map['description'] as String,
+      startPoint: map['startPoint'] as Position,
+      steps: map['steps'] as List<TreasureHuntStep>,
+      tipToFirstStep: map['tipToFirstStep'] as String,
+      maxWinners: map['maxWinners'] as int,
+      startDate: map['startDate'] as DateTime,
+      endDate: map['endDate'] as DateTime,
+      userCreateId: map['userCreateId'] as String,
+      state: map['state'] as String,
+      amountOfPoints: map['amountOfPoints'] as int?,
+      especificRewards: map['especificRewards'] as List<ConfigReward>?,
+      commonRewardsId: map['commonRewardsId'] as List<String>?,
+      lockedFeature: map['lockedFeature'] as LockedFeature?,
     );
   }
 
   Map<String, dynamic> toMap() {
     return {
-      'selector': selector,
-      'createdBy': createdBy?.email,
-      'latitude': createdOn?.point?.latitude,
-      'longitude': createdOn?.point?.longitude,
-      'reach': createdOn?.reach?.value,
-      'password': createdOn?.password,
-      'createdAt': createdAt?.millisecondsSinceEpoch,
-      'reactions': reactions?.map((x) => x?.toMap())?.toList(),
-      'messages': messages?.map((x) => x?.toMap())?.toList(),
-      'description': description,
-      'title': title,
-      'extraPoints': extraPoints,
-      'points': points,
-      'rewards': rewards,
-      'startDate': startDate?.millisecondsSinceEpoch,
-      'endDate': endDate?.millisecondsSinceEpoch,
+      'id': this.id,
+      'title': this.title,
+      'description': this.description,
+      'startPoint': this.startPoint,
+      'steps': this.steps,
+      'tipToFirstStep': this.tipToFirstStep,
+      'maxWinners': this.maxWinners,
+      'startDate': this.startDate,
+      'endDate': this.endDate,
+      'userCreateId': this.userCreateId,
+      'state': this.state,
+      'amountOfPoints': this.amountOfPoints,
+      'especificRewards': this.especificRewards,
+      'commonRewardsId': this.commonRewardsId,
+      'lockedFeature': this.lockedFeature,
     };
   }
 
-  factory TreasureHunt.fromMap(Map<String, dynamic> map) {
-    if (map == null) return null;
+//</editor-fold>
 
-    return TreasureHunt(
-      selector: map['selector'],
-      createdBy: User(email: map['createdBy']),
-      createdOn: Local(
-          point: Point(latitude: map['latitude'], longitude: map['longitude']),
-          password: map['password']),
-      createdAt: DateTime.fromMillisecondsSinceEpoch(map['createdAt']),
-      status: map['status'],
-      reactions: Set<UserReaction>.from(
-          map['reactions']?.map((x) => UserReaction.fromMap(x)) ?? {}),
-      messages: List<DirectMessage>.from(
-          map['messages']?.map((x) => DirectMessage.fromMap(x)) ?? []),
-      description: map['description'],
-      title: map['title'],
-      extraPoints: map['extraPoints'],
-      points: map['points'],
-      rewards: map['rewards'],
-      startDate: DateTime.fromMillisecondsSinceEpoch(
-          map['startDate'] ?? DateTime.now().millisecondsSinceEpoch),
-      endDate: DateTime.fromMillisecondsSinceEpoch(
-          map['endDate'] ?? DateTime.now().millisecondsSinceEpoch),
+}
+
+class TreasureHuntStep {
+  final String id;
+  final String title;
+  final LockedFeature? lockedFeature;
+  final Position position;
+  final String tipToNextStep;
+
+//<editor-fold desc="Data Methods" defaultstate="collapsed">
+
+  const TreasureHuntStep({
+    required this.id,
+    required this.title,
+    this.lockedFeature,
+    required this.position,
+    required this.tipToNextStep,
+  });
+
+  TreasureHuntStep copyWith({
+    String? id,
+    String? title,
+    LockedFeature? lockedFeature,
+    Position? position,
+    String? tipToNextStep,
+  }) {
+
+    return new TreasureHuntStep(
+      id: id ?? this.id,
+      title: title ?? this.title,
+      lockedFeature: lockedFeature ?? this.lockedFeature,
+      position: position ?? this.position,
+      tipToNextStep: tipToNextStep ?? this.tipToNextStep,
     );
   }
 
-  String toJson() => json.encode(toMap());
-
-  factory TreasureHunt.fromJson(String source) =>
-      TreasureHunt.fromMap(json.decode(source));
-
   @override
-  bool get stringify => true;
-
-  @override
-  List<Object> get props {
-    return [
-      selector,
-      createdBy,
-      createdOn,
-      createdAt,
-      status,
-      reactions,
-      messages,
-      description,
-      title,
-      extraPoints,
-      points,
-      rewards,
-      startDate,
-      endDate,
-    ];
+  String toString() {
+    return 'TreasureHuntStep{id: $id, title: $title, lockedFeature: $lockedFeature, position: $position, tipToNextStep: $tipToNextStep}';
   }
+
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      (other is TreasureHuntStep &&
+          runtimeType == other.runtimeType &&
+          id == other.id &&
+          title == other.title &&
+          lockedFeature == other.lockedFeature &&
+          position == other.position &&
+          tipToNextStep == other.tipToNextStep);
+
+  @override
+  int get hashCode =>
+      id.hashCode ^
+      title.hashCode ^
+      lockedFeature.hashCode ^
+      position.hashCode ^
+      tipToNextStep.hashCode;
+
+  factory TreasureHuntStep.fromMap(Map<String, dynamic> map) {
+    return new TreasureHuntStep(
+      id: map['id'] as String,
+      title: map['title'] as String,
+      lockedFeature: map['lockedFeature'] as LockedFeature,
+      position: map['position'] as Position,
+      tipToNextStep: map['tipToNextStep'] as String,
+    );
+  }
+
+  Map<String, dynamic> toMap() {
+    return {
+      'id': this.id,
+      'title': this.title,
+      'lockedFeature': this.lockedFeature,
+      'position': this.position,
+      'tipToNextStep': this.tipToNextStep,
+    } ;
+  }
+
+//</editor-fold>
+
+}
+
+class ConfigReward {
+  int position;
+  List<String> idsRewards;
+
+//<editor-fold desc="Data Methods" defaultstate="collapsed">
+
+  ConfigReward({
+    required this.position,
+    required this.idsRewards,
+  });
+
+  ConfigReward copyWith({
+    int? position,
+    List<String>? idsRewards,
+  }) {
+    return new ConfigReward(
+      position: position ?? this.position,
+      idsRewards: idsRewards ?? this.idsRewards,
+    );
+  }
+
+  @override
+  String toString() {
+    return 'ConfigReward{position: $position, idsRewards: $idsRewards}';
+  }
+
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      (other is ConfigReward &&
+          runtimeType == other.runtimeType &&
+          position == other.position &&
+          idsRewards == other.idsRewards);
+
+  @override
+  int get hashCode => position.hashCode ^ idsRewards.hashCode;
+
+  factory ConfigReward.fromMap(Map<String, dynamic> map) {
+    return new ConfigReward(
+      position: map['position'] as int,
+      idsRewards: map['idsRewards'] as List<String>,
+    );
+  }
+
+  Map<String, dynamic> toMap() {
+    return {
+      'position': this.position,
+      'idsRewards': this.idsRewards,
+    };
+  }
+
+//</editor-fold>
+
 }

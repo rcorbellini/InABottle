@@ -3,6 +3,7 @@ import 'package:in_a_bottle/_shared/archtecture/base_model.dart';
 import 'package:in_a_bottle/_shared/archtecture/crud_bloc.dart';
 import 'package:in_a_bottle/_shared/location/location_repository.dart';
 import 'package:in_a_bottle/_shared/route/navigator.dart' as nav;
+import 'package:in_a_bottle/adapters/archtecture/crud_bloc.dart';
 import 'package:in_a_bottle/local_message/direct_message/direct_message.dart';
 import 'package:in_a_bottle/local_message/local/local.dart';
 import 'package:in_a_bottle/features/treasure_hunt/domain/models/treasure_hunt.dart';
