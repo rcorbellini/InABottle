@@ -1,16 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:in_a_bottle/features/treasure_hunt/presentation/home/bloc/home_bloc.dart';
-import 'package:in_a_bottle/features/treasure_hunt/presentation/home/pages/widgets/home_widget.dart';
-import 'package:in_a_bottle/features/treasure_hunt/presentation/treasure_hunt/bloc/treasure_hunt_bloc.dart';
-import 'package:in_a_bottle/features/treasure_hunt/presentation/treasure_hunt/pages/treasure_hunt_widget.dart';
 
 Route<dynamic> generateRoute(RouteSettings settings) {
   switch (settings.name) {
-    case HomeBloc.route:
-      return MaterialPageRoute(builder: (context) => HomeWidget());
+    //case HomeBloc.route:
+    //  return MaterialPageRoute(builder: (context) => HomeWidget());
 
-    case TreasureHuntBloc.route:
-      return MaterialPageRoute(builder: (context) => TreasureHuntWidget());
+    //case TreasureHuntBloc.route:
+    //  return MaterialPageRoute(builder: (context) => TreasureHuntWidget());
 
 
   /*

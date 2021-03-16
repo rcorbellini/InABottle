@@ -1,8 +1,8 @@
 import 'package:equatable/equatable.dart';
 
 class AuthUser extends Equatable {
-  final String displayName;
-  final String email;
+  final String? displayName;
+  final String? email;
   final String token;
   final String? photoUrl;
 

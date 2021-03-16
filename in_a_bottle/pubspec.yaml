@@ -22,34 +22,13 @@ dependencies:
   flutter_localizations:
     sdk: flutter
   flutter_cupertino_localizations: ^1.0.1
-  meta: ^1.1.8
-  rxdart: ^0.26.0
+  http2: ^2.0.0
   fancy_stream: any
-  sailor: ^0.7.1
-  shared_preferences: ^2.0.3
   #TPDP  ANDROID & IOS*
-  google_sign_in: ^4.5.1
-  yaml: ^2.2.1
-  flushbar: ^1.10.4
+  google_sign_in: ^5.0.0
   equatable: ^2.0.0
-  flutter_reaction_button: ^1.0.1
-  latlong: ^0.6.1
-  sembast: ^3.0.0+4
-  path_provider: ^2.0.1
-  uuid: ^3.0.1
   #TPDP  ANDROID & IOS*
   geolocator: ^7.0.1
-  reflectable: ^3.0.0-nullsafety.1
-  chameleon_resolver: any
-  fancy_factory: any
-  heimdall: any
-  modal_bottom_sheet: ^2.0.0
-  flutter_auth_buttons: ^0.10.0
-  shimmer: ^1.1.1
-  bubble: ^1.1.9+1
-  flutter_emoji: ^2.2.1+1
-  random_color: ^1.0.5
-  http: ^0.13.0
 
 
 
@@ -61,8 +40,6 @@ dependencies:
 dev_dependencies:
   flutter_test:
     sdk: flutter
-  retrofit_generator: any
-  build_runner: any
 
 
 # For information on the generic Dart part of this file, see the

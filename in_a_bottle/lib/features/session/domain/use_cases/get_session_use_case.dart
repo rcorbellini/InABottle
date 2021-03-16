@@ -4,7 +4,7 @@ import 'package:in_a_bottle/features/session/domain/repositories/session_reposit
 
 abstract class GetSessionUseCase{
 
-  Future<Session<T>?> invoke<T>();
+  Future<Session<T>?> call<T>();
 }
 
 
@@ -14,6 +14,6 @@ class GetSessionUseCaseImp extends GetSessionUseCase{
   GetSessionUseCaseImp({required this.sessionRepository});
 
   @override
-  Future<Session<T>?> invoke<T>() => sessionRepository.load();
+  Future<Session<T>?> call<T>() => sessionRepository.load();
 
 }

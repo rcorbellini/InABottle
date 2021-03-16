@@ -4,7 +4,7 @@ import 'package:in_a_bottle/features/session/domain/repositories/session_reposit
 
 abstract class LogoutSessionUseCase{
 
-  Future<void> invoke();
+  Future<void> call();
 }
 
 
@@ -14,6 +14,6 @@ class LogoutSessionUseCaseImp extends LogoutSessionUseCase{
   LogoutSessionUseCaseImp({required this.sessionRepository});
 
   @override
-  Future<void> invoke() => sessionRepository.clean();
+  Future<void> call() => sessionRepository.clean();
 
 }
