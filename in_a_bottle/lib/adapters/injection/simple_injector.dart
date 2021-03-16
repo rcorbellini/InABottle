@@ -1,34 +1,37 @@
-import 'package:in_a_bottle/adapters/injection/injector.dart' as injector_interface;
-import 'package:flutter_simple_dependency_injection/injector.dart';
+import 'package:get_it/get_it.dart';
+import 'package:in_a_bottle/adapters/injection/injector.dart'
+    as injector_interface;
 
-class SimpleInjector implements injector_interface.Injector {
-  static final SimpleInjector _singleton = SimpleInjector._internal();
+class GetItInjector implements injector_interface.Injector {
+  static final GetItInjector _singleton = GetItInjector._internal();
 
-  factory SimpleInjector() {
+  factory GetItInjector() {
     return _singleton;
   }
-  
-  SimpleInjector._internal();
+
+  GetItInjector._internal();
+
+  final GetIt _instance = GetIt.asNewInstance();
 
   @override
-  T get<T>({ String? key,  Map<String, dynamic> ?additionalParameters}) =>
-      Injector.getInjector()
-          .get<T>(key: key, additionalParameters: additionalParameters);
+  T get<T>({String? key, Map<String, dynamic>? additionalParameters}) {
+    try {
+      return _instance<T>(instanceName: key);
+    } on AssertionError {
+      throw InjectorException();
+    }
+  }
 
   @override
-  Iterable<T> getAll<T>({ Map<String, dynamic>? additionalParameters}) =>
-      Injector.getInjector()
-          .getAll<T>(additionalParameters: additionalParameters);
-
-  @override
-  void register<S, T extends S>(injector_interface.InjectorFactory<S> _factory,
+  void register<S extends Object, T extends S>(injector_interface.InjectorFactory<S> _factory,
       {bool isSingleton = false, String? key}) {
-    Injector.getInjector()
-        .map<S>((_) => _factory(this), key: key, isSingleton: isSingleton);
+    if (isSingleton) {
+      _instance.registerSingleton<S>(_factory(this), instanceName: key);
+    } else {
+      _instance.registerFactory<S>(() => _factory(this), instanceName: key);
+    }
   }
 
-  @override
-  void unregister<T>({String? key}) {
-    throw Exception("Not implemented");
-  }
 }
+
+class InjectorException implements Exception {}

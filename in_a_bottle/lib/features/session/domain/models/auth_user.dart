@@ -9,7 +9,7 @@ class AuthUser extends Equatable {
   AuthUser({required this.displayName, required this.email, required this.token, this.photoUrl});
 
   @override
-  List<Object> get props {
+  List<Object?> get props {
     return [
       displayName,
       email,

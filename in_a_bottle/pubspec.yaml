@@ -23,10 +23,12 @@ dependencies:
     sdk: flutter
   flutter_cupertino_localizations: ^1.0.1
   http2: ^2.0.0
-  fancy_stream: any
+  fancy_stream: ^4.0.0
   #TPDP  ANDROID & IOS*
   google_sign_in: ^5.0.0
+  get_it: ^6.0.0
   equatable: ^2.0.0
+  latlong2: ^0.8.0
   #TPDP  ANDROID & IOS*
   geolocator: ^7.0.1
 
