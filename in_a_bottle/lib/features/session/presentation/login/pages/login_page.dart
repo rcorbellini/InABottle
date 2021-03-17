@@ -33,40 +33,40 @@ class _LoginPageState extends State<LoginPage> {
     //in test, new login
     return LoginPage2();
     return Scaffold(
-        body: Stack(
-      children: [
-        Positioned(
-          bottom: 0,
-          left: 0,
-          right: 0,
-          child: Image.asset(
-            "assets/images/waves_bg.png",
-            fit: BoxFit.fill,
-            height: 120,
+      body: Stack(
+        children: [
+          Positioned(
+            bottom: 0,
+            left: 0,
+            right: 0,
+            child: Image.asset(
+              "assets/images/waves_bg.png",
+              fit: BoxFit.fill,
+              height: 120,
+            ),
           ),
-        ),
-        Positioned(
-          bottom: 0,
-          left: 0,
-          right: 0,
-          child: Image.asset(
-            "assets/images/waves_bg.png",
-            fit: BoxFit.fill,
-            height: 105,
+          Positioned(
+            bottom: 0,
+            left: 0,
+            right: 0,
+            child: Image.asset(
+              "assets/images/waves_bg.png",
+              fit: BoxFit.fill,
+              height: 105,
+            ),
           ),
-        ),
-        Positioned(
-          bottom: 0,
-          left: 0,
-          right: 0,
-          child: Image.asset(
-            "assets/images/waves_bg.png",
-            fit: BoxFit.fill,
-            height: 95,
+          Positioned(
+            bottom: 0,
+            left: 0,
+            right: 0,
+            child: Image.asset(
+              "assets/images/waves_bg.png",
+              fit: BoxFit.fill,
+              height: 95,
+            ),
           ),
-        ),
-        FlyCoins(),
-        Container(
+          FlyCoins(),
+          Container(
             padding: EdgeInsets.all(20),
             decoration: BoxDecoration(
                 gradient: LinearGradient(
@@ -75,11 +75,11 @@ class _LoginPageState extends State<LoginPage> {
                     colors: [Color(0x552BC0E4), Color(0xaaEAECC6)])),
             child: SafeArea(
               child: Center(
-                  child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      mainAxisSize: MainAxisSize.max,
-                      children: [
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  mainAxisSize: MainAxisSize.max,
+                  children: [
                     Column(children: [
                       Text(
                         "In A Bottle",
@@ -95,10 +95,14 @@ class _LoginPageState extends State<LoginPage> {
                     ButtonGoogleAuthWidget(
                       userResponse: dispatchLogin,
                     )
-                  ])),
-            )),
-      ],
-    ));
+                  ],
+                ),
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
   }
 
   void dispatchLogin(AuthUser? user) {
@@ -256,101 +260,240 @@ class _LoginPage2State extends State<LoginPage2> {
       backgroundColor: Color(0xffF8D69F),
       body: Stack(
         children: [
-          ClipPath(
-            child: Container(
-              height: 450,
-              color: Color(0xffECCA95),
-            ),
-            clipper: Sand2(),
-          ),
-          ClipPath(
-            child: Container(
-              height: 360,
-              color: Color(0xffE7C28F),
-            ),
-            clipper: Sand2(),
-          ),
-          ClipPath(
-            child: Container(
-              height: 310,
-              color: Color(0xffDAB182),
-            ),
-            clipper: Sand1(),
-          ),
-          ClipPath(
-            child: Container(
-              height: 300,
-              color: Colors.white,
-            ),
-            clipper: Wave4(),
-          ),
-          ClipPath(
-            child: Container(
-              height: 240,
-              color: Color(0xff9FBAB6),
-            ),
-            clipper: Wave3(),
-          ),
-          ClipPath(
-            child: Container(
-              height: 180,
-              color: Color(0xff67AABD),
-            ),
-            clipper: Wave2(),
-          ),
-          ClipPath(
-            child: Container(
-              height: 100,
-              color: Color(0xff40A1C3),
-            ),
-            clipper: Wave1(),
-          ),
-          Positioned(
-            left: 65,
-            top: 20,
-            child: ClipOval(
-              child: ClipPath(
-                child: Container(
-                  height: 90,
-                  width: 90,
-                  color: Color(0xff3395BD),
-                ),
-                clipper: InvertedClipper(),
-              ),
-            ),
-          ),
-          Positioned(
-            left: 45,
-            top: 40,
-            child: ClipOval(
-              child: ClipPath(
-                child: Container(
-                  height: 89,
-                  width: 89,
-                  color: Colors.white,
-                ),
-                clipper: InvertedClipper(),
-              ),
-            ),
-          ),
-          Positioned(
-              left: 42,
-              top: 37,
-              child: ClipPath(
-                child: ClipOval(
-                  child: ClipPath(
-                    child: Container(
-                      height: 95,
-                      width: 95,
-                      color: Colors.red,
-                    ),
-                    clipper: InvertedClipper(),
-                  ),
-                ),
-                clipper: BoiaClip(),
-              )),
+          _buildSand(),
+          _buildWaves(),
+          _buildBoia(),
+          _buildGuardaSol(),
         ],
       ),
+    );
+  }
+
+  Widget _buildSand() {
+    return Stack(
+      children: [
+        ClipPath(
+          child: Container(
+            height: 480,
+            color: Color(0xffECCA95),
+          ),
+          clipper: Sand3(),
+        ),
+        ClipPath(
+          child: Container(
+            height: 360,
+            color: Color(0xffE7C28F),
+          ),
+          clipper: Sand2(),
+        ),
+        ClipPath(
+          child: Container(
+            height: 310,
+            color: Color(0xffDAB182),
+          ),
+          clipper: Sand1(),
+        )
+      ],
+    );
+  }
+
+  Widget _buildWaves() {
+    return Stack(
+      children: [
+        ClipPath(
+          child: Container(
+            height: 300,
+            color: Colors.white,
+          ),
+          clipper: Wave4(),
+        ),
+        ClipPath(
+          child: Container(
+            height: 240,
+            color: Color(0xff9FBAB6),
+          ),
+          clipper: Wave3(),
+        ),
+        ClipPath(
+          child: Container(
+            height: 180,
+            color: Color(0xff67AABD),
+          ),
+          clipper: Wave2(),
+        ),
+        ClipPath(
+          child: Container(
+            height: 100,
+            color: Color(0xff40A1C3),
+          ),
+          clipper: Wave1(),
+        ),
+      ],
+    );
+  }
+
+  Widget _buildGuardaSol() {
+    final size = 220.0;
+    final righPosition = 42.0;
+    final bottomPosition = 80.0;
+    final smallCenterBallSize = size / 10;
+    return Stack(
+      children: [
+        Positioned(
+            right: righPosition - 60,
+            bottom: bottomPosition + 60,
+            child: ClipOval(
+              child: Container(
+                height: size,
+                width: size,
+                color: Color(0xffECCA95),
+              ),
+            )),
+        Positioned(
+          right: righPosition,
+          bottom: bottomPosition,
+          child: ClipOval(
+            child: RotationTransition(
+              turns: AlwaysStoppedAnimation(32 / 360),
+              child: CustomPaint(
+                size: Size(size, size),
+                painter: PathPainter(color: Color(0xff33A1C3)),
+              ),
+            ),
+          ),
+        ),
+        Positioned(
+          right: righPosition,
+          bottom: bottomPosition,
+          child: ClipOval(
+            child: RotationTransition(
+              turns: AlwaysStoppedAnimation(64 / 360),
+              child: CustomPaint(
+                size: Size(size, size),
+                painter: PathPainter(color: Color(0xffF46C55)),
+              ),
+            ),
+          ),
+        ),
+        Positioned(
+          right: righPosition,
+          bottom: bottomPosition,
+          child: ClipOval(
+            child: RotationTransition(
+              turns: AlwaysStoppedAnimation(128 / 360),
+              child: CustomPaint(
+                size: Size(size, size),
+                painter: PathPainter(color: Color(0xff33A1C3)),
+              ),
+            ),
+          ),
+        ),
+        Positioned(
+          right: righPosition,
+          bottom: bottomPosition,
+          child: ClipOval(
+            child: RotationTransition(
+              turns: AlwaysStoppedAnimation(154 / 360),
+              child: CustomPaint(
+                size: Size(size, size),
+                painter: PathPainter(color: Color(0xffF46C55)),
+              ),
+            ),
+          ),
+        ),
+        Positioned(
+          right: righPosition,
+          bottom: bottomPosition,
+          child: ClipOval(
+            child: RotationTransition(
+              turns: AlwaysStoppedAnimation(96 / 360),
+              child: CustomPaint(
+                size: Size(size, size),
+                painter: PathPainter(color: Color(0xffF9F5E2)),
+              ),
+            ),
+          ),
+        ),
+        Positioned(
+          right: righPosition,
+          bottom: bottomPosition,
+          child: ClipOval(
+            child: CustomPaint(
+              size: Size(size, size),
+              painter: PathPainter(color: Color(0xffF9F5E2)),
+            ),
+          ),
+        ),
+        Positioned(
+          right: righPosition + size / 2 - smallCenterBallSize / 2,
+          bottom: bottomPosition + size / 2 - smallCenterBallSize / 2,
+          child: ClipPath(
+            child: ClipOval(
+              child: Container(
+                height: smallCenterBallSize,
+                width: smallCenterBallSize,
+                color: Colors.white,
+              ),
+            ),
+          ),
+        ),
+      ],
+    );
+  }
+
+  Widget _buildBoia() {
+    final size = 90.0;
+    final leftPosition = 45.0;
+    final topPosition = 70.0;
+
+    return Stack(
+      children: [
+        Positioned(
+          left: leftPosition + 15,
+          top: topPosition - 15,
+          child: ClipOval(
+            child: ClipPath(
+              child: Container(
+                height: size,
+                width: size,
+                color: Color(0xff3395BD),
+              ),
+              clipper: InvertedClipper(),
+            ),
+          ),
+        ),
+        Positioned(
+          left: leftPosition,
+          top: topPosition,
+          child: ClipOval(
+            child: ClipPath(
+              child: Container(
+                height: size,
+                width: size,
+                color: Colors.white,
+              ),
+              clipper: InvertedClipper(),
+            ),
+          ),
+        ),
+        Positioned(
+          left: leftPosition - 1,
+          top: topPosition - 1,
+          child: ClipPath(
+            child: ClipOval(
+              child: ClipPath(
+                child: Container(
+                  height: size + 2,
+                  width: size + 2,
+                  color: Color(0xffF46C55),
+                ),
+                clipper: InvertedClipper(),
+              ),
+            ),
+            clipper: BoiaClip(),
+          ),
+        )
+      ],
     );
   }
 }
@@ -479,6 +622,35 @@ class Sand2 extends CustomClipper<Path> {
   bool shouldReclip(covariant CustomClipper<Path> oldClipper) => false;
 }
 
+class Sand3 extends CustomClipper<Path> {
+  @override
+  Path getClip(Size size) {
+    final path = Path()
+      ..lineTo(0, size.height)
+      ..quadraticBezierTo((size.width / 10) * 1, size.height,
+          (size.width / 10) * 2, size.height - 60)
+
+      ..quadraticBezierTo((size.width / 10) * 2.5, size.height - 120,      
+          (size.width / 10) * 4, size.height - 60)
+
+      ..quadraticBezierTo((size.width / 10) * 5, size.height - 40,
+          (size.width / 10) * 6, size.height - 100)
+
+      ..quadraticBezierTo((size.width / 10) * 7.5, size.height - 140,
+          (size.width / 10) * 8, size.height - 80)
+
+      ..quadraticBezierTo((size.width / 10) * 8.5, size.height - 30,
+          (size.width / 10) * 10, size.height - 20)
+
+      ..lineTo(size.width, 0);
+
+    return path;
+  }
+
+  @override
+  bool shouldReclip(covariant CustomClipper<Path> oldClipper) => false;
+}
+
 class InvertedClipper extends CustomClipper<Path> {
   @override
   Path getClip(Size size) {
@@ -493,16 +665,40 @@ class InvertedClipper extends CustomClipper<Path> {
   bool shouldReclip(CustomClipper<Path> oldClipper) => true;
 }
 
-
-
 class BoiaClip extends CustomClipper<Path> {
   @override
   Path getClip(Size size) {
     return Path()
-      ..addRect(Rect.fromLTRB(size.width/2-15, 0, size.width/2+15, size.height) )
-      ..addRect(Rect.fromLTRB(0, size.width/2-15, size.height, size.width/2+15) );
+      ..addRect(Rect.fromLTRB(
+          size.width / 2 - 15, 0, size.width / 2 + 15, size.height))
+      ..addRect(Rect.fromLTRB(
+          0, size.width / 2 - 15, size.height, size.width / 2 + 15));
   }
 
   @override
   bool shouldReclip(CustomClipper<Path> oldClipper) => true;
+}
+
+class PathPainter extends CustomPainter {
+  final Color color;
+
+  PathPainter({required this.color});
+  @override
+  void paint(Canvas canvas, Size size) {
+    Paint paint = Paint()
+      ..color = this.color
+      ..style = PaintingStyle.fill
+      ..strokeWidth = 8.0;
+
+    Path path = Path()
+      ..moveTo(0, 40)
+      ..lineTo(size.width, size.height - 40)
+      ..lineTo(size.width, (size.height / 2))
+      ..lineTo(0, size.height / 2);
+
+    canvas.drawPath(path, paint);
+  }
+
+  @override
+  bool shouldRepaint(CustomPainter oldDelegate) => true;
 }
