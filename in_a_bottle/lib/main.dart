@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:in_a_bottle/adapters/injection/injector.dart';
+import 'package:in_a_bottle/adapters/injection/base_injector.dart';
+import 'package:in_a_bottle/core/adapters_di.dart';
 import 'package:in_a_bottle/features/session/presentation/login/bloc/session_bloc.dart';
-import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:in_a_bottle/features/session/presentation/login/bloc/session_event.dart';
 import 'package:in_a_bottle/features/session/presentation/login/pages/login_page.dart';
 import 'package:in_a_bottle/features/session/session_di.dart';
@@ -9,7 +9,8 @@ import 'package:in_a_bottle/features/session/session_di.dart';
 import 'adapters/route/app_routes.dart';
 
 void main() {
-  Injector().initialiseAll([
+  BaseInjector().initialiseAll([
+    AdaptersDi(),
     SessionDi(),
     //HubMessageDI(),
     //NavigatorDI(),
@@ -20,7 +21,7 @@ void main() {
     // HomeDi(),
   ]);
   return runApp(MyApp(
-    sessionBloc: Injector().get(),
+    sessionBloc: BaseInjector().get(),
   ));
 }
 
@@ -46,9 +47,9 @@ class MyApp extends StatelessWidget {
       home: StreamBuilder<SessionEvent>(
           stream: sessionBloc.streamOf<SessionEvent>(),
           builder: (context, snapshot) {
-            if (!snapshot.hasData) {
-              return Container();
-            }
+            //if (!snapshot.hasData) {
+            //  return Container();
+           // }
 
             final event = snapshot.data;
             if (event is LoggedIn) {

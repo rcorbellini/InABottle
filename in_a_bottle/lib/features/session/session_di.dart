@@ -1,4 +1,4 @@
-import 'package:in_a_bottle/adapters/injection/injector.dart';
+import 'package:in_a_bottle/adapters/injection/base_injector.dart';
 import 'package:in_a_bottle/adapters/injection/injector_module.dart';
 import 'package:in_a_bottle/features/session/data/data_sources/session_cache_data_source.dart';
 import 'package:in_a_bottle/features/session/data/data_sources/user_remote_data_source.dart';
@@ -11,10 +11,11 @@ import 'package:in_a_bottle/features/session/domain/use_cases/get_session_use_ca
 import 'package:in_a_bottle/features/session/domain/use_cases/logout_session_use_case.dart';
 import 'package:in_a_bottle/features/session/domain/use_cases/save_session_use_case.dart';
 import 'package:in_a_bottle/features/session/presentation/login/bloc/login_bloc.dart';
+import 'package:in_a_bottle/features/session/presentation/login/bloc/session_bloc.dart';
 
 class SessionDi extends InjectorModule {
   @override
-  void initialise(Injector injector) {
+  void initialise(BaseInjector injector) {
     injector
       ..register((injector) => "http://04c02d1cabed.ngrok.io", key: api)
 
@@ -40,7 +41,8 @@ class SessionDi extends InjectorModule {
               userRepository: i.get(), saveSessionUseCase: i.get()))
 
       //presentation
-      ..register((injector) => LoginBloc(authByGoogleUseCase: injector.get()));
+      ..register((injector) => LoginBloc(authByGoogleUseCase: injector.get()))
+      ..register((injector) => SessionBloc());
   }
 }
 
