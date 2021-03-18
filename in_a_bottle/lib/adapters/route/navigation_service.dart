@@ -15,7 +15,11 @@ class NavigationServiceImp extends NavigationService {
 
   factory NavigationServiceImp() => _instance;
 
-  final GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
+  init(GlobalKey<NavigatorState> navigatorKey) {
+    this.navigatorKey = navigatorKey;
+  }
+
+  late GlobalKey<NavigatorState> navigatorKey;
 
   NavigatorState? get _navigator => navigatorKey.currentState;
 

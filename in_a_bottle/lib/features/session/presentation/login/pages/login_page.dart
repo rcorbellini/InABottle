@@ -8,6 +8,7 @@ import 'package:in_a_bottle/features/session/presentation/login/pages/button_goo
 import 'package:in_a_bottle/features/session/presentation/login/pages/objects_widget.dart';
 import 'package:in_a_bottle/features/session/presentation/login/pages/sand_widget.dart';
 import 'package:in_a_bottle/features/session/presentation/login/pages/waves_widget.dart';
+import 'package:in_a_bottle/core/utils/string_ext.dart';
 
 class LoginPage extends StatefulWidget {
   @override
@@ -44,7 +45,7 @@ class _LoginPageState extends State<LoginPage> {
               Column(children: [
                 //todo need a logo here
                 Text(
-                  "Entre com:",
+                  "loginPage.entrar".tr(context: context),
                   style: GoogleFonts.rubik(
                     textStyle: TextStyle(color: Colors.blue, fontSize: 18),
                   ),

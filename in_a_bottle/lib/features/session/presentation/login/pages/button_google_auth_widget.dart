@@ -27,9 +27,10 @@ class ButtonGoogleAuthWidget extends StatelessWidget {
               userResponse.call(null);
               return;
             }
+
             final auth = await googleUser.authentication;
             final user = AuthUser(
-                token: auth.accessToken!,
+                token: auth.idToken!,
                 displayName: googleUser.displayName,
                 email: googleUser.email,
                 photoUrl: googleUser.photoUrl);

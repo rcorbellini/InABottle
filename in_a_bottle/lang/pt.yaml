@@ -1,3 +1,6 @@
+loginPage:
+  entrar: 'Entrar com:'
+
 talkForm:
   description: "Fale um pouco sobre o que será apresentado nessa talk."
   title: "Título da sua Talk."

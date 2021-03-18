@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:in_a_bottle/adapters/injection/base_injector.dart';
+import 'package:in_a_bottle/adapters/localization/localization_delegate.dart';
+import 'package:in_a_bottle/adapters/localization/localization_resolution.dart';
 import 'package:in_a_bottle/adapters/route/navigation_service.dart';
 import 'package:in_a_bottle/core/adapters_di.dart';
 import 'package:in_a_bottle/features/session/presentation/login/bloc/login_bloc.dart';
@@ -20,6 +22,8 @@ void main() {
     //DirectMessageDi(),
     // HomeDi(),
   ]);
+  NavigationServiceImp().init(globalKey);
+
   return runApp(MyApp(loginBloc: BaseInjector().get<LoginBloc>()));
 }
 
@@ -35,7 +39,11 @@ class MyApp extends StatelessWidget {
       title: 'In a Bottle',
       supportedLocales: supportedLocale,
       onGenerateRoute: generateRoute,
-      key: NavigationServiceImp().navigatorKey,
+      key: globalKey,
+      localizationsDelegates: [
+        LocalizationsYamlDelegate(supportedLocales: supportedLocale)
+      ],
+      localeResolutionCallback: localeResolutionCallback,
       theme: ThemeData(
           primarySwatch: Colors.lightGreen,
           backgroundColor: Colors.white,
@@ -47,3 +55,5 @@ class MyApp extends StatelessWidget {
     );
   }
 }
+
+final GlobalKey<NavigatorState> globalKey = GlobalKey<NavigatorState>();
