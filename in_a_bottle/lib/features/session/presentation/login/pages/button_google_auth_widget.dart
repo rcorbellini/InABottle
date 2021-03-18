@@ -14,7 +14,11 @@ class ButtonGoogleAuthWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return TextButton(
+    return ElevatedButton(
+        style: ElevatedButton.styleFrom(
+          primary: Color(0xffF46C55), // background
+          onPrimary: Color(0xffF9F5E2), // foreground
+        ),
         child: Text("Google"),
         onPressed: () async {
           try {
@@ -23,8 +27,9 @@ class ButtonGoogleAuthWidget extends StatelessWidget {
               userResponse.call(null);
               return;
             }
+            final auth = await googleUser.authentication;
             final user = AuthUser(
-                token: (await googleUser.authentication).idToken!,
+                token: auth.accessToken!,
                 displayName: googleUser.displayName,
                 email: googleUser.email,
                 photoUrl: googleUser.photoUrl);

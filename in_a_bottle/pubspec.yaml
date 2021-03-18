@@ -20,7 +20,9 @@ dependencies:
   flutter:
     sdk: flutter
   http2: ^2.0.0
+  http: ^0.13.0
   fancy_stream: ^4.0.0
+  google_fonts: ^2.0.0
   #TPDP  ANDROID & IOS*
   google_sign_in: ^5.0.0
   get_it: ^6.0.0

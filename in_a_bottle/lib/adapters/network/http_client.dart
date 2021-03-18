@@ -1,56 +1,51 @@
-import 'dart:convert';
-import 'dart:io';
-
-import 'package:http2/http2.dart';
+import 'package:http/http.dart' as http;
 
 class RequestHttp2 {
   final Uri uri;
   final String method;
   final Map<String, String> headers;
+  final Object? data;
 
   RequestHttp2(
-      {required this.uri, required this.method, required this.headers});
+      {required this.uri,
+      required this.method,
+      required this.headers,
+      required this.data});
 }
 
 abstract class Http2Client {
   Stream<String> stream(RequestHttp2 requestHttp2);
 }
 
-class Http2ClientImp implements Http2Client {
+
+
+class ClientHttp extends http.BaseClient implements http.Client {
+  final http.Client _httpClient = http.Client();
+
   @override
-  Stream<String> stream(RequestHttp2 requestHttp2) async* {
-    final uri = requestHttp2.uri;
-
-    var transport = new ClientTransportConnection.viaSocket(
-      await SecureSocket.connect(
-        uri.host,
-        uri.port,
-        supportedProtocols: ['h2'],
-      ),
-    );
-
-    var stream = transport.makeRequest(
-      [
-        Header.ascii(':method', 'GET'),
-        Header.ascii(':path', uri.path),
-        Header.ascii(':scheme', uri.scheme),
-        Header.ascii(':authority', uri.host),
-      ],
-      endStream: true,
-    );
-
-    await for (var message in stream.incomingMessages) {
-      if (message is HeadersStreamMessage) {
-        for (var header in message.headers) {
-          var name = utf8.decode(header.name);
-          var value = utf8.decode(header.value);
-          print('Header: $name: $value');
-        }
-      } else if (message is DataStreamMessage) {
-        print(message.bytes);
-        // Use [message.bytes] (but respect 'content-encoding' header)
-      }
+  Future<http.StreamedResponse> send(http.BaseRequest request) {
+    final defaultHeaders = _getDefaultHeaders();
+    if (defaultHeaders != null) {
+      request.headers.addAll(defaultHeaders);
     }
-    await transport.finish();
+    return _httpClient.send(request);
+  }
+
+  Map<String, String>? _getDefaultHeaders() {
+    return null;
+    /*final session = SessionHolder();
+    final client = session.client;
+    final uid = session.uid;
+    final acessToken = session.accessToken;
+
+    if (client == null || uid == null || acessToken == null) {
+      return null;
+    }
+
+    return <String, String>{
+      'client': client,
+      'uid': uid,
+      'access-token': acessToken
+    };*/
   }
 }

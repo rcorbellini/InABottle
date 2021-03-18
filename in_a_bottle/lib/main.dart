@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:in_a_bottle/adapters/injection/base_injector.dart';
+import 'package:in_a_bottle/adapters/route/navigation_service.dart';
 import 'package:in_a_bottle/core/adapters_di.dart';
-import 'package:in_a_bottle/features/session/presentation/login/bloc/session_bloc.dart';
-import 'package:in_a_bottle/features/session/presentation/login/bloc/session_event.dart';
+import 'package:in_a_bottle/features/session/presentation/login/bloc/login_bloc.dart';
 import 'package:in_a_bottle/features/session/presentation/login/pages/login_page.dart';
 import 'package:in_a_bottle/features/session/session_di.dart';
 
@@ -20,15 +20,13 @@ void main() {
     //DirectMessageDi(),
     // HomeDi(),
   ]);
-  return runApp(MyApp(
-    sessionBloc: BaseInjector().get(),
-  ));
+  return runApp(MyApp(loginBloc: BaseInjector().get<LoginBloc>()));
 }
 
 class MyApp extends StatelessWidget {
-  final SessionBloc sessionBloc;
+  final LoginBloc loginBloc;
 
-  const MyApp({Key? key, required this.sessionBloc}) : super(key: key);
+  const MyApp({Key? key, required this.loginBloc}) : super(key: key);
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
@@ -37,6 +35,7 @@ class MyApp extends StatelessWidget {
       title: 'In a Bottle',
       supportedLocales: supportedLocale,
       onGenerateRoute: generateRoute,
+      key: NavigationServiceImp().navigatorKey,
       theme: ThemeData(
           primarySwatch: Colors.lightGreen,
           backgroundColor: Colors.white,
@@ -44,20 +43,7 @@ class MyApp extends StatelessWidget {
           dialogBackgroundColor: Colors.white,
           scaffoldBackgroundColor: Colors.white,
           primaryColor: Color(0xffEAECC6)),
-      home: StreamBuilder<SessionEvent>(
-          stream: sessionBloc.streamOf<SessionEvent>(),
-          builder: (context, snapshot) {
-            //if (!snapshot.hasData) {
-            //  return Container();
-           // }
-
-            final event = snapshot.data;
-            if (event is LoggedIn) {
-              return LoginPage();
-            }
-
-            return LoginPage();
-          }),
+      home: LoginPage(),
     );
   }
 }

@@ -11,7 +11,6 @@ import 'package:in_a_bottle/features/session/domain/use_cases/get_session_use_ca
 import 'package:in_a_bottle/features/session/domain/use_cases/logout_session_use_case.dart';
 import 'package:in_a_bottle/features/session/domain/use_cases/save_session_use_case.dart';
 import 'package:in_a_bottle/features/session/presentation/login/bloc/login_bloc.dart';
-import 'package:in_a_bottle/features/session/presentation/login/bloc/session_bloc.dart';
 
 class SessionDi extends InjectorModule {
   @override
@@ -25,7 +24,7 @@ class SessionDi extends InjectorModule {
       ..register<SessionRepository, SessionRepositoryImp>(
           (i) => SessionRepositoryImp(cache: i.get()))
       ..register<UserRemoteDataSource, UserRemoteDataSourceImp>(
-          (i) => UserRemoteDataSourceImp(http2client: i.get()))
+          (i) => UserRemoteDataSourceImp(client: i.get()))
       ..register<UserRepository, UserRepositoryImp>(
           (i) => UserRepositoryImp(remote: i.get()))
 
@@ -41,8 +40,9 @@ class SessionDi extends InjectorModule {
               userRepository: i.get(), saveSessionUseCase: i.get()))
 
       //presentation
-      ..register((injector) => LoginBloc(authByGoogleUseCase: injector.get()))
-      ..register((injector) => SessionBloc());
+      ..register((injector) => LoginBloc(
+          authByGoogleUseCase: injector.get(),
+          navigationService: injector.get()));
   }
 }
 
