@@ -32,6 +32,7 @@ dependencies:
   #TPDP  ANDROID & IOS*
   geolocator: ^7.0.1
   data_connection_checker: ^0.3.4
+  
 
 
 dev_dependencies:

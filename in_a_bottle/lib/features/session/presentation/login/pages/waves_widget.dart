@@ -1,34 +1,39 @@
 import 'package:flutter/material.dart';
 
-class Waves extends StatelessWidget {
+class Waves extends  AnimatedWidget {
+  final Animation<double> animValue;
+
+  const Waves({Key? key, required this.animValue})
+      : super(key: key, listenable: animValue);
+
   @override
   Widget build(BuildContext context) {
     return Stack(
       children: [
         ClipPath(
           child: Container(
-            height: 300,
+            height: 300 + (animValue.value/3),
             color: Colors.white,
           ),
           clipper: Wave4(),
         ),
         ClipPath(
           child: Container(
-            height: 240,
+            height: 240  + (animValue.value/4),
             color: Color(0xff9FBAB6),
           ),
           clipper: Wave3(),
         ),
         ClipPath(
           child: Container(
-            height: 180,
+            height: 180 +   (animValue.value/5),
             color: Color(0xff67AABD),
           ),
           clipper: Wave2(),
         ),
         ClipPath(
           child: Container(
-            height: 100,
+            height: 100 +   (animValue.value/6),
             color: Color(0xff40A1C3),
           ),
           clipper: Wave1(),

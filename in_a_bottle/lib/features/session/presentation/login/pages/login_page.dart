@@ -71,7 +71,29 @@ class LoginPage2 extends StatefulWidget {
   _LoginPage2State createState() => _LoginPage2State();
 }
 
-class _LoginPage2State extends State<LoginPage2> {
+class _LoginPage2State extends State<LoginPage2> with TickerProviderStateMixin {
+  late AnimationController _animationController;
+  late Animation<double> _animValue;
+
+  @override
+  void initState() {
+    _animationController =
+        AnimationController(vsync: this, duration: Duration(seconds: 20))
+          ..repeat(reverse: true);
+
+    //CurveTween
+    _animValue =
+        Tween<double>(begin: 1.0, end: 200.0).animate(_animationController);
+
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    _animationController.dispose();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -79,9 +101,13 @@ class _LoginPage2State extends State<LoginPage2> {
       body: Stack(
         children: [
           Sand(),
-          Waves(),
-          Floater(),
-          Umbrella(),
+          Waves(animValue: _animValue),
+          Floater(
+            animValue: _animValue,
+          ),
+          Umbrella(
+            animValue: _animValue,
+          ),
         ],
       ),
     );

@@ -1,123 +1,16 @@
 import 'package:flutter/material.dart';
 
-class Floater extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    final size = 220.0;
-    final righPosition = 42.0;
-    final bottomPosition = 80.0;
-    final smallCenterBallSize = size / 10;
-    return Stack(
-      children: [
-        Positioned(
-            right: righPosition - 60,
-            bottom: bottomPosition + 60,
-            child: ClipOval(
-              child: Container(
-                height: size,
-                width: size,
-                color: Color(0xffECCA95),
-              ),
-            )),
-        Positioned(
-          right: righPosition,
-          bottom: bottomPosition,
-          child: ClipOval(
-            child: RotationTransition(
-              turns: AlwaysStoppedAnimation(32 / 360),
-              child: CustomPaint(
-                size: Size(size, size),
-                painter: PathPainter(color: Color(0xff33A1C3)),
-              ),
-            ),
-          ),
-        ),
-        Positioned(
-          right: righPosition,
-          bottom: bottomPosition,
-          child: ClipOval(
-            child: RotationTransition(
-              turns: AlwaysStoppedAnimation(64 / 360),
-              child: CustomPaint(
-                size: Size(size, size),
-                painter: PathPainter(color: Color(0xffF46C55)),
-              ),
-            ),
-          ),
-        ),
-        Positioned(
-          right: righPosition,
-          bottom: bottomPosition,
-          child: ClipOval(
-            child: RotationTransition(
-              turns: AlwaysStoppedAnimation(128 / 360),
-              child: CustomPaint(
-                size: Size(size, size),
-                painter: PathPainter(color: Color(0xff33A1C3)),
-              ),
-            ),
-          ),
-        ),
-        Positioned(
-          right: righPosition,
-          bottom: bottomPosition,
-          child: ClipOval(
-            child: RotationTransition(
-              turns: AlwaysStoppedAnimation(154 / 360),
-              child: CustomPaint(
-                size: Size(size, size),
-                painter: PathPainter(color: Color(0xffF46C55)),
-              ),
-            ),
-          ),
-        ),
-        Positioned(
-          right: righPosition,
-          bottom: bottomPosition,
-          child: ClipOval(
-            child: RotationTransition(
-              turns: AlwaysStoppedAnimation(96 / 360),
-              child: CustomPaint(
-                size: Size(size, size),
-                painter: PathPainter(color: Color(0xffF9F5E2)),
-              ),
-            ),
-          ),
-        ),
-        Positioned(
-          right: righPosition,
-          bottom: bottomPosition,
-          child: ClipOval(
-            child: CustomPaint(
-              size: Size(size, size),
-              painter: PathPainter(color: Color(0xffF9F5E2)),
-            ),
-          ),
-        ),
-        Positioned(
-          right: righPosition + size / 2 - smallCenterBallSize / 2,
-          bottom: bottomPosition + size / 2 - smallCenterBallSize / 2,
-          child: ClipPath(
-            child: ClipOval(
-              child: Container(
-                height: smallCenterBallSize,
-                width: smallCenterBallSize,
-                color: Colors.white,
-              ),
-            ),
-          ),
-        ),
-      ],
-    );
-  }
-}
+class Floater extends AnimatedWidget {
+  final Animation<double> animValue;
 
-class Umbrella extends StatelessWidget {
+  const Floater({Key? key, required this.animValue})
+      : super(key: key, listenable: animValue);
+
   @override
   Widget build(BuildContext context) {
     final size = 90.0;
-    final leftPosition = 45.0;
-    final topPosition = 70.0;
+    final leftPosition = 45.0 + animValue.value;
+    final topPosition = 70.0 + (animValue.value / 4);
 
     return Stack(
       children: [
@@ -168,6 +61,127 @@ class Umbrella extends StatelessWidget {
         )
       ],
     );
+  }
+}
+
+class Umbrella extends AnimatedWidget {
+  final Animation<double> animValue;
+
+  const Umbrella({Key? key, required this.animValue})
+      : super(key: key, listenable: animValue);
+
+  @override
+  Widget build(BuildContext context) {
+    final size = 220.0;
+    final righPosition = 42.0;
+    final bottomPosition = 80.0;
+    final smallCenterBallSize = size / 10;
+
+    final rotate = 360 - (animValue.value / 20);
+    return RotationTransition(
+        turns: AlwaysStoppedAnimation(rotate / 360),
+        child: Stack(
+          children: [
+            Positioned(
+                right: righPosition - 60,
+                bottom: bottomPosition + 60,
+                child: ClipOval(
+                  child: Container(
+                    height: size,
+                    width: size,
+                    color: Color(0xffECCA95),
+                  ),
+                )),
+            Positioned(
+              right: righPosition,
+              bottom: bottomPosition,
+              child: ClipOval(
+                child: RotationTransition(
+                  turns: AlwaysStoppedAnimation(32 / 360),
+                  child: CustomPaint(
+                    size: Size(size, size),
+                    painter: PathPainter(color: Color(0xff33A1C3)),
+                  ),
+                ),
+              ),
+            ),
+            Positioned(
+              right: righPosition,
+              bottom: bottomPosition,
+              child: ClipOval(
+                child: RotationTransition(
+                  turns: AlwaysStoppedAnimation(64 / 360),
+                  child: CustomPaint(
+                    size: Size(size, size),
+                    painter: PathPainter(color: Color(0xffF46C55)),
+                  ),
+                ),
+              ),
+            ),
+            Positioned(
+              right: righPosition,
+              bottom: bottomPosition,
+              child: ClipOval(
+                child: RotationTransition(
+                  turns: AlwaysStoppedAnimation(128 / 360),
+                  child: CustomPaint(
+                    size: Size(size, size),
+                    painter: PathPainter(color: Color(0xff33A1C3)),
+                  ),
+                ),
+              ),
+            ),
+            Positioned(
+              right: righPosition,
+              bottom: bottomPosition,
+              child: ClipOval(
+                child: RotationTransition(
+                  turns: AlwaysStoppedAnimation(154 / 360),
+                  child: CustomPaint(
+                    size: Size(size, size),
+                    painter: PathPainter(color: Color(0xffF46C55)),
+                  ),
+                ),
+              ),
+            ),
+            Positioned(
+              right: righPosition,
+              bottom: bottomPosition,
+              child: ClipOval(
+                child: RotationTransition(
+                  turns: AlwaysStoppedAnimation(96 / 360),
+                  child: CustomPaint(
+                    size: Size(size, size),
+                    painter: PathPainter(color: Color(0xffF9F5E2)),
+                  ),
+                ),
+              ),
+            ),
+            Positioned(
+              right: righPosition,
+              bottom: bottomPosition,
+              child: ClipOval(
+                child: CustomPaint(
+                  size: Size(size, size),
+                  painter: PathPainter(color: Color(0xffF9F5E2)),
+                ),
+              ),
+            ),
+            Positioned(
+              right: righPosition + size / 2 - smallCenterBallSize / 2,
+              bottom: bottomPosition + size / 2 - smallCenterBallSize / 2,
+              child: ClipPath(
+                child: ClipOval(
+                  child: Container(
+                    height: smallCenterBallSize,
+                    width: smallCenterBallSize,
+                    color: Colors.white,
+                  ),
+                ),
+              ),
+            ),
+          ],
+        ));
   }
 }
 
